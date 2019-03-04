@@ -35,7 +35,7 @@ before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 
-script: "./gradlew test connectedAndroidTest"
+script: "./gradlew build test connectedAndroidTest"
 
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -48,8 +48,8 @@ cache:
   - "$HOME/.android/build-cache"
 
 before_deploy:
-- cd app/build/outputs/apk/release/; ls -la; md5sum hackillinois-*.apk > md5sum.txt;
-  sha1sum hackillinois-*.apk > sha1sum.txt; cd -
+- cd app/build/outputs/apk/release/; ls -la; md5sum swishticker-*.apk > md5sum.txt;
+  sha1sum swishticker-*.apk > sha1sum.txt; cd -
 
 deploy:
   skip_cleanup: true
@@ -59,7 +59,7 @@ deploy:
   file_glob: true
   name: $TRAVIS_TAG
   file:
-  - app/build/outputs/apk/release/hackillinois-*.apk
+  - app/build/outputs/apk/release/swishticker-*.apk
   - app/build/outputs/apk/release/md5sum.txt
   - app/build/outputs/apk/release/sha1sum.txt
   on:
