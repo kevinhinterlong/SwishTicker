@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
 
-		assertEquals("com.hinterlong.kevin.basketballstats", appContext.getPackageName());
+		assertEquals("com.hinterlong.kevin.swishticker", appContext.getPackageName());
 	}
 }
