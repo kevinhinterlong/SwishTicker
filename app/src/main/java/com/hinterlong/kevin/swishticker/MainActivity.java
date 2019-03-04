@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.basketballstats;
+package com.hinterlong.kevin.swishticker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
