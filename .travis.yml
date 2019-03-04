@@ -24,8 +24,8 @@ before_install:
   -in upload_config.tar.enc -out upload_config.tar -d
 - echo "Successfully decrypted files"
 - tar xvf upload_config.tar
-- mv upload.json app/upload.json
-- mv upload.keystore app/upload.keystore
+- mv upload_config/upload.json app/upload.json
+- mv upload_config/upload.keystore app/upload.keystore
 - chmod +x gradlew
 - "./gradlew dependencies || true"
 
