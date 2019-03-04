@@ -13,34 +13,29 @@ android:
   - build-tools-$ANDROID_BUILD_TOOLS
   - android-$ANDROID_API
   - android-$EMULATOR_API
-
   - extra-android-support
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-
   - sys-img-armeabi-v7a-android-$EMULATOR_API
 
 before_install:
-#- openssl aes-256-cbc -K $encrypted_35876b0b90c9_key -iv $encrypted_35876b0b90c9_iv
-#  -in upload_config.tar.enc -out upload_config.tar -d
-#- echo "Successfully decrypted files"
-#- tar xvf upload_config.tar
-#- mv upload.json app/upload.json
-#- mv upload.keystore app/upload.keystore
+- openssl aes-256-cbc -K $encrypted_cab8cb7a7437_key -iv $encrypted_cab8cb7a7437_iv
+  -in upload_config.tar.enc -out upload_config.tar -d
+- echo "Successfully decrypted files"
+- tar xvf upload_config.tar
+- mv upload.json app/upload.json
+- mv upload.keystore app/upload.keystore
 - chmod +x gradlew
-- ./gradlew dependencies || true
+- "./gradlew dependencies || true"
 
 before_script:
-# Create and start emulator
--
 - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
 - emulator -avd test -no-skin -no-audio -no-window &
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 
-script: ./gradlew test connectedAndroidTest
-
+script: "./gradlew test connectedAndroidTest"
 
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -48,9 +43,33 @@ before_cache:
 
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.android/build-cache
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
+
+before_deploy:
+- cd app/build/outputs/apk/release/; ls -la; md5sum hackillinois-*.apk > md5sum.txt;
+  sha1sum hackillinois-*.apk > sha1sum.txt; cd -
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: MdIdNOCTc0fqGFVu9g7o3sDdOqCLBY2fROBYnF0EDnoYl+FaVOPnQ8ZlcuC1dhJeFDXmDDceLmj8gJDABNypGoYRo0+BwX4QYhCUOJt0N+DpCwp18jOjQCz7ulkUaVBXV0ozNb+KOTOQwD3cpPiNOPYzctV9VgFzxTW7vwjXxEKs79WsbIBuOaz4+3k1gTDD2FjEVRFvot0XBdfRJBIAX3ibBg2PA8wg1tlaghrAojGbJUce1KdDYexN1/zN+MC6aQExEFaXSffCVvKGMmtISyaF/2cbQgfN1DlR9qX2Wbhb3yxTWQFE90o5PFHuwdSEGJZSJJjEJnqfSKIONt80dD7eWXTW7KCUwtj2XeXjLZE3v8+2dj7g7zI2+muHMySRItCSayfaWlT3005aSx05KqTus3a4NOXUBVOkSlVYqICWhSuQ1QM7nkCFsLqnf/elMwGPXSB6+9RCInu9EAyoqW60bAR6902VjIMxO4Hggco5bNmUgRN4cUx/Em5KDD7/BQTAVO41ZfBh+HbrIkMamMO8mokron3st0kqNWHHOD20jfc3SLSjKsm4Vz4d4M4JOWA3Ewib9AYJDQz4gpU8U0GV8apL3eDqxLlOzh0TgcFAnPpSZIqzFBhGO0VZPbev1h3KT/ahB2sWIe/PfL5oLSbjCAT4tn8OmZlo3RRs46o=
+  file_glob: true
+  name: $TRAVIS_TAG
+  file:
+  - app/build/outputs/apk/release/hackillinois-*.apk
+  - app/build/outputs/apk/release/md5sum.txt
+  - app/build/outputs/apk/release/sha1sum.txt
+  on:
+    repo: kevinhinterlong/SwishTicker
+    tags: true
+
+after_deploy:
+- echo "Checking if tag matches v.X.Y.Z"
+- if [[ $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ ]] ; then ./gradlew publishRelease;
+  fi
 
 
 notifications:
@@ -58,3 +77,4 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
+

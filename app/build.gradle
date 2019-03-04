@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.1.0'
+}
 
 android {
     applicationVariants.all { variant ->
@@ -28,9 +31,9 @@ android {
         if (file('upload.keystore').exists()) {
             upload {
                 storeFile file('upload.keystore')
-                storePassword System.getenv('BASKETBALLSTATS_UPLOAD_STORE_PASSWORD')
-                keyAlias 'basketballstats'
-                keyPassword System.getenv('BASKETBALLSTATS_UPLOAD_KEY_PASSWORD')
+                storePassword System.getenv('SWISHTICKER_UPLOAD_STORE_PASSWORD')
+                keyAlias 'kevinandroidkey'
+                keyPassword System.getenv('SWISHTICKER_UPLOAD_KEY_PASSWORD')
             }
         }
     }
@@ -74,4 +77,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+}
+
+
+play {
+    serviceAccountCredentials = file("upload.json")
+    track = "beta"
 }
