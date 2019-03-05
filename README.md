@@ -2,6 +2,9 @@
 
 Track your local basketball team's statistics!
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="60">](https://play.google.com/store/apps/details?id=com.hinterlong.kevin.swishticker)
+[<img src=".github/assets/direct-apk-download.png" alt="Direct apk download" height="60">](https://github.com/HackIllinois/android-2017/releases/latest)
+
 ## Development
 
 **master** is under active development and should be considered *mostly* stable.
