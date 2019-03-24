@@ -34,14 +34,15 @@ public class QueryEngine {
     private static Gson gson = new Gson();
 
     private Context context;
+    private SharedPreferences sp;
 
     public QueryEngine(Context context){
         this.context = context;
+        this.sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
     }
 
     // race condition?
     private int getCounter(){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         int counter = sp.getInt(COUNTER_KEY, 0) + 1; // increment counter
 
         SharedPreferences.Editor se = sp.edit();
@@ -67,7 +68,6 @@ public class QueryEngine {
 
     // removeId from Shared Preferences
     private void removeId(int id){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor se = sp.edit();
         se.remove(String.valueOf(id));
         se.apply();
@@ -75,7 +75,6 @@ public class QueryEngine {
 
     // getIds from particular id list
     private List<Integer> getIds(String key){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         String json = sp.getString(key, "[]");
 
         return gson.fromJson(json, intListType);
@@ -83,8 +82,6 @@ public class QueryEngine {
 
     // setIds to particular id list
     private void setIds(String key, List<Integer> list){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
-
         String json = gson.toJson(list);
 
         SharedPreferences.Editor se = sp.edit();
@@ -109,7 +106,6 @@ public class QueryEngine {
     }
 
     public Team getTeam(int teamId){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         String json = sp.getString(String.valueOf(teamId), null);
 
         return gson.fromJson(json, Team.class);
@@ -118,7 +114,6 @@ public class QueryEngine {
     public void setTeam(int teamId, Team team){
         String json = gson.toJson(team);
 
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor se = sp.edit();
         se.putString(String.valueOf(teamId), json);
         se.apply();
@@ -163,7 +158,6 @@ public class QueryEngine {
     }
 
     public Game getGame(int gameId){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         String json = sp.getString(String.valueOf(gameId), null);
 
         return gson.fromJson(json, Game.class);
@@ -172,7 +166,6 @@ public class QueryEngine {
     public void setGame(int gameId, Game game){
         String json = gson.toJson(game);
 
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor se = sp.edit();
         se.putString(String.valueOf(gameId), json);
         se.apply();
@@ -184,6 +177,23 @@ public class QueryEngine {
 
         removeId(gameId);
     }
+
+    public void addHomeAction(int gameId, Action action){
+        Game game = getGame(gameId);
+
+        game.addHomeAction(action);
+
+        setGame(gameId, game);
+    }
+
+    public void addAwayAction(int gameId, Action action){
+        Game game = getGame(gameId);
+
+        game.addAwayAction(action);
+
+        setGame(gameId, game);
+    }
+
 
     // Players
 
@@ -200,6 +210,8 @@ public class QueryEngine {
 
         addId(PLAYERS_KEY, counter);
 
+        player.setTeamId(teamId);
+
         Team team = getTeam(teamId);
         team.addPlayer(counter);
         setTeam(teamId, team);
@@ -210,7 +222,6 @@ public class QueryEngine {
     }
 
     public Player getPlayer(int playerId){
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         String json = sp.getString(String.valueOf(playerId), null);
 
         return gson.fromJson(json, Player.class);
@@ -219,7 +230,6 @@ public class QueryEngine {
     public void setPlayer(int playerId, Player player){
         String json = gson.toJson(player);
 
-        SharedPreferences sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor se = sp.edit();
         se.putString(String.valueOf(playerId), json);
         se.apply();

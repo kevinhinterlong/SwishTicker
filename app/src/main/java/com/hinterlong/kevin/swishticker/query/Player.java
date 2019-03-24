@@ -5,6 +5,12 @@ public class Player {
     private int number;
     private int teamId;
 
+    public Player(String name, int number) {
+        this.name = name;
+        this.number = number;
+        this.teamId = -1;
+    }
+
     public Player(String name, int number, int teamId) {
         this.name = name;
         this.number = number;

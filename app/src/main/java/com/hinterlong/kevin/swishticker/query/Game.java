@@ -40,9 +40,11 @@ public class Game {
     public Game(int homeTeamId, int awayTeamId){
         this.homeTeamId = homeTeamId;
         this.awayTeamId = awayTeamId;
-        intervals = new ArrayList<>();
         active = true;
         currentInterval = 0;
+
+        intervals = new ArrayList<>();
+        intervals.add(new Interval());
     }
 
     public int getHomeTeamId() {
@@ -106,7 +108,7 @@ public class Game {
     }
 
     public void addAwayAction(Action action){
-        PlayingTeam away = intervals.get(currentInterval).home;
+        PlayingTeam away = intervals.get(currentInterval).away;
 
         away.actions.add(action);
 
