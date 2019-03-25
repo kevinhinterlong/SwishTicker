@@ -25,7 +25,7 @@ public class Team {
     }
 
     public void removePlayer(int playerId) {
-        playerIds.remove(new Integer(playerId));
+        playerIds.remove(Integer.valueOf(playerId));
     }
 
     public List<Integer> getPlayers() {

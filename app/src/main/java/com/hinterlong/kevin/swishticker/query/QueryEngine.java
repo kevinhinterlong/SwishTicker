@@ -37,9 +37,33 @@ public class QueryEngine {
     private Context context;
     private SharedPreferences sp;
 
-    public QueryEngine(Context context) {
+
+    private static volatile QueryEngine queryEngine;
+
+    // private constructor.
+    private QueryEngine(Context context) {
+        // Prevent form the reflection api.
+        if (queryEngine != null) {
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
         this.context = context;
         this.sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
+    }
+
+    public static void init(Context context) {
+        if (queryEngine == null) { //if there is no instance available... create new one
+            synchronized (QueryEngine.class) {
+                if (queryEngine == null) queryEngine = new QueryEngine(context);
+            }
+        }
+    }
+
+    public static QueryEngine getInstance() {
+        if (queryEngine == null) {
+            throw new RuntimeException("Didn't call QueryEngine::init(Context)");
+        }
+
+        return queryEngine;
     }
 
     // race condition?
@@ -63,7 +87,7 @@ public class QueryEngine {
     // removeId from particular id list
     private void removeId(String key, int id) {
         List<Integer> list = getIds(key);
-        list.remove(new Integer(id));
+        list.remove(Integer.valueOf(id));
         setIds(key, list);
     }
 
@@ -92,8 +116,17 @@ public class QueryEngine {
 
     // Teams
 
-    public List<Integer> getTeams() {
+    public List<Integer> getTeamIds() {
         return getIds(TEAMS_KEY);
+    }
+
+    public List<Team> getTeams() {
+        List<Team> list = new ArrayList<>();
+        for (Integer integer : getIds(TEAMS_KEY)) {
+            Team team = getTeam(integer);
+            list.add(team);
+        }
+        return list;
     }
 
     public int addTeam(Team team) {
@@ -129,12 +162,21 @@ public class QueryEngine {
 
     // Games
 
-    public List<Integer> getGames() {
+    public List<Integer> getGameIds() {
         return getIds(GAMES_KEY);
     }
 
-    private List<Integer> getActiveGames() {
-        List<Integer> gameIds = getGames();
+    public List<Game> getGames() {
+        List<Game> list = new ArrayList<>();
+        for (Integer integer : getIds(GAMES_KEY)) {
+            Game game = getGame(integer);
+            list.add(game);
+        }
+        return list;
+    }
+
+    private List<Integer> getActiveGameIds() {
+        List<Integer> gameIds = getGameIds();
 
         List<Integer> activeIds = new ArrayList<>();
 
@@ -146,6 +188,15 @@ public class QueryEngine {
         }
 
         return activeIds;
+    }
+
+    public List<Game> getActiveGames() {
+        List<Game> list = new ArrayList<>();
+        for (Integer integer : getActiveGameIds()) {
+            Game game = getGame(integer);
+            list.add(game);
+        }
+        return list;
     }
 
     public int addGame(Game game) {
@@ -198,12 +249,17 @@ public class QueryEngine {
 
     // Players
 
-    public List<Integer> getPlayers() {
+    public List<Integer> getPlayerIds() {
         return getIds(PLAYERS_KEY);
     }
 
-    public List<Integer> getPlayers(int teamId) {
-        return getTeam(teamId).getPlayers();
+    public List<Player> getPlayers(int teamId) {
+        List<Player> players = new ArrayList<>();
+        for (Integer i : getTeam(teamId).getPlayers()) {
+            Player player = getPlayer(i);
+            players.add(player);
+        }
+        return players;
     }
 
     public int addPlayer(int teamId, Player player) {
