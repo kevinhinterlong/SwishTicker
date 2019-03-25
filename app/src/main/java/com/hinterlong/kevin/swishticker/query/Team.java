@@ -7,28 +7,28 @@ public class Team {
     private String name;
     private List<Integer> playerIds;
 
-    public Team(String name){
+    public Team(String name) {
         this.name = name;
         playerIds = new ArrayList<>();
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void addPlayer(int playerId){
+    public void addPlayer(int playerId) {
         playerIds.add(playerId);
     }
 
-    public void removePlayer(int playerId){
+    public void removePlayer(int playerId) {
         playerIds.remove(new Integer(playerId));
     }
 
-    public List<Integer> getPlayers(){
+    public List<Integer> getPlayers() {
         return playerIds;
     }
 }

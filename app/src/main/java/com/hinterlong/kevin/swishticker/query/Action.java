@@ -5,12 +5,12 @@ public class Action {
     private ActionType actionType;
     private int playerId;  // -1 if no player set
 
-    public Action(ActionType actionType){
+    public Action(ActionType actionType) {
         this.actionType = actionType;
         this.playerId = -1;
     }
 
-    public Action(ActionType actionType, int playerId){
+    public Action(ActionType actionType, int playerId) {
         this.actionType = actionType;
         this.playerId = playerId;
     }
@@ -19,7 +19,7 @@ public class Action {
         return actionType;
     }
 
-    public boolean isPlayerSet(){
+    public boolean isPlayerSet() {
         return (playerId != -1);
     }
 

@@ -29,20 +29,21 @@ public class QueryEngine {
     private static String GAMES_KEY = "game_list";
     private static String PLAYERS_KEY = "player_list";
 
-    private static Type intListType = new TypeToken<ArrayList<Integer>>(){}.getType();
+    private static Type intListType = new TypeToken<ArrayList<Integer>>() {
+    }.getType();
 
     private static Gson gson = new Gson();
 
     private Context context;
     private SharedPreferences sp;
 
-    public QueryEngine(Context context){
+    public QueryEngine(Context context) {
         this.context = context;
         this.sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
     }
 
     // race condition?
-    private int getCounter(){
+    private int getCounter() {
         int counter = sp.getInt(COUNTER_KEY, 0) + 1; // increment counter
 
         SharedPreferences.Editor se = sp.edit();
@@ -53,35 +54,35 @@ public class QueryEngine {
     }
 
     // addId to particular id list
-    private void addId(String key, int id){
+    private void addId(String key, int id) {
         List<Integer> list = getIds(key);
         list.add(id);
         setIds(key, list);
     }
 
     // removeId from particular id list
-    private void removeId(String key, int id){
+    private void removeId(String key, int id) {
         List<Integer> list = getIds(key);
         list.remove(new Integer(id));
         setIds(key, list);
     }
 
     // removeId from Shared Preferences
-    private void removeId(int id){
+    private void removeId(int id) {
         SharedPreferences.Editor se = sp.edit();
         se.remove(String.valueOf(id));
         se.apply();
     }
 
     // getIds from particular id list
-    private List<Integer> getIds(String key){
+    private List<Integer> getIds(String key) {
         String json = sp.getString(key, "[]");
 
         return gson.fromJson(json, intListType);
     }
 
     // setIds to particular id list
-    private void setIds(String key, List<Integer> list){
+    private void setIds(String key, List<Integer> list) {
         String json = gson.toJson(list);
 
         SharedPreferences.Editor se = sp.edit();
@@ -91,11 +92,11 @@ public class QueryEngine {
 
     // Teams
 
-    public List<Integer> getTeams(){
+    public List<Integer> getTeams() {
         return getIds(TEAMS_KEY);
     }
 
-    public int addTeam(Team team){
+    public int addTeam(Team team) {
         int counter = getCounter();
 
         addId(TEAMS_KEY, counter);
@@ -105,13 +106,13 @@ public class QueryEngine {
         return counter;
     }
 
-    public Team getTeam(int teamId){
+    public Team getTeam(int teamId) {
         String json = sp.getString(String.valueOf(teamId), null);
 
         return gson.fromJson(json, Team.class);
     }
 
-    public void setTeam(int teamId, Team team){
+    public void setTeam(int teamId, Team team) {
         String json = gson.toJson(team);
 
         SharedPreferences.Editor se = sp.edit();
@@ -119,7 +120,7 @@ public class QueryEngine {
         se.apply();
     }
 
-    public void removeTeam(int teamId){
+    public void removeTeam(int teamId) {
 
         removeId(TEAMS_KEY, teamId);
 
@@ -128,18 +129,18 @@ public class QueryEngine {
 
     // Games
 
-    public List<Integer> getGames(){
+    public List<Integer> getGames() {
         return getIds(GAMES_KEY);
     }
 
-    private List<Integer> getActiveGames(){
+    private List<Integer> getActiveGames() {
         List<Integer> gameIds = getGames();
 
         List<Integer> activeIds = new ArrayList<>();
 
-        for(Integer i: gameIds){
+        for (Integer i : gameIds) {
             Game game = getGame(i);
-            if(game.isActive()){
+            if (game.isActive()) {
                 activeIds.add(i);
             }
         }
@@ -147,7 +148,7 @@ public class QueryEngine {
         return activeIds;
     }
 
-    public int addGame(Game game){
+    public int addGame(Game game) {
         int counter = getCounter();
 
         addId(GAMES_KEY, counter);
@@ -157,13 +158,13 @@ public class QueryEngine {
         return counter;
     }
 
-    public Game getGame(int gameId){
+    public Game getGame(int gameId) {
         String json = sp.getString(String.valueOf(gameId), null);
 
         return gson.fromJson(json, Game.class);
     }
 
-    public void setGame(int gameId, Game game){
+    public void setGame(int gameId, Game game) {
         String json = gson.toJson(game);
 
         SharedPreferences.Editor se = sp.edit();
@@ -171,14 +172,14 @@ public class QueryEngine {
         se.apply();
     }
 
-    public void removeGame(int gameId){
+    public void removeGame(int gameId) {
 
         removeId(GAMES_KEY, gameId);
 
         removeId(gameId);
     }
 
-    public void addHomeAction(int gameId, Action action){
+    public void addHomeAction(int gameId, Action action) {
         Game game = getGame(gameId);
 
         game.addHomeAction(action);
@@ -186,7 +187,7 @@ public class QueryEngine {
         setGame(gameId, game);
     }
 
-    public void addAwayAction(int gameId, Action action){
+    public void addAwayAction(int gameId, Action action) {
         Game game = getGame(gameId);
 
         game.addAwayAction(action);
@@ -197,15 +198,15 @@ public class QueryEngine {
 
     // Players
 
-    public List<Integer> getPlayers(){
+    public List<Integer> getPlayers() {
         return getIds(PLAYERS_KEY);
     }
 
-    public List<Integer> getPlayers(int teamId){
+    public List<Integer> getPlayers(int teamId) {
         return getTeam(teamId).getPlayers();
     }
 
-    public int addPlayer(int teamId, Player player){
+    public int addPlayer(int teamId, Player player) {
         int counter = getCounter();
 
         addId(PLAYERS_KEY, counter);
@@ -221,13 +222,13 @@ public class QueryEngine {
         return counter;
     }
 
-    public Player getPlayer(int playerId){
+    public Player getPlayer(int playerId) {
         String json = sp.getString(String.valueOf(playerId), null);
 
         return gson.fromJson(json, Player.class);
     }
 
-    public void setPlayer(int playerId, Player player){
+    public void setPlayer(int playerId, Player player) {
         String json = gson.toJson(player);
 
         SharedPreferences.Editor se = sp.edit();
@@ -235,7 +236,7 @@ public class QueryEngine {
         se.apply();
     }
 
-    public void removePlayer(int gameId){
+    public void removePlayer(int gameId) {
 
         removeId(PLAYERS_KEY, gameId);
 
