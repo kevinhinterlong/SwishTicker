@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.query;
+package com.hinterlong.kevin.swishticker.data;
 
 public enum ActionType {
     TWO_POINT,

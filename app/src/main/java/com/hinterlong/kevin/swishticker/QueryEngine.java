@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.query;
+package com.hinterlong.kevin.swishticker;
 
 // QueryEngine connects to SharedPreferences
 // Allows for queries and modification of stored data
@@ -15,6 +15,10 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hinterlong.kevin.swishticker.data.Action;
+import com.hinterlong.kevin.swishticker.data.Game;
+import com.hinterlong.kevin.swishticker.data.Player;
+import com.hinterlong.kevin.swishticker.data.Team;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

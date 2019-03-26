@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_margin="@dimen/card_margin"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/team_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Winners" />
+
+        <TextView
+            android:id="@+id/team_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/iconicsImageView"
+            app:layout_constraintStart_toEndOf="@+id/iconicsImageView"
+            app:layout_constraintTop_toTopOf="@+id/iconicsImageView"
+            tools:text="24" />
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/iconicsImageView"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="@dimen/text_margin"
+            app:iiv_color="@android:color/darker_gray"
+            app:iiv_icon="gmd-people"
+            app:layout_constraintBottom_toBottomOf="@+id/team_name"
+            app:layout_constraintStart_toEndOf="@+id/team_name" />
+
+        <TextView
+            android:id="@+id/number_wins_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:text="@string/won"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/team_name" />
+
+        <TextView
+            android:id="@+id/number_won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAlignment="center"
+            android:textColor="#008927"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/number_wins_title"
+            app:layout_constraintStart_toEndOf="@+id/number_wins_title"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/number_losses_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/lost"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/number_wins_title"
+            app:layout_constraintEnd_toStartOf="@+id/number_lost"
+            app:layout_constraintTop_toTopOf="@+id/number_wins_title" />
+
+        <TextView
+            android:id="@+id/number_lost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:textAlignment="center"
+            android:textColor="#DA0D36"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/number_losses_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

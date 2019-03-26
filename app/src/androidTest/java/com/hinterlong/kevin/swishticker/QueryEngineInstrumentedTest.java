@@ -2,7 +2,11 @@ package com.hinterlong.kevin.swishticker;
 
 import android.content.Context;
 
-import com.hinterlong.kevin.swishticker.query.*;
+import com.hinterlong.kevin.swishticker.data.Action;
+import com.hinterlong.kevin.swishticker.data.ActionType;
+import com.hinterlong.kevin.swishticker.data.Game;
+import com.hinterlong.kevin.swishticker.data.Player;
+import com.hinterlong.kevin.swishticker.data.Team;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

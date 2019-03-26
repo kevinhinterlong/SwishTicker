@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.query;
+package com.hinterlong.kevin.swishticker.data;
 
 public class Action {
 

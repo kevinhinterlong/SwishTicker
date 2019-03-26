@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.query;
+package com.hinterlong.kevin.swishticker.data;
 
 import java.util.ArrayList;
 import java.util.List;
