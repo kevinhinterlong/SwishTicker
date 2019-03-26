@@ -35,8 +35,9 @@ public class QueryEngineInstrumentedTest {
 	public void addTeam() {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
+		QueryEngine.init(appContext);
 
-		QueryEngine qe = new QueryEngine(appContext);
+		QueryEngine qe = QueryEngine.getInstance();
 		int bemarsId = qe.addTeam(new Team("bemars"));
 		String bemarsName = qe.getTeam(bemarsId).getName();
 
@@ -47,8 +48,9 @@ public class QueryEngineInstrumentedTest {
 	public void addPlayers() {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
+		QueryEngine.init(appContext);
 
-		QueryEngine qe = new QueryEngine(appContext);
+		QueryEngine qe = QueryEngine.getInstance();
 		int bemarsId = qe.addTeam(new Team("bemars"));
 
 		int nanamaruId = qe.addPlayer(bemarsId, new Player("nanamaru", 1));
@@ -62,8 +64,9 @@ public class QueryEngineInstrumentedTest {
 	public void addGames() {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
+		QueryEngine.init(appContext);
 
-		QueryEngine qe = new QueryEngine(appContext);
+		QueryEngine qe = QueryEngine.getInstance();
 		int bemarsId = qe.addTeam(new Team("bemars"));
 		int polarisId = qe.addTeam(new Team("polaris"));
 
