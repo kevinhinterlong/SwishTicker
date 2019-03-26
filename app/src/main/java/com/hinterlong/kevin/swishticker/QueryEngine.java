@@ -38,7 +38,6 @@ public class QueryEngine {
 
     private static Gson gson = new Gson();
 
-    private Context context;
     private SharedPreferences sp;
 
 
@@ -50,7 +49,6 @@ public class QueryEngine {
         if (queryEngine != null) {
             throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
         }
-        this.context = context;
         this.sp = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE);
     }
 
