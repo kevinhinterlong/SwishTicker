@@ -2,12 +2,12 @@ package com.hinterlong.kevin.swishticker.ui.adapters;
 
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
 import com.hinterlong.kevin.swishticker.data.Game;
 import com.hinterlong.kevin.swishticker.data.Team;
+import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,9 +21,11 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class TeamItem extends AbstractFlexibleItem<TeamItem.TeamViewHolder> {
     private final Team team;
+    private final int teamId;
 
-    public TeamItem(Team team) {
+    public TeamItem(Team team, int teamId) {
         this.team = team;
+        this.teamId = teamId;
     }
 
     @Override
@@ -71,8 +73,7 @@ public class TeamItem extends AbstractFlexibleItem<TeamItem.TeamViewHolder> {
 
             view.setOnClickListener(v -> {
                 TeamItem teamItem = (TeamItem) adapter.getItem(getAdapterPosition());
-                Toast.makeText(view.getContext(), "TODO: Get Team id and go to team detail view", Toast.LENGTH_SHORT).show();
-                // TeamDetailActivity.withTeam(view.getContext(), );
+                TeamDetailActivity.withTeam(view.getContext(), teamItem.teamId);
             });
         }
     }

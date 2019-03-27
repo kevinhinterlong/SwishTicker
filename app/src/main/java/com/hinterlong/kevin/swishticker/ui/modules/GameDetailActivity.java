@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
 import com.hinterlong.kevin.swishticker.data.Game;
+import com.hinterlong.kevin.swishticker.data.Team;
 
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
@@ -17,10 +18,11 @@ public class GameDetailActivity extends AppCompatActivity {
     private Game game;
 
     public static void withGame(Context context, int gameId) {
-        Intent intent = new Intent(context, TeamDetailActivity.class);
+        Intent intent = new Intent(context, GameDetailActivity.class);
         intent.putExtra(GAME_ID, gameId);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,5 +35,8 @@ public class GameDetailActivity extends AppCompatActivity {
         } else {
             game = QueryEngine.getInstance().getGame(gameId);
         }
+        Team home = QueryEngine.getInstance().getTeam(game.getHomeTeamId());
+        Team away = QueryEngine.getInstance().getTeam(game.getAwayTeamId());
+        setTitle(String.format("%s vs %s", home.getName(), away.getName()));
     }
 }

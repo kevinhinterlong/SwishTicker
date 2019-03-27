@@ -3,4 +3,9 @@
     <color name="primaryColor">#80d8ff</color>
     <color name="primaryLightColor">#b5ffff</color>
     <color name="primaryDarkColor">#49a7cc</color>
+    <color name="selectedTabTextColor">#000000</color>
+    <color name="normalTabText">#5F5F5F</color>
+    <color name="wins_color">#008927</color>
+    <color name="loss_color">#DA0D36</color>
+    <color name="dark_gray">#aaa</color>
 </resources>

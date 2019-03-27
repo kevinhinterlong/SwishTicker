@@ -2,15 +2,14 @@ package com.hinterlong.kevin.swishticker.ui.adapters;
 
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
 import com.hinterlong.kevin.swishticker.data.Game;
 import com.hinterlong.kevin.swishticker.data.Team;
+import com.hinterlong.kevin.swishticker.ui.modules.GameDetailActivity;
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity;
 
 import java.util.List;
@@ -25,9 +24,11 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class GameItem extends AbstractFlexibleItem<GameItem.GameViewHolder> {
     private final Game game;
+    private final int gameId;
 
-    public GameItem(Game game) {
+    public GameItem(Game game, int gameId) {
         this.game = game;
+        this.gameId = gameId;
     }
 
     @Override
@@ -90,8 +91,8 @@ public class GameItem extends AbstractFlexibleItem<GameItem.GameViewHolder> {
 
             view.setOnClickListener(v -> {
                 GameItem gameItem = (GameItem) adapter.getItem(getAdapterPosition());
-                Toast.makeText(view.getContext(), "TODO: Get Game id and go to game detail view", Toast.LENGTH_SHORT).show();
-                // GameDetailActivity.withGame(view.getContext(), );
+                // Toast.makeText(view.getContext(), "TODO: Get Game id and go to game detail view", Toast.LENGTH_SHORT).show();
+                GameDetailActivity.withGame(view.getContext(), gameItem.gameId);
             });
         }
     }

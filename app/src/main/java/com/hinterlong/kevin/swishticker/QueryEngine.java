@@ -37,11 +37,8 @@ public class QueryEngine {
     }.getType();
 
     private static Gson gson = new Gson();
-
-    private SharedPreferences sp;
-
-
     private static volatile QueryEngine queryEngine;
+    private SharedPreferences sp;
 
     // private constructor.
     private QueryEngine(Context context) {

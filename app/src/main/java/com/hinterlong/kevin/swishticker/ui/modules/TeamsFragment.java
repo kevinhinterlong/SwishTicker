@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
-import com.hinterlong.kevin.swishticker.data.Team;
 import com.hinterlong.kevin.swishticker.ui.adapters.TeamItem;
 
 import java.util.ArrayList;
@@ -27,10 +26,9 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
  */
 public class TeamsFragment extends Fragment {
 
-    private Unbinder unbinder;
     private final FlexibleAdapter<TeamItem> adapter = new FlexibleAdapter<>(null);
-    @BindView(R.id.game_list)
-    RecyclerView recyclerView;
+    @BindView(R.id.game_list) RecyclerView recyclerView;
+    private Unbinder unbinder;
 
     public TeamsFragment() {
 
@@ -72,8 +70,8 @@ public class TeamsFragment extends Fragment {
 
     public List<TeamItem> getTeamsList() {
         List<TeamItem> list = new ArrayList<>();
-        for (Team team : QueryEngine.getInstance().getTeams()) {
-            TeamItem gameItem = new TeamItem(team);
+        for (int teamId : QueryEngine.getInstance().getTeamIds()) {
+            TeamItem gameItem = new TeamItem(QueryEngine.getInstance().getTeam(teamId), teamId);
             list.add(gameItem);
         }
         return list;

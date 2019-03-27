@@ -1,10 +1,10 @@
 package com.hinterlong.kevin.swishticker.ui.modules;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.hinterlong.kevin.swishticker.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NewTeamActivity extends AppCompatActivity {
 
