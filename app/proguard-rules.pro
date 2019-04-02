@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+# https://github.com/mikepenz/Android-Iconics
+# https://github.com/mikepenz/AboutLibraries
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}
+

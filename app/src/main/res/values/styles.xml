@@ -1,14 +1,44 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimary">@color/darkBackground</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
     </style>
 
-    <style name="TeamTitle" parent="Widget.AppCompat.TextView" >
+    <style name="MainActivity" parent="MaterialDrawerTheme.Light.DarkToolbar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/darkBackground</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/drawer_background</item>
+        <item name="material_drawer_primary_text">@color/drawer_primary_text</item>
+        <item name="material_drawer_primary_icon">@color/drawer_primary_icon</item>
+        <item name="material_drawer_secondary_text">@color/drawer_secondary_text</item>
+        <item name="material_drawer_hint_text">@color/drawer_hint_text</item>
+        <item name="material_drawer_divider">@color/drawer_divider</item>
+        <item name="material_drawer_selected">@color/drawer_selected
+        </item> <!-- Material 2 defines 12% alpha, primary color -->
+        <item name="material_drawer_selected_legacy">@color/drawer_selected
+        </item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
+        <item name="material_drawer_selected_text">@color/drawer_selected_text</item>
+        <item name="material_drawer_header_selection_text">@color/drawer_header_selection_text
+        </item>
+        <item name="material_drawer_legacy_style">false
+        </item> <!-- Enables legacy Material 1 style -->
+    </style>
+
+    <!-- ACTION BAR STYLES -->
+    <style name="MyActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="TeamTitle" parent="Widget.AppCompat.TextView">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">30sp</item>
         <item name="android:clickable">true</item>
@@ -18,7 +48,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="TeamScoreBold" parent="Widget.AppCompat.TextView" >
+    <style name="TeamScoreBold" parent="Widget.AppCompat.TextView">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">30sp</item>
         <item name="android:layout_margin">@dimen/text_margin</item>
@@ -47,13 +77,13 @@
         <item name="tabPaddingEnd">6dp</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/selectedTabTextColor</item>
+        <item name="tabSelectedTextColor">@color/selectedNavItemForeground</item>
     </style>
 
     <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/normalTabText</item>
+        <item name="android:textColor">@color/selectedNavItemBackground</item>
         <item name="textAllCaps">false</item>
     </style>
 

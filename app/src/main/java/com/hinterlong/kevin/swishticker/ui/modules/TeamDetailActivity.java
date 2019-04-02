@@ -34,5 +34,12 @@ public class TeamDetailActivity extends AppCompatActivity {
             team = QueryEngine.getInstance().getTeam(teamId);
         }
         setTitle(team.getName());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

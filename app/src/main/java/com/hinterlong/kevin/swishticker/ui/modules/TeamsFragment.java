@@ -1,10 +1,12 @@
 package com.hinterlong.kevin.swishticker.ui.modules;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
 import com.hinterlong.kevin.swishticker.ui.adapters.TeamItem;
@@ -28,6 +30,7 @@ public class TeamsFragment extends Fragment {
 
     private final FlexibleAdapter<TeamItem> adapter = new FlexibleAdapter<>(null);
     @BindView(R.id.game_list) RecyclerView recyclerView;
+    @BindView(R.id.team_fab) FloatingActionButton fab;
     private Unbinder unbinder;
 
     public TeamsFragment() {
@@ -37,9 +40,11 @@ public class TeamsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_team_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         recyclerView.setAdapter(adapter);
+
+        fab.setOnClickListener(v -> startActivity(new Intent(getContext(), NewGameActivity.class)));
 
         return view;
     }

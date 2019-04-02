@@ -1,29 +1,40 @@
 package com.hinterlong.kevin.swishticker.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.hinterlong.kevin.swishticker.QueryEngine;
 import com.hinterlong.kevin.swishticker.R;
 import com.hinterlong.kevin.swishticker.data.Game;
 import com.hinterlong.kevin.swishticker.data.Team;
-import com.hinterlong.kevin.swishticker.ui.adapters.HomePageAdapter;
 import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment;
-import com.hinterlong.kevin.swishticker.ui.modules.NewGameActivity;
-import com.hinterlong.kevin.swishticker.ui.modules.NewTeamActivity;
+import com.hinterlong.kevin.swishticker.ui.modules.NewGameFragment;
 import com.hinterlong.kevin.swishticker.ui.modules.TeamsFragment;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.util.Colors;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.addNew) FloatingActionButton fab;
-    @BindView(R.id.homeTabs) TabLayout tabs;
-    @BindView(R.id.homeViewPager) ViewPager viewPager;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    private HistoryFragment historyFragment = new HistoryFragment();
+    private TeamsFragment teamsFragment = new TeamsFragment();
+    private NewGameFragment newGameFragment = new NewGameFragment();
+    private Drawer result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +42,75 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        tabs.addTab(tabs.newTab().setText(R.string.title_history), true);
-        tabs.addTab(tabs.newTab().setText(R.string.title_teams));
-        tabs.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager(), this));
+        setSupportActionBar(toolbar);
 
-        fab.setOnClickListener(view -> {
-            switch (tabs.getSelectedTabPosition()) {
-                case 0:
-                    startActivity(new Intent(this, NewGameActivity.class));
-                    break;
-                case 1:
-                    startActivity(new Intent(this, NewTeamActivity.class));
-                    break;
-            }
-        });
+        // do something with the clicked item :D
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withTranslucentStatusBar(true)
+                .withStickyHeader(R.layout.nav_drawer_header)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withIdentifier(1).withName(R.string.start_game).withIcon(GoogleMaterial.Icon.gmd_home),
+                        new PrimaryDrawerItem().withIdentifier(2).withName(R.string.your_games).withIcon(GoogleMaterial.Icon.gmd_assignment),
+                        new PrimaryDrawerItem().withIdentifier(3).withName(R.string.your_teams).withIcon(GoogleMaterial.Icon.gmd_people)
+                )
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    long id = drawerItem.getIdentifier();
+                    if (id == 4) {
+                        new LibsBuilder()
+                                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                .withAboutIconShown(true)
+                                .withAboutVersionShown(true)
+                                .withActivityColor(new Colors(ContextCompat.getColor(this, R.color.primaryColor), ContextCompat.getColor(this, R.color.primaryDarkColor)))
+                                .withAboutDescription("SwishTicker allows you to keep track of basketball statistics for all your favorite teams.")
+                                .start(this);
+                        return false;
+                    }
+
+                    Fragment fragment;
+                    if (id == 1) {
+                        fragment = newGameFragment;
+                    } else if (id == 2) {
+                        fragment = historyFragment;
+                    } else if (id == 3) {
+                        fragment = teamsFragment;
+                    } else {
+                        fragment = newGameFragment;
+                        Timber.e("No matching drawer item for id %d", id);
+                    }
+                    PrimaryDrawerItem item = (PrimaryDrawerItem) result.getDrawerItem(id);
+                    setTitle(item.getName().getText(this));
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contentFrame, fragment).commit();
+                    return false;
+                })
+                .withSavedInstance(savedInstanceState)
+                .build();
+
+        result.addStickyFooterItem(new PrimaryDrawerItem().withIdentifier(4).withName("About").withIcon(FontAwesome.Icon.faw_info_circle).withSelectable(false));
+
+        result.setSelection(1, true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+
 
         addTestGame();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState = result.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**

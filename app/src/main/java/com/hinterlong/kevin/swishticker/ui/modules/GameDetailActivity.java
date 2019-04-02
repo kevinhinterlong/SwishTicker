@@ -38,5 +38,13 @@ public class GameDetailActivity extends AppCompatActivity {
         Team home = QueryEngine.getInstance().getTeam(game.getHomeTeamId());
         Team away = QueryEngine.getInstance().getTeam(game.getAwayTeamId());
         setTitle(String.format("%s vs %s", home.getName(), away.getName()));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

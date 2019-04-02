@@ -25,10 +25,8 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
  * A fragment representing a list of Items.
  */
 public class HistoryFragment extends Fragment {
-
     private final FlexibleAdapter<GameItem> adapter = new FlexibleAdapter<>(null);
-    @BindView(R.id.game_list)
-    RecyclerView recyclerView;
+    @BindView(R.id.game_list) RecyclerView recyclerView;
     private Unbinder unbinder;
 
     public HistoryFragment() {
