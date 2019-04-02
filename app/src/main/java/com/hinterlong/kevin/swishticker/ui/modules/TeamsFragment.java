@@ -44,7 +44,7 @@ public class TeamsFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         recyclerView.setAdapter(adapter);
 
-        fab.setOnClickListener(v -> startActivity(new Intent(getContext(), NewGameActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(getContext(), NewTeamActivity.class)));
 
         return view;
     }

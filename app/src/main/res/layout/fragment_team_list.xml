@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/text_margin"
         android:paddingRight="@dimen/text_margin"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
