@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                                 .withAboutIconShown(true)
                                 .withAboutVersionShown(true)
                                 .withActivityColor(new Colors(ContextCompat.getColor(this, R.color.primaryColor), ContextCompat.getColor(this, R.color.primaryDarkColor)))
+                                .withActivityTitle(getString(R.string.about))
                                 .withAboutDescription("SwishTicker allows you to keep track of basketball statistics for all your favorite teams.")
                                 .start(this);
                         return false;
