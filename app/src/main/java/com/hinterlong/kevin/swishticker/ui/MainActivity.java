@@ -14,8 +14,6 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.util.Colors;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        // do something with the clicked item :D
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -57,17 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     long id = drawerItem.getIdentifier();
-                    if (id == 4) {
-                        new LibsBuilder()
-                                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                .withAboutIconShown(true)
-                                .withAboutVersionShown(true)
-                                .withActivityColor(new Colors(ContextCompat.getColor(this, R.color.primaryColor), ContextCompat.getColor(this, R.color.primaryDarkColor)))
-                                .withActivityTitle(getString(R.string.about))
-                                .withAboutDescription("SwishTicker allows you to keep track of basketball statistics for all your favorite teams.")
-                                .start(this);
-                        return false;
-                    }
 
                     Fragment fragment;
                     if (id == 1) {
@@ -76,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
                         fragment = historyFragment;
                     } else if (id == 3) {
                         fragment = teamsFragment;
+                    } else if (id == 4) {
+                        new LibsBuilder()
+                                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                .withAboutIconShown(true)
+                                .withAboutVersionShown(true)
+                                .withActivityColor(new Colors(ContextCompat.getColor(this, R.color.primaryColor), ContextCompat.getColor(this, R.color.primaryDarkColor)))
+                                .withActivityTitle(getString(R.string.about))
+                                .withAboutDescription("SwishTicker allows you to keep track of basketball statistics for all your favorite teams.")
+                                .start(this);
+                        // This must return here since it starts a new activity instead of switching fragments
+                        return false;
                     } else {
                         fragment = newGameFragment;
                         Timber.e("No matching drawer item for id %d", id);
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        result.addStickyFooterItem(new PrimaryDrawerItem().withIdentifier(4).withName("About").withIcon(FontAwesome.Icon.faw_info_circle).withSelectable(false));
+        result.addStickyFooterItem(new PrimaryDrawerItem().withIdentifier(4).withName(getString(R.string.about)).withIcon(FontAwesome.Icon.faw_info_circle).withSelectable(false));
 
         result.setSelection(1, true);
 
