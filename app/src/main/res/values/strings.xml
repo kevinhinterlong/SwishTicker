@@ -7,8 +7,8 @@
     <string name="lost">Lost</string>
     <string name="new_team">New Team</string>
     <string name="start_game">Start Game</string>
-    <string name="your_games">Your Games</string>
-    <string name="your_teams">Your Teams</string>
+    <string name="my_games">My Games</string>
+    <string name="my_teams">My Team</string>
     <string name="about">About</string>
     <string name="start_a_new_game">Start a new game</string>
 </resources>

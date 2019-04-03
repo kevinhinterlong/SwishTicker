@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 .withStickyHeader(R.layout.nav_drawer_header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withIdentifier(1).withName(R.string.start_game).withIcon(GoogleMaterial.Icon.gmd_home),
-                        new PrimaryDrawerItem().withIdentifier(2).withName(R.string.your_games).withIcon(GoogleMaterial.Icon.gmd_assignment),
-                        new PrimaryDrawerItem().withIdentifier(3).withName(R.string.your_teams).withIcon(GoogleMaterial.Icon.gmd_people)
+                        new PrimaryDrawerItem().withIdentifier(2).withName(R.string.my_games).withIcon(GoogleMaterial.Icon.gmd_assignment),
+                        new PrimaryDrawerItem().withIdentifier(3).withName(R.string.my_teams).withIcon(GoogleMaterial.Icon.gmd_people)
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     long id = drawerItem.getIdentifier();
