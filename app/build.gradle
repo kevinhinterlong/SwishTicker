@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'com.github.triplet.play' version '2.1.0'
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     applicationVariants.all { variant ->
@@ -76,6 +78,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha03'
     implementation "androidx.annotation:annotation:1.1.0-alpha02"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //custom
     implementation "com.mikepenz:aboutlibraries:6.2.3"
@@ -100,4 +103,7 @@ dependencies {
 play {
     serviceAccountCredentials = file("upload.json")
     track = "beta"
+}
+repositories {
+    mavenCentral()
 }
