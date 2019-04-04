@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">SwishTicker</string>
-    <string name="title_history">History</string>
-    <string name="title_teams">Teams</string>
     <string name="versus">vs</string>
     <string name="won">Won</string>
     <string name="lost">Lost</string>
