@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
-import com.hinterlong.kevin.swishticker.AppDatabase
 import com.hinterlong.kevin.swishticker.R
+import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.ui.adapters.GameItem
 import eu.davidea.flexibleadapter.FlexibleAdapter
 
@@ -37,11 +37,11 @@ class HistoryFragment : Fragment() {
         super.onResume()
         context?.let {
             AppDatabase.getInstance(it)
-                    .gameDao()
-                    .getGames()
-                    .observe(viewLifecycleOwner, Observer {
-                        adapter.updateDataSet(it.map(::GameItem).toList())
-                    })
+                .gameDao()
+                .getGames()
+                .observe(viewLifecycleOwner, Observer {
+                    adapter.updateDataSet(it.map(::GameItem).toList())
+                })
         }
     }
 

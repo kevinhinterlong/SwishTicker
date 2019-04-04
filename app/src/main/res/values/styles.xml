@@ -34,8 +34,8 @@
 
     <!-- ACTION BAR STYLES -->
     <style name="MyActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="background">@null</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="TeamTitle" parent="Widget.AppCompat.TextView">
@@ -52,11 +52,11 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">30sp</item>
         <item name="android:layout_margin">@dimen/text_margin</item>
-        <item name="android:background">@drawable/score_background</item>
+        <item name="background">@drawable/score_background</item>
         <item name="android:minWidth">40dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingStart">4dp</item>
-        <item name="android:paddingEnd">4dp</item>
+        <item name="paddingStart">4dp</item>
+        <item name="paddingEnd">4dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

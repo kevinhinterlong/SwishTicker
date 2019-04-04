@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.data
+package com.hinterlong.kevin.swishticker.service.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
 data class Player(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "team_id") val team: Long
-){
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0

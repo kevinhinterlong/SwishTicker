@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.converters
+package com.hinterlong.kevin.swishticker.service.converters
 
 import androidx.room.TypeConverter
 import org.threeten.bp.OffsetDateTime

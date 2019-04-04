@@ -1,6 +1,6 @@
-package com.hinterlong.kevin.swishticker.data
+package com.hinterlong.kevin.swishticker.service.data
 
-enum class ActionType constructor(val code:Int) {
+enum class ActionType constructor(val code: Int) {
     TWO_POINT(0),
     THREE_POINT(1),
     FREE_THROW(2),

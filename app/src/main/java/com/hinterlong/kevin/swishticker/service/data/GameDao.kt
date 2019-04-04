@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.data
+package com.hinterlong.kevin.swishticker.service.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
