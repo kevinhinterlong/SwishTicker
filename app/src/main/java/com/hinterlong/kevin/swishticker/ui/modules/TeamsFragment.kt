@@ -11,11 +11,10 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.hinterlong.kevin.swishticker.AppDatabase
 import com.hinterlong.kevin.swishticker.R
+import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.ui.adapters.TeamItem
 import eu.davidea.flexibleadapter.FlexibleAdapter
-import java.util.stream.Collectors
 
 /**
  * A fragment representing a list of Items.
@@ -34,11 +33,10 @@ class TeamsFragment : Fragment() {
         get() {
             val context = context ?: return listOf()
             return AppDatabase.getInstance(context)
-                    .teamDao()
-                    .getTeams()
-                    .stream()
-                    .map(::TeamItem)
-                    .collect(Collectors.toList())
+                .teamDao()
+                .getTeams()
+                .map(::TeamItem)
+                .toList()
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

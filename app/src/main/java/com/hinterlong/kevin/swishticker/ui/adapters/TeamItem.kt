@@ -4,9 +4,9 @@ import android.view.View
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.hinterlong.kevin.swishticker.AppDatabase
 import com.hinterlong.kevin.swishticker.R
-import com.hinterlong.kevin.swishticker.data.Team
+import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.data.Team
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem

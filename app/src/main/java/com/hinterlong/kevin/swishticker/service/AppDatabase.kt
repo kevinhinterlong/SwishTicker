@@ -1,17 +1,17 @@
-package com.hinterlong.kevin.swishticker
+package com.hinterlong.kevin.swishticker.service
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.hinterlong.kevin.swishticker.converters.ActionTypeConverter
-import com.hinterlong.kevin.swishticker.converters.TimeConverter
-import com.hinterlong.kevin.swishticker.data.*
+import com.hinterlong.kevin.swishticker.service.converters.ActionTypeConverter
+import com.hinterlong.kevin.swishticker.service.converters.TimeConverter
+import com.hinterlong.kevin.swishticker.service.data.*
 import com.hinterlong.kevin.swishticker.utilities.DATABASE_NAME
 
 @Database(entities = arrayOf(Game::class, Team::class, Player::class, Action::class), version = 1)
-@TypeConverters(value = arrayOf(TimeConverter::class, ActionTypeConverter::class ))
+@TypeConverters(value = arrayOf(TimeConverter::class, ActionTypeConverter::class))
 abstract class AppDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
     abstract fun teamDao(): TeamDao
@@ -25,7 +25,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
-                instance ?: buildDatabase(context).also { instance = it }
+                instance
+                    ?: buildDatabase(context).also { instance = it }
             }
         }
 

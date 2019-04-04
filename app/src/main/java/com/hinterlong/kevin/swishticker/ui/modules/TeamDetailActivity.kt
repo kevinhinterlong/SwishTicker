@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.hinterlong.kevin.swishticker.AppDatabase
 import com.hinterlong.kevin.swishticker.R
-import com.hinterlong.kevin.swishticker.data.Team
+import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.data.Team
 
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var team: Team

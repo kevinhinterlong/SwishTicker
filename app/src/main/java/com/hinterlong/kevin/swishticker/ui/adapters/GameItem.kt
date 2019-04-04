@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.hinterlong.kevin.swishticker.AppDatabase
 import com.hinterlong.kevin.swishticker.R
-import com.hinterlong.kevin.swishticker.data.Game
+import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.data.Game
 import com.hinterlong.kevin.swishticker.ui.modules.GameDetailActivity
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
 import eu.davidea.flexibleadapter.FlexibleAdapter

@@ -1,4 +1,4 @@
-package com.hinterlong.kevin.swishticker.data
+package com.hinterlong.kevin.swishticker.service.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -24,7 +24,7 @@ data class Game(
     @ColumnInfo(name = "team2_id") val team2: Long,
     @ColumnInfo(name = "active") var active: Boolean = true,
     @ColumnInfo(name = "date_created") val dateCreated: OffsetDateTime = OffsetDateTime.now()
-){
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0
