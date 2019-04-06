@@ -8,5 +8,5 @@
     <string name="my_games">My Games</string>
     <string name="my_teams">My Team</string>
     <string name="about">About</string>
-    <string name="start_a_new_game">Start a new game</string>
+    <string name="start_a_new_game">Start a new game</string><string name="team_name">Team Name</string>
 </resources>

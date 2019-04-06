@@ -18,9 +18,9 @@ class GameDetailActivity : AppCompatActivity() {
         val intent = intent
         val gameId = intent.getLongExtra(GAME_ID, 0)
         game = AppDatabase.getInstance(this).gameDao().getGame(gameId)
-        val home = AppDatabase.getInstance(this).teamDao().getTeam(game.team1)
-        val away = AppDatabase.getInstance(this).teamDao().getTeam(game.team2)
-        title = "${home.name} vs ${away.name}"
+        val home = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(game.team1)
+        val away = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(game.team2)
+        title = "${home.team.name} vs ${away.team.name}"
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

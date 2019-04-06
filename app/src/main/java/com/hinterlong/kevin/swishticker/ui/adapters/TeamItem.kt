@@ -15,13 +15,9 @@ import eu.davidea.viewholders.FlexibleViewHolder
 
 data class TeamItem(private val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHolder>() {
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_team
-    }
+    override fun getLayoutRes() = R.layout.fragment_team
 
-    override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>): TeamViewHolder {
-        return TeamViewHolder(view, adapter)
-    }
+    override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>) = TeamViewHolder(view, adapter)
 
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: TeamViewHolder, position: Int, payloads: List<Any>) {
         holder.teamName.text = team.name
@@ -33,18 +29,13 @@ data class TeamItem(private val team: Team) : AbstractFlexibleItem<TeamItem.Team
     }
 
     class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {
-        @BindView(R.id.team_name)
-        lateinit var teamName: TextView
-        @BindView(R.id.team_size)
-        lateinit var teamSize: TextView
-        @BindView(R.id.number_won)
-        lateinit var numberWon: TextView
-        @BindView(R.id.number_lost)
-        lateinit var numberLost: TextView
+        @BindView(R.id.team_name) lateinit var teamName: TextView
+        @BindView(R.id.team_size) lateinit var teamSize: TextView
+        @BindView(R.id.number_won) lateinit var numberWon: TextView
+        @BindView(R.id.number_lost) lateinit var numberLost: TextView
 
         init {
             ButterKnife.bind(this, view)
-
             view.setOnClickListener {
                 val teamItem = adapter.getItem(adapterPosition) as TeamItem
                 TeamDetailActivity.withTeam(view.context, teamItem.team.id)

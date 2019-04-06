@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <color name="primaryColor">#000E5F</color>
     <color name="primaryLightColor">#b8e6fe</color>
     <color name="primaryDarkColor">#000752</color>
@@ -12,6 +14,9 @@
     <color name="toolbarSubtitle">#CCCCCC</color>
     <color name="defaultBackground">#FFFFFF</color>
 
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/primary</color>
+
+    <!--Nav Drawer-->
     <color name="drawer_background">#0D1661</color>
     <color name="drawer_primary_text">#b8e6fe</color>
     <color name="drawer_primary_icon">#b8e6fe</color>
