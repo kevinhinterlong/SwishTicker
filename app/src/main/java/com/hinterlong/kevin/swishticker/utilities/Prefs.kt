@@ -29,7 +29,7 @@ object Prefs {
     var defaultTeamId: Long?
         get() = preferences.getString(DEFAULT_TEAM_ID_PREF.first, DEFAULT_TEAM_ID_PREF.second)?.toLong()
         set(value) = preferences.edit {
-            it.putString(DEFAULT_TEAM_ID_PREF.first, value.toString())
+            it.putString(DEFAULT_TEAM_ID_PREF.first, value?.toString())
         }
 
     var isFirstRun: Boolean

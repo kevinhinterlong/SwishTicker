@@ -24,7 +24,7 @@
             android:textColor="@color/defaultTextColor"/>
 
         <include
-            layout="@layout/fragment_team"
+            layout="@layout/team_card"
             android:visibility="gone"
             android:id="@+id/homeTeamCard"/>
     </FrameLayout>
@@ -66,8 +66,6 @@
         app:layout_constraintTop_toTopOf="@+id/homeCenterSeparatorLeft"
         android:id="@+id/homeCenterAction"/>
 
-
-
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +84,7 @@
             android:textColor="@color/defaultTextColor"/>
 
         <include
-            layout="@layout/fragment_team"
+            layout="@layout/team_card"
             android:visibility="gone"
             android:id="@+id/awayTeamCard"/>
     </FrameLayout>

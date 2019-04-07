@@ -21,6 +21,8 @@
         <TextView
             android:id="@+id/teamName"
             style="@style/TeamTitle"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Winners"
