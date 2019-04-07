@@ -2,53 +2,93 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/darkBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_margin="@dimen/text_margin"
-        android:textColorHint="@color/primary"
-        app:hintTextColor="@color/primary"
-        app:boxStrokeColor="@color/primary"
-        app:helperTextTextColor="@color/primary"
-        app:boxCollapsedPaddingTop="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        android:id="@+id/textInputLayout">
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/autoCompleteTeamName"
-            android:textColor="@color/primary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/team_name"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/view"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/button_bg_round"
-        android:text="@string/versus"
-        android:textAllCaps="true"
-        android:textSize="30sp"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/homeCenterAction">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/selectMyTeam"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_my_team"
+            android:backgroundTint="@color/homeNotReady"
+            android:textColor="@color/defaultTextColor"/>
+
+        <include
+            layout="@layout/fragment_team"
+            android:visibility="gone"
+            android:id="@+id/homeTeamCard"/>
+    </FrameLayout>
+
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/homeNotReady"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/homeCenterAction"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/homeCenterSeparatorLeft"/>
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/homeNotReady"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/homeCenterAction"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/homeCenterSeparatorRight"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/home_button_bg_not_ready"
+        android:text="@string/versus"
+        android:textAllCaps="true"
+        android:textSize="35sp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/defaultTextColor"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/homeCenterSeparatorLeft"
+        app:layout_constraintTop_toTopOf="@+id/homeCenterSeparatorLeft"
+        android:id="@+id/homeCenterAction"/>
+
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeCenterAction"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/selectAwayTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/select_away_team"
+            android:backgroundTint="@color/homeNotReady"
+            android:textColor="@color/defaultTextColor"/>
+
+        <include
+            layout="@layout/fragment_team"
+            android:visibility="gone"
+            android:id="@+id/awayTeamCard"/>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minHeight="300dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:boxStrokeColor="@color/primaryLightColor"
+        android:id="@+id/textInputLayout">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/filterTeamsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/select_team_name"
+            android:singleLine="true"
+            android:textColorHint="@color/primaryLightColor"
+            android:textColor="@color/primaryLightColor"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/missingTeam"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/text_margin"
+        android:background="@color/darkBackground"
+        android:paddingStart="@dimen/text_margin"
+        android:paddingEnd="@dimen/text_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/teamDoesNotExist"
+            android:textColor="@color/defaultTextColor"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center|start"
+            android:layout_height="match_parent"
+            tools:text="Team does not exist"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createTeamNow"
+            android:text="@string/create_now"
+            android:backgroundTint="@color/primaryLightColor"
+            android:textColor="@color/defaultTextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="@dimen/text_margin"
+        android:paddingRight="@dimen/text_margin"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/fragment_team"
+        app:layout_constraintTop_toBottomOf="@+id/missingTeam"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

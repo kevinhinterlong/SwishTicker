@@ -1,45 +1,42 @@
 package com.hinterlong.kevin.swishticker.ui.adapters
 
 import android.view.View
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Team
-import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
+import eu.davidea.flexibleadapter.items.IFilterable
 import eu.davidea.flexibleadapter.items.IFlexible
+import eu.davidea.flexibleadapter.utils.FlexibleUtils
 import eu.davidea.viewholders.FlexibleViewHolder
+import kotlinx.android.synthetic.main.fragment_team.view.*
 
-data class TeamItem(private val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHolder>() {
+
+data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHolder>(), IFilterable<String> {
 
     override fun getLayoutRes() = R.layout.fragment_team
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>) = TeamViewHolder(view, adapter)
 
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: TeamViewHolder, position: Int, payloads: List<Any>) {
-        holder.teamName.text = team.name
-        holder.teamSize.text = "0"
-        val games = AppDatabase.getInstance(holder.itemView.context).gameDao().getGames()
-
-        holder.numberWon.text = "0"
-        holder.numberLost.text = "0"
+        if (adapter.hasFilter()) {
+            val filter = adapter.getFilter(String::class.java)
+            FlexibleUtils.highlightText(holder.itemView.teamName, team.name, filter)
+        } else {
+            holder.itemView.teamName.text = team.name
+        }
+        holder.itemView.teamSize.text = AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayers(team.id).size.toString()
     }
 
-    class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {
-        @BindView(R.id.team_name) lateinit var teamName: TextView
-        @BindView(R.id.team_size) lateinit var teamSize: TextView
-        @BindView(R.id.number_won) lateinit var numberWon: TextView
-        @BindView(R.id.number_lost) lateinit var numberLost: TextView
+    override fun equals(other: Any?) = team == other
 
-        init {
-            ButterKnife.bind(this, view)
-            view.setOnClickListener {
-                val teamItem = adapter.getItem(adapterPosition) as TeamItem
-                TeamDetailActivity.withTeam(view.context, teamItem.team.id)
-            }
-        }
+    override fun hashCode() = team.hashCode()
+
+    class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {}
+
+    override fun filter(constraint: String?) = when (constraint) {
+        null -> false
+        else -> team.name.toLowerCase().startsWith(constraint.toLowerCase())
     }
 }

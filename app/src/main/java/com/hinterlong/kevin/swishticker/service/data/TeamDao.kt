@@ -1,11 +1,12 @@
 package com.hinterlong.kevin.swishticker.service.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface TeamDao {
     @Query("SELECT * FROM teams")
-    fun getTeams(): List<Team>
+    fun getTeams(): LiveData<List<Team>>
 
     @Query("SELECT * FROM teams WHERE id = :teamId")
     fun getTeam(teamId: Long): Team

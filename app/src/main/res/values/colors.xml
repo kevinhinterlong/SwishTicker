@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <color name="primaryColor">#000E5F</color>
-    <color name="primaryLightColor">#b8e6fe</color>
+    <color name="primaryLightColor">#2196F3</color>
     <color name="primaryDarkColor">#000752</color>
     <color name="darkBackground">#000E5F</color>
     <color name="green">#008927</color>
@@ -13,6 +13,9 @@
     <color name="toolbarTitle">@color/defaultTextColor</color>
     <color name="toolbarSubtitle">#CCCCCC</color>
     <color name="defaultBackground">#FFFFFF</color>
+
+    <color name="homeNotReady">#2196F3</color>
+    <color name="homeReady">#66FD5F</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/primary</color>
 
