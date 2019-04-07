@@ -1,13 +1,14 @@
 package com.hinterlong.kevin.swishticker.service.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import org.threeten.bp.OffsetDateTime
 
 @Entity(
     tableName = "games",
+    indices = arrayOf(
+        Index("team1_id"),
+        Index("team2_id")
+    ),
     foreignKeys = arrayOf(
         ForeignKey(entity = Team::class,
             parentColumns = arrayOf("id"),

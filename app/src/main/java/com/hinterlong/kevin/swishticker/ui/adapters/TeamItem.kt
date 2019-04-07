@@ -33,7 +33,7 @@ data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHold
 
     override fun hashCode() = team.hashCode()
 
-    class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {}
+    class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter)
 
     override fun filter(constraint: String?) = when (constraint) {
         null -> false

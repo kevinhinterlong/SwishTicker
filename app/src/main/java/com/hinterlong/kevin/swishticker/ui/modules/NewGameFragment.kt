@@ -1,6 +1,5 @@
 package com.hinterlong.kevin.swishticker.ui.modules
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,9 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.hinterlong.kevin.swishticker.R
+import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Team
+import com.hinterlong.kevin.swishticker.utilities.Prefs
 import kotlinx.android.synthetic.main.fragment_new_game.*
 
 
@@ -24,23 +25,15 @@ class NewGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Save instance state? Teams deselected when switching to different tab
-
         selectMyTeam.setOnClickListener {
             SelectTeamDialog(view.context, this).onSelectTeam {
-                homeTeam = it
-                // TODO: update default home team
-                selectMyTeam.visibility = View.GONE
-                setTeamView(R.id.homeTeamCard, homeTeam!!)
-                setReady(view.context)
+                setHomeTeam(it)
             }.show()
         }
 
         selectAwayTeam.setOnClickListener {
             SelectTeamDialog(view.context, this).onSelectTeam {
-                awayTeam = it
-                selectAwayTeam.visibility = View.GONE
-                setTeamView(R.id.awayTeamCard, awayTeam!!)
+                setAwayTeam(it)
             }.show()
         }
 
@@ -55,35 +48,60 @@ class NewGameFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        context?.let {
-            setReady(it, homeTeam != null)
+        val teamId = Prefs.defaultTeamId
+        if (teamId != null && teamId != homeTeam?.id) {
+            context?.let { homeTeam = AppDatabase.getInstance(it).teamDao().getTeam(teamId) }
+        }
+        setHomeTeam(homeTeam)
+        setAwayTeam(awayTeam)
+    }
+
+    private fun setHomeTeam(it: Team?) {
+        homeTeam = it
+        Prefs.defaultTeamId = it?.id
+        setReady(homeTeam != null)
+        setTeam(homeTeam, selectMyTeam, R.id.homeTeamCard)
+    }
+
+    private fun setAwayTeam(it: Team?) {
+        awayTeam = it
+        setTeam(awayTeam, selectAwayTeam, R.id.awayTeamCard)
+    }
+
+    private fun setTeam(it: Team?, selectButton: View, teamCardId: Int) = when (it) {
+        null -> {
+            selectButton.visibility = View.VISIBLE
+        }
+        else -> {
+            setTeamView(selectButton, teamCardId, it)
+            selectButton.visibility = View.GONE
         }
     }
 
-    private fun setTeamView(cardId: Int, team: Team) {
+    private fun setTeamView(selectButton: View, cardId: Int, team: Team) {
         view?.let {
             val card: CardView = it.findViewById(cardId)
             card.visibility = View.VISIBLE
-            selectMyTeam.visibility = View.GONE
+            selectButton.visibility = View.GONE
             val name: TextView = card.findViewById(R.id.teamName)
             val size: TextView = card.findViewById(R.id.teamSize)
             name.text = team.name
         }
     }
 
-    private fun setReady(context: Context, ready: Boolean = true) {
+    private fun setReady(ready: Boolean = true) = context?.let {
         when (ready) {
             true -> {
-                homeCenterAction.text = context.getText(R.string.start)
-                homeCenterAction.background = context.getDrawable(R.drawable.home_button_bg_ready)
-                homeCenterSeparatorLeft.background = context.getDrawable(R.color.homeReady)
-                homeCenterSeparatorRight.background = context.getDrawable(R.color.homeReady)
+                homeCenterAction.text = it.getText(R.string.start)
+                homeCenterAction.background = it.getDrawable(R.drawable.home_button_bg_ready)
+                homeCenterSeparatorLeft.background = it.getDrawable(R.color.homeReady)
+                homeCenterSeparatorRight.background = it.getDrawable(R.color.homeReady)
             }
             false -> {
-                homeCenterAction.text = context.getText(R.string.versus)
-                homeCenterAction.background = context.getDrawable(R.drawable.home_button_bg_not_ready)
-                homeCenterSeparatorLeft.background = context.getDrawable(R.color.homeNotReady)
-                homeCenterSeparatorRight.background = context.getDrawable(R.color.homeNotReady)
+                homeCenterAction.text = it.getText(R.string.versus)
+                homeCenterAction.background = it.getDrawable(R.drawable.home_button_bg_not_ready)
+                homeCenterSeparatorLeft.background = it.getDrawable(R.color.homeNotReady)
+                homeCenterSeparatorRight.background = it.getDrawable(R.color.homeNotReady)
             }
         }
     }
