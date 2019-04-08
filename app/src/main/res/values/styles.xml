@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/darkBackground</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -23,14 +23,6 @@
         </item>
         <item name="material_drawer_legacy_style">false
         </item> <!-- Enables legacy Material 1 style -->
-    </style>
-
-    <style name="MainActivity" parent="MaterialDrawerTheme.Light.DarkToolbar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/darkBackground</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/primaryLightColor</item>
-
     </style>
 
     <!-- ACTION BAR STYLES -->
