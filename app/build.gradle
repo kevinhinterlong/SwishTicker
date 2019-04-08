@@ -63,6 +63,7 @@ android {
     }
 
     lintOptions {
+        abortOnError false
         textReport true
         textOutput 'stdout'
         lintConfig rootProject.file('lint.xml')
