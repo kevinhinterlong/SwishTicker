@@ -23,10 +23,9 @@ class GameDetailActivity : AppCompatActivity() {
         db.gameDao().getGame(gameId).observe(this, Observer {
             val home = db.teamDao().getTeamAndPlayers(it.team1)
             val away = db.teamDao().getTeamAndPlayers(it.team2)
-            val actions = db.actionDao().getGameActions(it.id)
-            updateStats(actions)
             title = "${home.team.name} vs ${away.team.name}"
         })
+        db.actionDao().getGameActions(gameId).observe(this, Observer(this@GameDetailActivity::updateStats))
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

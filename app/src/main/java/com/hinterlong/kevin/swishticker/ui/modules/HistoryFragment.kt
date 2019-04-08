@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -36,9 +37,9 @@ class HistoryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         context?.let {
-            AppDatabase.getInstance(it)
+            Transformations.map(AppDatabase.getInstance(it)
                 .gameDao()
-                .getGames()
+                .getGames(), { it.sortedByDescending { it.dateCreated } })
                 .observe(viewLifecycleOwner, Observer {
                     adapter.updateDataSet(it.map(::GameItem).toList())
                 })

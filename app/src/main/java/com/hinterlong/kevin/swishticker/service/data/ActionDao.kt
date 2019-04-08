@@ -1,5 +1,6 @@
 package com.hinterlong.kevin.swishticker.service.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -8,7 +9,7 @@ interface ActionDao {
     fun getActions(): List<Action>
 
     @Query("SELECT * FROM actions WHERE game_id = :gameId")
-    fun getGameActions(gameId: Long): List<Action>
+    fun getGameActions(gameId: Long): LiveData<List<Action>>
 
     @Query("SELECT * FROM actions WHERE team_id = :teamId")
     fun getTeamActions(teamId: Long): List<Action>
