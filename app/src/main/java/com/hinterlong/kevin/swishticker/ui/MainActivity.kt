@@ -8,9 +8,7 @@ import androidx.lifecycle.Observer
 import butterknife.ButterKnife
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
-import com.hinterlong.kevin.swishticker.service.data.Game
-import com.hinterlong.kevin.swishticker.service.data.Player
-import com.hinterlong.kevin.swishticker.service.data.Team
+import com.hinterlong.kevin.swishticker.service.data.*
 import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment
 import com.hinterlong.kevin.swishticker.ui.modules.NewGameFragment
 import com.hinterlong.kevin.swishticker.ui.modules.TeamsFragment
@@ -112,14 +110,21 @@ class MainActivity : AppCompatActivity() {
                 val away = Team("Losers")
                 val homeId = db.teamDao().insertTeam(home)
                 val awayId = db.teamDao().insertTeam(away)
-                db.playerDao().insertPlayer(Player("me1", homeId))
-                db.playerDao().insertPlayer(Player("me2", homeId))
-                db.playerDao().insertPlayer(Player("me3", homeId))
-                db.playerDao().insertPlayer(Player("me1", awayId))
-                db.playerDao().insertPlayer(Player("me2", awayId))
-                db.playerDao().insertPlayer(Player("me3", awayId))
-                val test = Game(homeId, awayId)
-                db.gameDao().insertGame(test)
+                val homePlayerId = db.playerDao().insertPlayer(Player("homePlayer", homeId))
+                val awayPlayerId = db.playerDao().insertPlayer(Player("awayPlayer", awayId))
+                val gameId = db.gameDao().insertGame(Game(homeId, awayId))
+
+                val teams = listOf(
+                    Pair(homeId, homePlayerId),
+                    Pair(awayId, awayPlayerId)
+                )
+                (0..4).map(Int::toLong).forEach { period ->
+                    (1..20).map { teams.random() }.forEach { team ->
+                        val action = ActionType.values().random()
+                        val actionResult = ActionResult.values().random()
+                        db.actionDao().insertAction(Action(action, actionResult, team.first, gameId, team.second, period))
+                    }
+                }
             }
         })
 

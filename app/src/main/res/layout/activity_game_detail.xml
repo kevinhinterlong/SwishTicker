@@ -1,205 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.modules.GameDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.modules.GameDetailActivity">
+    android:overScrollMode="never">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" android:id="@+id/appBar"/>
+        <include layout="@layout/toolbar" android:id="@+id/appBar"/>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/gameSummaryCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/gameSummaryCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:padding="@dimen/text_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="112"
-                android:id="@+id/homeTeamScore"
-                app:layout_constraintBottom_toBottomOf="@+id/dash"
-                app:layout_constraintTop_toTopOf="@+id/dash"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/dash"
-                style="@style/TeamScoreSummary"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dash"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/dash"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TeamScoreSummary"
-                tools:text="90"
-                android:id="@+id/awayTeamScore"
-                app:layout_constraintBottom_toBottomOf="@+id/dash"
-                app:layout_constraintTop_toTopOf="@+id/dash"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/dash"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="Losers"
-                android:id="@+id/homeTeamName"
-                app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
-                app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
-                app:layout_constraintTop_toBottomOf="@+id/homeTeamScore"
-                style="@style/TeamNameSummary"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="(19 - 59)"
-                android:id="@+id/homeTeamWinLoss"
-                app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
-                app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
-                app:layout_constraintTop_toBottomOf="@+id/homeTeamName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                style="@style/TeamWinLossSummary"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="Away"
-                android:id="@+id/awayTeamName"
-                style="@style/TeamNameSummary"
-                app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
-                app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
-                app:layout_constraintTop_toBottomOf="@+id/awayTeamScore"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TeamWinLossSummary"
-                android:id="@+id/awayTeamWinLoss"
-                tools:text="(18 - 60)"
-                app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
-                app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
-                app:layout_constraintTop_toBottomOf="@+id/awayTeamName"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/quarterSummaryCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/gameSummaryCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:padding="@dimen/text_margin"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/quarterTitleContainer"
-                android:orientation="horizontal"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="@dimen/text_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="112"
+                    android:id="@+id/homeTeamScore"
+                    app:layout_constraintBottom_toBottomOf="@+id/dash"
+                    app:layout_constraintTop_toTopOf="@+id/dash"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/dash"
+                    style="@style/TeamScoreSummary"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TeamNameSummary"
-                    android:textColor="@color/demphasizedTextColor"
-                    android:text="@string/team"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/homeQuarterValues"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:text="@string/dash"
                     android:textColor="@color/black"
-                    android:id="@+id/homeTeamNameQuarters"
-                    style="@style/TeamNameSummary"
-                    tools:text="Losers"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/awayQuarterValues"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:textSize="30sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/dash"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:id="@+id/awayTeamNameQuarters"
-                    style="@style/TeamNameSummary"
-                    tools:text="Away"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_margin="@dimen/card_margin"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/quarterSummaryCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
-            android:padding="@dimen/text_margin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    style="@style/TeamScoreSummary"
+                    tools:text="90"
+                    android:id="@+id/awayTeamScore"
+                    app:layout_constraintBottom_toBottomOf="@+id/dash"
+                    app:layout_constraintTop_toTopOf="@+id/dash"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dash"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    tools:text="Losers"
+                    android:id="@+id/homeTeamName"
+                    app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
+                    app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
+                    app:layout_constraintTop_toBottomOf="@+id/homeTeamScore"
+                    style="@style/TeamNameSummary"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="(19 - 59)"
+                    android:id="@+id/homeTeamWinLoss"
+                    app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
+                    app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
+                    app:layout_constraintTop_toBottomOf="@+id/homeTeamName"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/TeamWinLossSummary"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Away"
+                    android:id="@+id/awayTeamName"
                     style="@style/TeamNameSummary"
-                    android:textColor="@color/demphasizedTextColor"
-                    android:text="@string/actions"/>
+                    app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
+                    app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
+                    app:layout_constraintTop_toBottomOf="@+id/awayTeamScore"/>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gameActions"
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TeamWinLossSummary"
+                    android:id="@+id/awayTeamWinLoss"
+                    tools:text="(18 - 60)"
+                    app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
+                    app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
+                    app:layout_constraintTop_toBottomOf="@+id/awayTeamName"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/quarterSummaryCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/gameSummaryCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:padding="@dimen/text_margin"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:clipToPadding="false"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/action_item"
-                android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@color/primaryLightColor"
-                android:scrollbarSize="6dp"
-                android:scrollbarStyle="outsideInset"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/quarterTitleContainer"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/TeamNameSummary"
+                        android:textColor="@color/demphasizedTextColor"
+                        android:text="@string/team"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/homeQuarterValues"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:id="@+id/homeTeamNameQuarters"
+                        style="@style/TeamNameSummary"
+                        tools:text="Losers"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/awayQuarterValues"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:id="@+id/awayTeamNameQuarters"
+                        style="@style/TeamNameSummary"
+                        tools:text="Away"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/homePlayerStatsContainer"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/quarterSummaryCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/homePlayerStatsTitle"
+                        style="@style/TeamNameSummary"
+                        android:textColor="@color/demphasizedTextColor"
+                        tools:text="Losers Stats"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/homePlayerStats"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:clipToPadding="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/primaryLightColor"
+                    android:scrollbarSize="6dp"
+                    android:scrollbarStyle="outsideInset"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/homePlayerStatsContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/TeamNameSummary"
+                        android:textColor="@color/demphasizedTextColor"
+                        android:text="@string/actions"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/gameActions"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:clipToPadding="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/action_item"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/primaryLightColor"
+                    android:scrollbarSize="6dp"
+                    android:scrollbarStyle="outsideInset"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

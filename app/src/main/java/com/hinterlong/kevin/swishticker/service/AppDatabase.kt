@@ -5,13 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.hinterlong.kevin.swishticker.service.converters.ActionResultConverter
 import com.hinterlong.kevin.swishticker.service.converters.ActionTypeConverter
 import com.hinterlong.kevin.swishticker.service.converters.TimeConverter
 import com.hinterlong.kevin.swishticker.service.data.*
 import com.hinterlong.kevin.swishticker.utilities.DATABASE_NAME
 
 @Database(entities = arrayOf(Game::class, Team::class, Player::class, Action::class), version = 1)
-@TypeConverters(value = arrayOf(TimeConverter::class, ActionTypeConverter::class))
+@TypeConverters(value = arrayOf(TimeConverter::class, ActionTypeConverter::class, ActionResultConverter::class))
 abstract class AppDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
     abstract fun teamDao(): TeamDao

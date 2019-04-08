@@ -26,6 +26,7 @@ import androidx.room.*
 )
 data class Action(
     @ColumnInfo(name = "action_type") val actionType: ActionType,
+    @ColumnInfo(name = "action_result") val actionResult: ActionResult,
     @ColumnInfo(name = "team_id") val team: Long,
     @ColumnInfo(name = "game_id") val game: Long,
     @ColumnInfo(name = "player_id") val player: Long?,
