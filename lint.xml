@@ -1,6 +1,6 @@
 <lint>
     <issue id="ObsoleteSdkInt" severity="error"/>
-    <issue id="UnusedResources" severity="error"/>
+    <issue id="UnusedResources" severity="warning"/>
     <!-- No one cares. -->
     <issue id="GoogleAppIndexingWarning" severity="ignore"/>
 </lint>

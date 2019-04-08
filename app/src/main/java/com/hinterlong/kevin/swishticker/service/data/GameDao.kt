@@ -12,7 +12,7 @@ interface GameDao {
     fun getGames(teamId: Long): List<Game>
 
     @Query("SELECT * FROM games WHERE id = :gameId")
-    fun getGame(gameId: Long): Game
+    fun getGame(gameId: Long): LiveData<Game>
 
     @Insert
     fun insertGame(game: Game): Long

@@ -4,23 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
-import com.hinterlong.kevin.swishticker.service.data.Game
 
 class GameDetailActivity : AppCompatActivity() {
-    private lateinit var game: Game
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_detail)
 
         val intent = intent
         val gameId = intent.getLongExtra(GAME_ID, 0)
-        game = AppDatabase.getInstance(this).gameDao().getGame(gameId)
-        val home = AppDatabase.getInstance(this).teamDao().getTeam(game.team1)
-        val away = AppDatabase.getInstance(this).teamDao().getTeam(game.team2)
-        title = "${home.name} vs ${away.name}"
+        AppDatabase.getInstance(this).gameDao().getGame(gameId).observe(this, Observer {
+
+            val home = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(it.team1)
+            val away = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(it.team2)
+            title = "${home.team.name} vs ${away.team.name}"
+        })
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

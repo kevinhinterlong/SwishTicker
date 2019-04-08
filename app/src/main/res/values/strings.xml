@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">SwishTicker</string>
     <string name="versus">vs</string>
-    <string name="won">Won</string>
-    <string name="lost">Lost</string>
     <string name="new_team">New Team</string>
     <string name="start_game">Start Game</string>
     <string name="my_games">My Games</string>
     <string name="my_teams">My Team</string>
     <string name="about">About</string>
-    <string name="start_a_new_game">Start a new game</string>
+    <string name="start">Start</string>
+    <string name="select_team_name">New or Existing Team Name</string>
+    <string name="select_away_team">Select Away Team</string>
+    <string name="select_my_team">Select My Team</string>
+    <string name="team_does_not_exist">%1$s does not exist</string>
+    <string name="create_now">Create Now</string>
+    <string name="must_select_home_team">You must select a home team</string>
 </resources>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -28,17 +30,6 @@ class TeamsFragment : Fragment() {
     lateinit var fab: FloatingActionButton
     private lateinit var unbinder: Unbinder
 
-
-    private val teamsList: List<TeamItem>
-        get() {
-            val context = context ?: return listOf()
-            return AppDatabase.getInstance(context)
-                .teamDao()
-                .getTeams()
-                .map(::TeamItem)
-                .toList()
-        }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_team_list, container, false)
@@ -47,12 +38,12 @@ class TeamsFragment : Fragment() {
 
         fab.setOnClickListener { startActivity(Intent(context, NewTeamActivity::class.java)) }
 
-        return view
-    }
+        Transformations.map(AppDatabase.getInstance(view.context)
+            .teamDao()
+            .getTeams(), { it.map(::TeamItem) })
+            .observe(this, Observer(adapter::updateDataSet))
 
-    override fun onResume() {
-        super.onResume()
-        adapter.updateDataSet(teamsList)
+        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

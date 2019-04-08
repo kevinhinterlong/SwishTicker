@@ -1,17 +1,17 @@
 package com.hinterlong.kevin.swishticker.service.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "players",
+    indices = arrayOf(
+        Index("team_id")
+    ),
     foreignKeys = arrayOf(
         ForeignKey(entity = Team::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("team_id"),
-            onDelete = ForeignKey.NO_ACTION)
+            onDelete = ForeignKey.CASCADE)
     )
 )
 data class Player(

@@ -8,7 +8,7 @@ interface PlayerDao {
     fun getPlayers(): List<Player>
 
     @Query("SELECT * FROM players WHERE team_id = :teamId")
-    fun getPlayers(teamId: Long): Player
+    fun getPlayers(teamId: Long): List<Player>
 
     @Query("SELECT * FROM players WHERE id = :playerId")
     fun getPlayer(playerId: Long): Player
