@@ -1,14 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/darkBackground</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/primaryLightColor</item>
-    </style>
-
-    <style name="MainActivity" parent="MaterialDrawerTheme.Light.DarkToolbar">
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/darkBackground</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -59,6 +52,24 @@
         <item name="paddingEnd">4dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="GameAction">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/defaultTextColor</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="HomeAction" parent="GameAction">
+        <item name="android:background">@drawable/game_action_home</item>
+    </style>
+
+    <style name="AwayAction" parent="GameAction">
+        <item name="android:background">@drawable/game_action_away</item>
     </style>
 
     <!-- TODO: Re-enable these once we put them back in -->

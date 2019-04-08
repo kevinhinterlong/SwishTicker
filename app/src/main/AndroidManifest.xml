@@ -17,8 +17,7 @@
         <activity android:name=".ui.modules.TeamDetailActivity"/>
         <activity android:name=".ui.modules.GameDetailActivity"/>
         <activity
-            android:name=".ui.MainActivity"
-            android:theme="@style/MainActivity">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

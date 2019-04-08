@@ -4,14 +4,26 @@
     >
     <color name="primaryColor">#000E5F</color>
     <color name="primaryLightColor">#2196F3</color>
+    <color name="lighter_blue">#2DCADF</color>
+    <color name="light_blue">@color/primaryLightColor</color>
+    <color name="dark_blue">#0D7CD3</color>
     <color name="primaryDarkColor">#000752</color>
     <color name="darkBackground">#000E5F</color>
+    <color name="lighter_orange">#FBC02D</color>
+    <color name="light_orange">#FFA000</color>
+    <color name="dark_orange">#F57C00</color>
     <color name="green">#008927</color>
-    <!--<color name="red">#DA0D36</color>-->
+    <color name="light_green">#2EFF2E</color>
+    <color name="dark_red">#BD0024</color>
+    <color name="red">#DA0D36</color>
+    <color name="light_red">#FF4A4A</color>
     <color name="darkGray">#aaa</color>
     <color name="defaultTextColor">#FFFFFF</color>
+    <color name="demphasizedTextColor">#C4C4C4</color>
     <color name="toolbarTitle">@color/defaultTextColor</color>
     <color name="toolbarSubtitle">#CCCCCC</color>
+
+    <color name="game_actions_background">#2539AA</color>
 
     <color name="homeNotReady">#2196F3</color>
     <color name="homeReady">#66FD5F</color>

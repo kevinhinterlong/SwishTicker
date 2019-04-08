@@ -2,4 +2,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="text_margin">16dp</dimen>
     <dimen name="card_margin">4dp</dimen>
+    <dimen name="game_action_menu">200dp</dimen>
 </resources>

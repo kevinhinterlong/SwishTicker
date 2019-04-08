@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/select_team_name"
+            android:inputType="textCapWords"
             android:singleLine="true"
             android:textColorHint="@color/primaryLightColor"
             android:textColor="@color/primaryLightColor"

@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.data.Action
+import com.hinterlong.kevin.swishticker.service.data.toPoints
+import kotlinx.android.synthetic.main.toolbar.*
+import timber.log.Timber
 
 class GameDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,14 +19,24 @@ class GameDetailActivity : AppCompatActivity() {
 
         val intent = intent
         val gameId = intent.getLongExtra(GAME_ID, 0)
-        AppDatabase.getInstance(this).gameDao().getGame(gameId).observe(this, Observer {
-
-            val home = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(it.team1)
-            val away = AppDatabase.getInstance(this).teamDao().getTeamAndPlayers(it.team2)
+        val db = AppDatabase.getInstance(this)
+        db.gameDao().getGame(gameId).observe(this, Observer {
+            val home = db.teamDao().getTeamAndPlayers(it.team1)
+            val away = db.teamDao().getTeamAndPlayers(it.team2)
             title = "${home.team.name} vs ${away.team.name}"
         })
+        db.actionDao().getGameActions(gameId).observe(this, Observer(this@GameDetailActivity::updateStats))
 
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun updateStats(actions: List<Action>) {
+        val periods = actions.groupBy { it.interval }.toMap()
+        periods.forEach {
+            val points = it.value.map { it.actionType }.map(::toPoints)
+            Timber.d("Quarter ${it.key}: $points poins")
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

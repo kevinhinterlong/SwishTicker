@@ -19,36 +19,43 @@
         <TextView
             android:id="@+id/homeTeamName"
             style="@style/TeamTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Winners" />
+            android:singleLine="true"
+            tools:text="Winners"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginBottom="@dimen/text_margin"
             android:fontFamily="sans-serif-light"
             android:text="@string/versus"
             android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/awayTeamName"
-            app:layout_constraintEnd_toStartOf="@+id/awayTeamName"
-            app:layout_constraintStart_toEndOf="@+id/homeTeamName"
-            app:layout_constraintTop_toTopOf="@+id/homeTeamName" />
+            app:layout_constraintTop_toTopOf="@+id/homeTeamName"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/textView"/>
 
         <TextView
             android:id="@+id/awayTeamName"
             style="@style/TeamTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Losers" />
+            android:singleLine="true"
+            tools:text="Really long name"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            android:layout_marginStart="8dp"/>
 
 
         <TextView
