@@ -17,3 +17,9 @@ fun toPoints(type: ActionType) = when (type) {
     ActionType.THREE_POINT -> 3
     else -> 0
 }
+
+fun toPeriodName(period: Long) = if (period < 3) {
+    (period + 1).toString()
+} else {
+    "OT${period - 3}"
+}

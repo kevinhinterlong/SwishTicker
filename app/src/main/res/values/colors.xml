@@ -9,6 +9,7 @@
     <color name="dark_blue">#0D7CD3</color>
     <color name="primaryDarkColor">#000752</color>
     <color name="darkBackground">#000E5F</color>
+    <color name="black">#000000</color>
     <color name="lighter_orange">#FBC02D</color>
     <color name="light_orange">#FFA000</color>
     <color name="dark_orange">#F57C00</color>
@@ -19,7 +20,7 @@
     <color name="light_red">#FF4A4A</color>
     <color name="darkGray">#aaa</color>
     <color name="defaultTextColor">#FFFFFF</color>
-    <color name="demphasizedTextColor">#C4C4C4</color>
+    <color name="demphasizedTextColor">#808080</color>
     <color name="toolbarTitle">@color/defaultTextColor</color>
     <color name="toolbarSubtitle">#CCCCCC</color>
 
