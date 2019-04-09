@@ -64,8 +64,7 @@ class MyTeamFragment : Fragment() {
 
                 val teamStats = teamAndPlayers.players.map { makeStats(it.name, stats[it.id]) }
 
-                // TODO get all game stats, sum total score not player points
-                listOf(makeStats(teamAndPlayers.team.name, getTotalStats(teamStats.mapNotNull { it.playerStats }, games)))
+                listOf(makeStats(teamAndPlayers.team.name, getTotalStats(stats.values, games)))
                     .plus(teamStats)
                     .let {
                         statsAdapter.updateDataSet(it)

@@ -67,9 +67,12 @@ fun getTotalStats(it: Collection<PlayerStats>, games: Long): PlayerStats {
 }
 
 fun playerStats(actions: List<Action>, teamId: Long, games: Long = 1): Map<Long?, PlayerStats> {
-    return actions.filter { it.team == teamId }.groupBy { it.player }.mapValues {
+    val teamActions = actions.filter { it.team == teamId }
+    val playerStats = teamActions.groupBy { it.player }.mapValues {
         it.value.map(::actionToStats).fold(PlayerStats(), { acc, playerStats -> acc + playerStats }).copy(games = games)
     }
+    val team = playerStats[null]
+    return playerStats
 }
 
 fun actionToStats(action: Action) = when (action.actionType) {
