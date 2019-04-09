@@ -21,7 +21,7 @@ interface ActionDao {
     fun getPlayerActions(playerId: Long): List<Action>
 
     @Query("SELECT * FROM actions WHERE id = :actionId")
-    fun getAction(actionId: Long): Action
+    fun getAction(actionId: Long): LiveData<Action>
 
     @Insert
     fun insertAction(action: Action): Long

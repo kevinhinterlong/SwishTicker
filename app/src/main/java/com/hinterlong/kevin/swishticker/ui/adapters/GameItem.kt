@@ -36,12 +36,12 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
         holder.itemView.awayTeamName.text = away.name
 
         if (game.active) {
-            holder.itemView.activeGame.visibility = View.VISIBLE
+            holder.itemView.activeGameIcon.visibility = View.VISIBLE
             // TODO: Don't do it on main thread
             val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
             holder.itemView.currentPeriod.text = toQuarterName(period)
         } else {
-            holder.itemView.activeGame.visibility = View.GONE
+            holder.itemView.activeGameIcon.visibility = View.GONE
         }
 
         holder.itemView.datePlayed.text = DTF.format(game.dateCreated)

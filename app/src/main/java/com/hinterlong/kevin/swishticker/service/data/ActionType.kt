@@ -11,13 +11,15 @@ fun toPoints(action: Action): Int {
     if (action.actionResult != ActionResult.SHOT_HIT) {
         return 0
     } else {
-        return when (action.actionType) {
-            ActionType.FREE_THROW -> 1
-            ActionType.TWO_POINT -> 2
-            ActionType.THREE_POINT -> 3
-            else -> 0
-        }
+        return shotValue(action.actionType)
     }
+}
+
+fun shotValue(action: ActionType) =  when (action) {
+    ActionType.FREE_THROW -> 1
+    ActionType.TWO_POINT -> 2
+    ActionType.THREE_POINT -> 3
+    else -> 0
 }
 
 fun toQuarterName(period: Long) = if (period <= 3) {

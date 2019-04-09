@@ -8,6 +8,7 @@
     <color name="lighter_blue">#2DCADF</color>
     <color name="light_blue">@color/primaryLightColor</color>
     <color name="dark_blue">#0D7CD3</color>
+    <color name="team_name_blue">#000088</color>
     <color name="darkBackground">#000E5F</color>
     <color name="black">#000000</color>
     <color name="lighter_orange">#FBC02D</color>
@@ -16,11 +17,14 @@
     <color name="green">#008927</color>
     <color name="dark_green">#299c29</color>
     <color name="light_green">#2EFF2E</color>
+    <color name="green_transparent">#4F00B600</color>
     <color name="dark_red">#BD0024</color>
     <color name="red">#DA0D36</color>
     <color name="light_red">#FF4A4A</color>
+    <color name="red_transparent">#5BFF3636</color>
     <color name="dark_gray">#aaa</color>
-    <color name="gray_transparent">#9CAAAAAA</color>
+    <color name="gray_transparent">#61DFDFDF</color>
+    <color name="white">#fff</color>
     <color name="default_text_color">#FFFFFF</color>
     <color name="demphasized_text_color">#808080</color>
     <color name="toolbar_title">@color/default_text_color</color>

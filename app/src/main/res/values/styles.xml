@@ -26,7 +26,7 @@
     </style>
 
     <!-- ACTION BAR STYLES -->
-    <style name="MyActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="MyActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="background">@null</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
@@ -86,6 +86,12 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="GameCardTeamName" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/team_name_blue</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     <style name="TeamWinLossSummary">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -107,22 +113,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <!-- TODO: Re-enable these once we put them back in -->
-    <!--<style name="WinLossCounterTitle">-->
-    <!--<item name="android:layout_width">wrap_content</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
-    <!--<item name="android:textAlignment">center</item>-->
-    <!--<item name="android:textSize">20sp</item>-->
-    <!--</style>-->
 
-    <!--<style name="WinLossCounter">-->
-    <!--<item name="android:layout_width">wrap_content</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
-    <!--<item name="android:textAlignment">center</item>-->
-    <!--<item name="android:textSize">20sp</item>-->
-    <!--<item name="android:textStyle">bold</item>-->
-    <!--</style>-->
 
+    <!-- set the rounded drawable as background to your bottom sheet -->
+    <style name="BottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:background">@drawable/game_bottom_sheet_dialog_fragment_bg</item>
+    </style>
 </resources>

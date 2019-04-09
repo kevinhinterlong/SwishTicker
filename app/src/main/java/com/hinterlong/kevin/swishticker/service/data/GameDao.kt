@@ -31,4 +31,7 @@ interface GameDao {
     @Delete
     fun deleteGame(game: Game)
 
+    @Query("DELETE FROM games WHERE id = :id")
+    fun deleteGame(id: Long)
+
 }

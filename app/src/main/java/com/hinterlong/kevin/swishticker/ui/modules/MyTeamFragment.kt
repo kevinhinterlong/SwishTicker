@@ -31,7 +31,12 @@ class MyTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val teamId = Prefs.defaultTeamId
+        var teamId = Prefs.defaultTeamId
+        val bundle = arguments
+        if (bundle != null && bundle.containsKey(OVERRIDE_DEFAULT_TEAM)) {
+            teamId = bundle.getLong(OVERRIDE_DEFAULT_TEAM)
+        }
+
         if (teamId == null) {
             if (viewSwitcher.currentView.id == mainTeamDetails.id) {
                 viewSwitcher.showNext()
@@ -102,5 +107,9 @@ class MyTeamFragment : Fragment() {
                 else -> null
             }
         }
+    }
+
+    companion object {
+        const val OVERRIDE_DEFAULT_TEAM = "OVERRIDE_DEFAULT_TEAM"
     }
 }
