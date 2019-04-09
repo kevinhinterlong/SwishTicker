@@ -37,17 +37,18 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="TeamScoreBold" parent="Widget.AppCompat.TextView">
+    <style name="TeamScore" parent="Widget.AppCompat.TextView">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">30sp</item>
         <item name="android:layout_margin">@dimen/text_margin</item>
         <item name="background">@drawable/score_background</item>
         <item name="android:minWidth">40dp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
         <item name="paddingStart">4dp</item>
         <item name="paddingEnd">4dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -71,23 +72,57 @@
     <style name="AwayAction" parent="GameAction">
         <item name="android:background">@drawable/game_action_away</item>
     </style>
+    <style name="TeamScoreSummary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/text_margin</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+    <style name="TeamNameSummary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="TeamWinLossSummary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    <style name="QuarterTitle" parent="Base.Widget.AppCompat.TextView">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="QuarterValue" parent="Base.Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <!-- TODO: Re-enable these once we put them back in -->
     <!--<style name="WinLossCounterTitle">-->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
-        <!--<item name="android:textAlignment">center</item>-->
-        <!--<item name="android:textSize">20sp</item>-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
+    <!--<item name="android:textAlignment">center</item>-->
+    <!--<item name="android:textSize">20sp</item>-->
     <!--</style>-->
 
     <!--<style name="WinLossCounter">-->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
-        <!--<item name="android:textAlignment">center</item>-->
-        <!--<item name="android:textSize">20sp</item>-->
-        <!--<item name="android:textStyle">bold</item>-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:layout_margin">@dimen/text_margin</item>-->
+    <!--<item name="android:textAlignment">center</item>-->
+    <!--<item name="android:textSize">20sp</item>-->
+    <!--<item name="android:textStyle">bold</item>-->
     <!--</style>-->
 
 </resources>

@@ -15,11 +15,11 @@ import eu.davidea.viewholders.FlexibleViewHolder
 import kotlinx.android.synthetic.main.action_item.view.*
 import java.util.*
 
-data class ActionItem(val action: Action, val team: Team, val isHome: Boolean, val player: Player? = null) : AbstractFlexibleItem<ActionItem.ActionViewHolder>() {
+class ActionItem(val action: Action, val team: Team, val isHome: Boolean, val player: Player? = null, val background: Int? = null) : AbstractFlexibleItem<ActionItem.ActionViewHolder>() {
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: ActionViewHolder, position: Int, payloads: List<Any>) {
         val action = (adapter.getItem(position) as ActionItem).action
 
-        val points = toPoints(action.actionType)
+        val points = toPoints(action)
         if (points != 0) {
             holder.itemView.actionText.text = "${points}pt"
         } else {
@@ -40,7 +40,7 @@ data class ActionItem(val action: Action, val team: Team, val isHome: Boolean, v
     }
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<RecyclerView.ViewHolder>>): ActionViewHolder {
-        return ActionViewHolder(view, adapter)
+        return ActionViewHolder(view, adapter, background)
     }
 
     override fun getLayoutRes() = R.layout.action_item
@@ -52,6 +52,11 @@ data class ActionItem(val action: Action, val team: Team, val isHome: Boolean, v
         && other.team == team
         && other.player == player
 
-    class ActionViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {
+    class ActionViewHolder(view: View, adapter: FlexibleAdapter<*>, background: Int?) : FlexibleViewHolder(view, adapter) {
+        init {
+            background?.let {
+                view.setBackgroundColor(it)
+            }
+        }
     }
 }

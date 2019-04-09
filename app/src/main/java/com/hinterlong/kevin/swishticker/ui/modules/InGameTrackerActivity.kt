@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Action
+import com.hinterlong.kevin.swishticker.service.data.ActionResult
 import com.hinterlong.kevin.swishticker.service.data.ActionType
 import com.hinterlong.kevin.swishticker.service.data.toPoints
 import com.hinterlong.kevin.swishticker.ui.adapters.ActionItem
@@ -23,18 +24,18 @@ class InGameTrackerActivity : AppCompatActivity() {
     private var gameId: Long = 0
     private val homeActionMap by lazy {
         mapOf(
-            homePt1 to ActionType.FREE_THROW,
-            homePt2 to ActionType.TWO_POINT,
-            homePt3 to ActionType.THREE_POINT,
-            homeFoul to ActionType.FOUL
+            homePt1 to Pair(ActionType.FREE_THROW, ActionResult.SHOT_HIT),
+            homePt2 to Pair(ActionType.TWO_POINT, ActionResult.SHOT_HIT),
+            homePt3 to Pair(ActionType.THREE_POINT, ActionResult.SHOT_HIT),
+            homeFoul to Pair(ActionType.FOUL, ActionResult.NONE)
         )
     }
     private val awayActionMap by lazy {
         mapOf(
-            awayPt1 to ActionType.FREE_THROW,
-            awayPt2 to ActionType.TWO_POINT,
-            awayPt3 to ActionType.THREE_POINT,
-            awayFoul to ActionType.FOUL
+            awayPt1 to Pair(ActionType.FREE_THROW, ActionResult.SHOT_HIT),
+            awayPt2 to Pair(ActionType.TWO_POINT, ActionResult.SHOT_HIT),
+            awayPt3 to Pair(ActionType.THREE_POINT, ActionResult.SHOT_HIT),
+            awayFoul to Pair(ActionType.FOUL, ActionResult.NONE)
         )
     }
     val SCROLLING_UP = -1
@@ -62,7 +63,7 @@ class InGameTrackerActivity : AppCompatActivity() {
             Timber.d("Updated game as $it")
 
             db.actionDao().getGameActions(gameId).observe(this, Observer {
-                val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action.actionType) }
+                val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action) }
                 homeTeamScore.text = (teamActions[homeTeam.team.id] ?: 0).toString()
                 awayTeamScore.text = (teamActions[awayTeam.team.id] ?: 0).toString()
 
@@ -91,10 +92,11 @@ class InGameTrackerActivity : AppCompatActivity() {
 
     }
 
-    private fun setButtonListeners(actionMap: Map<AppCompatButton, ActionType>, teamId: Long) {
+    private fun setButtonListeners(actionMap: Map<AppCompatButton, Pair<ActionType, ActionResult>>, teamId: Long) {
         actionMap.keys.forEach { t ->
             t.setOnClickListener {
-                AppDatabase.getInstance(this).actionDao().insertAction(Action(actionMap.getValue(t), teamId, gameId, null))
+                val action = actionMap.getValue(t)
+                AppDatabase.getInstance(this).actionDao().insertAction(Action(action.first, action.second, teamId, gameId, null))
                 //popup bottom sheet
             }
         }

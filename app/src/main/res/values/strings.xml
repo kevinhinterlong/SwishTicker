@@ -12,5 +12,13 @@
     <string name="select_my_team">Select My Team</string>
     <string name="team_does_not_exist">%1$s does not exist</string>
     <string name="create_now">Create Now</string>
-    <string name="must_select_home_team">You must select a home team</string><string name="onePoint">1pt</string><string name="twoPoint">2pt</string><string name="foul">foul</string><string name="threePoint">3pt</string>
+    <string name="must_select_home_team">You must select a home team</string>
+    <string name="onePoint">1pt</string>
+    <string name="twoPoint">2pt</string>
+    <string name="foul">foul</string>
+    <string name="threePoint">3pt</string>
+    <string name="dash">-</string>
+    <string name="team">Team</string>
+    <string name="actions">Actions</string>
+    <string name="team_stats">%1$s Stats</string><string name="fg">FG</string><string name="foul_title">F</string>
 </resources>
