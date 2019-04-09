@@ -8,7 +8,7 @@ fun winLossFromGame(games: List<GameAndActions>, teamId: Long): WinLoss {
     var wins: Long = 0
     var ties: Long = 0
     var losses: Long = 0
-    games.forEach {
+    games.filterNot { it.game.active }.forEach {
         val homeScore = it.actions.filter { it.team == teamId }.map(::toPoints).sum()
         val awayScore = it.actions.filterNot { it.team == teamId }.map(::toPoints).sum()
         if (homeScore > awayScore) {
