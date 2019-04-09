@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             tools:text="Team does not exist"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/createTeamNow"
+            android:id="@+id/addToTeam"
             android:text="@string/create_now"
             android:backgroundTint="@color/primaryLightColor"
             android:textColor="@color/default_text_color"

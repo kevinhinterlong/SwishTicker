@@ -40,7 +40,7 @@ class SelectTeamDialog(context: Context, private val lifecycleOwner: LifecycleOw
                 teamsList.adapter = adapter
             })
 
-        createTeamNow.setOnClickListener {
+        addToTeam.setOnClickListener {
             AppDatabase.getInstance(context).teamDao().insertTeam(Team(filterTeamsInput.text.toString()))
             missingTeam.visibility = View.GONE
         }

@@ -17,7 +17,11 @@ interface TeamDao {
 
     @Transaction
     @Query("SELECT * FROM teams WHERE id = :teamId")
-    fun getTeamAndPlayers(teamId: Long): TeamAndPlayers
+    fun getTeamAndPlayersSync(teamId: Long): TeamAndPlayers
+
+    @Transaction
+    @Query("SELECT * FROM teams WHERE id = :teamId")
+    fun getTeamAndPlayers(teamId: Long): LiveData<TeamAndPlayers>
 
     @Insert
     fun insertTeam(team: Team): Long

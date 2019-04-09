@@ -58,8 +58,8 @@ class InGameTrackerActivity : AppCompatActivity() {
 
         val db = AppDatabase.getInstance(this)
         db.gameDao().getGame(gameId).observe(this, Observer {
-            val homeTeam = db.teamDao().getTeamAndPlayers(it.team1)
-            val awayTeam = db.teamDao().getTeamAndPlayers(it.team2)
+            val homeTeam = db.teamDao().getTeamAndPlayersSync(it.team1)
+            val awayTeam = db.teamDao().getTeamAndPlayersSync(it.team2)
             setButtonListeners(homeActionMap, it.team1)
             setButtonListeners(awayActionMap, it.team2)
 

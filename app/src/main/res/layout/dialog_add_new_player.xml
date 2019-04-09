@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/text_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:boxStrokeColor="@color/primaryLightColor"
+        android:id="@+id/textInputLayout">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/playerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/player_name"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColorHint="@color/primaryLightColor"
+            android:textColor="@color/primaryLightColor"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel"
+        android:text="@string/cancel"
+        android:backgroundTint="@color/primaryLightColor"
+        android:textColor="@color/default_text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/addToTeam"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addToTeam"
+        android:text="@string/add_to_team"
+        android:backgroundTint="@color/primaryLightColor"
+        android:textColor="@color/default_text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
