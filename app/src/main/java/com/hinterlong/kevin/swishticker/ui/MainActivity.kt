@@ -11,7 +11,7 @@ import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.*
 import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment
 import com.hinterlong.kevin.swishticker.ui.modules.NewGameFragment
-import com.hinterlong.kevin.swishticker.ui.modules.TeamsFragment
+import com.hinterlong.kevin.swishticker.ui.modules.MyTeamFragment
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.util.Colors
@@ -25,7 +25,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private val historyFragment = HistoryFragment()
-    private val teamsFragment = TeamsFragment()
+    private val teamsFragment = MyTeamFragment()
     private val newGameFragment = NewGameFragment()
     private lateinit var result: Drawer
 

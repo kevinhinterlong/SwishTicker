@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.modules.GameDetailActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainTeamDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/teamSummaryCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Winners"
+                    android:id="@+id/teamName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/TeamScoreSummary"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/teamName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/teamName"
+                    android:layout_marginEnd="8dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        tools:text="13"
+                        android:id="@+id/teamWins"
+                        style="@style/TeamNameSummary"
+                        android:layout_marginStart="8dp"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/won"
+                        android:id="@+id/homeTeamName"
+                        android:textSize="20sp"
+                        android:layout_marginStart="8dp"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/teamName"
+                    app:layout_constraintStart_toStartOf="@id/teamName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        tools:text="8"
+                        android:id="@+id/teamLosses"
+                        style="@style/TeamNameSummary"/>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/lost"
+                        android:textSize="20sp"
+                        android:layout_marginStart="8dp"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/teamPlayerStatsContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="300dp"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/teamSummaryCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:paddingTop="@dimen/text_margin"
+                android:paddingStart="@dimen/text_margin"
+                android:paddingEnd="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/homePlayerStatsTitle"
+                        style="@style/TeamNameSummary"
+                        android:textColor="@color/demphasizedTextColor"
+                        android:text="@string/stats"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/QuarterTitle"
+                        android:text="@string/fg_percent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/QuarterTitle"
+                        android:text="@string/twoPoint_percent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/QuarterTitle"
+                        android:text="@string/threePoint_percent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/QuarterTitle"
+                        android:text="@string/ppg"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/teamPlayerStats"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:clipToPadding="false"
+                    tools:listitem="@layout/game_player_stats_item"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/primaryLightColor"
+                    android:scrollbarSize="@dimen/scrollbar_size"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:backgroundTint="@color/primaryLightColor"
+                    android:textColor="@color/defaultTextColor"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:text="@string/add_new_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            app:cardElevation="4dp"
+            app:layout_constraintHeight_max="300dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/teamPlayerStatsContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:padding="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/TeamNameSummary"
+                        android:textColor="@color/demphasizedTextColor"
+                        android:text="@string/games"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/previousGames"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:clipToPadding="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/fragment_game"
+                    android:scrollbars="vertical"
+                    android:scrollbarThumbVertical="@color/primaryLightColor"
+                    android:scrollbarSize="@dimen/scrollbar_size"
+                    android:scrollbarStyle="outsideInset"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/noTeamSetContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ViewSwitcher>
+</androidx.core.widget.NestedScrollView>

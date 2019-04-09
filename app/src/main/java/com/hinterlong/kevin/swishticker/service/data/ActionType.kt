@@ -20,6 +20,12 @@ fun toPoints(action: Action): Int {
     }
 }
 
+fun toQuarterName(period: Long) = if (period <= 3) {
+    "Q${period + 1}"
+} else {
+    "OT${period - 3}"
+}
+
 fun toPeriodName(period: Long) = if (period <= 3) {
     (period + 1).toString()
 } else {

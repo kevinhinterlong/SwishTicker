@@ -41,5 +41,5 @@
     <color name="drawer_selected">#4AB1C1DB</color>
     <color name="drawer_selected_text">#0EA1F5</color>
     <color name="drawer_header_selection_text">#DE000000</color>
-    <color name="drawer_header_selection_subtext">#8A000000</color>
+    <color name="drawer_header_selection_subtext">#8A000000</color><color name="dark_green">#299c29</color>
 </resources>

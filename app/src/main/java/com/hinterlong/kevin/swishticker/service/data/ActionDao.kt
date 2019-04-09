@@ -11,6 +11,9 @@ interface ActionDao {
     @Query("SELECT * FROM actions WHERE game_id = :gameId")
     fun getGameActions(gameId: Long): LiveData<List<Action>>
 
+    @Query("SELECT * FROM actions WHERE game_id = :gameId")
+    fun getGameActionsSync(gameId: Long): List<Action>
+
     @Query("SELECT * FROM actions WHERE team_id = :teamId")
     fun getTeamActions(teamId: Long): List<Action>
 
