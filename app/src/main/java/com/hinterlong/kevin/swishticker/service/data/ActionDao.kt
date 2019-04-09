@@ -26,7 +26,7 @@ interface ActionDao {
     @Insert
     fun insertAction(action: Action): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateAction(action: Action)
 
     @Delete

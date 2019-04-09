@@ -7,62 +7,93 @@
     android:layout_height="match_parent"
     android:background="@color/darkBackground">
 
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/homeTeamNameContainer"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/text_margin"
-        android:paddingBottom="20dp"
+        android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/defaultTextColor"
+            android:textColor="@color/default_text_color"
             android:textSize="30sp"
             android:layout_weight="2"
-            android:gravity="center"
+            android:gravity="start"
+            android:layout_gravity="center_vertical"
             tools:text="Winners"
             android:id="@+id/homeTeamName"/>
-
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/light_blue"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             tools:text="34"
             android:id="@+id/homeTeamScore"
             android:layout_marginStart="8dp"/>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/gray_transparent"
+                android:textColor="@color/default_text_color"
+                android:text="@string/menu"
+                android:id="@+id/gameMenu"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                tools:text="Q1"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/default_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quarterName"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/light_orange"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:layout_weight="1"
             android:gravity="center"
             tools:text="28"
-            android:id="@+id/awayTeamScore"
-            android:layout_marginStart="8dp"/>
+            android:layout_gravity="center_vertical"
+            android:id="@+id/awayTeamScore"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/awayTeamName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/defaultTextColor"
+            android:textColor="@color/default_text_color"
             android:layout_weight="2"
-            android:gravity="center"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
             android:textSize="30sp"
             tools:text="Away"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/homeButtonContainer"
@@ -122,7 +153,7 @@
         android:scrollbarStyle="outsideInset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        android:padding="@dimen/text_margin"
+        android:layout_margin="@dimen/text_margin"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"/>
 
@@ -136,10 +167,10 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"
         app:layout_constraintStart_toEndOf="@+id/gameActions"
-        android:layout_marginStart="8dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_weight="1"

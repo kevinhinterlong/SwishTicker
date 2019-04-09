@@ -36,7 +36,8 @@ class HistoryFragment : Fragment() {
             .gameDao()
             .getGamesAndActions(), ::gameScores)
             .observe(viewLifecycleOwner, Observer {
-                adapter.updateDataSet(it.map { GameItem(it.game, it.score) }.toList())
+                adapter.updateDataSet(it.map { GameItem(it.game, it.score) })
+                adapter.notifyDataSetChanged()
             })
     }
 

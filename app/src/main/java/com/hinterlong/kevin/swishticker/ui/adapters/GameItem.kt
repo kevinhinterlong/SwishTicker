@@ -1,15 +1,11 @@
 package com.hinterlong.kevin.swishticker.ui.adapters
 
 import android.graphics.Typeface
-import android.text.SpannableString
-import android.text.style.UnderlineSpan
 import android.view.View
-import android.widget.TextView
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.Score
 import com.hinterlong.kevin.swishticker.service.data.Game
-import com.hinterlong.kevin.swishticker.service.data.toPeriodName
 import com.hinterlong.kevin.swishticker.service.data.toQuarterName
 import com.hinterlong.kevin.swishticker.ui.modules.GameDetailActivity
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
@@ -39,12 +35,14 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
         holder.itemView.homeTeamName.text = home.name
         holder.itemView.awayTeamName.text = away.name
 
-        if (!game.active) {
+        if (game.active) {
+            holder.itemView.activeGame.visibility = View.VISIBLE
+            // TODO: Don't do it on main thread
+            val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
+            holder.itemView.currentPeriod.text = toQuarterName(period)
+        } else {
             holder.itemView.activeGame.visibility = View.GONE
         }
-        // TODO: Don't do it on main thread
-        val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
-        holder.itemView.currentPeriod.text = toQuarterName(period)
 
         holder.itemView.datePlayed.text = DTF.format(game.dateCreated)
 
@@ -55,12 +53,6 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
         } else {
             holder.itemView.awayTeamScore.setTypeface(null, Typeface.BOLD)
         }
-    }
-
-    private fun setUnderlineText(textView: TextView, text: String) {
-        val content = SpannableString(text)
-        content.setSpan(UnderlineSpan(), 0, content.length, 0)
-        textView.text = content
     }
 
     class GameViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter) {

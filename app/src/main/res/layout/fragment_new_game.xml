@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_my_team"
-            android:backgroundTint="@color/homeNotReady"
-            android:textColor="@color/defaultTextColor"/>
+            android:backgroundTint="@color/home_not_ready"
+            android:textColor="@color/default_text_color"/>
 
         <include
             layout="@layout/team_card"
@@ -34,7 +34,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:background="@color/homeNotReady"
+        android:background="@color/home_not_ready"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/homeCenterAction"
@@ -45,7 +45,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:background="@color/homeNotReady"
+        android:background="@color/home_not_ready"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/homeCenterAction"
@@ -58,7 +58,7 @@
         android:textAllCaps="true"
         android:textSize="35sp"
         android:layout_width="wrap_content"
-        android:textColor="@color/defaultTextColor"
+        android:textColor="@color/default_text_color"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,8 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/select_away_team"
-            android:backgroundTint="@color/homeNotReady"
-            android:textColor="@color/defaultTextColor"/>
+            android:backgroundTint="@color/home_not_ready"
+            android:textColor="@color/default_text_color"/>
 
         <include
             layout="@layout/team_card"

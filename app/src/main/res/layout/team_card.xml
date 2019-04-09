@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/teamName"
             style="@style/TeamTitle"
-            android:textColor="@color/defaultTextColor"
+            android:textColor="@color/default_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:clickable="false"

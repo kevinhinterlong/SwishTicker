@@ -129,7 +129,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         android:text="@string/team"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/homePlayerStatsTitle"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         tools:text="Losers Stats"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -271,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/awayPlayerStatsTitle"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         tools:text="Losers Stats"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -341,7 +341,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         android:text="@string/actions"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
