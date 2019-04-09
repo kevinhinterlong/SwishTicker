@@ -20,5 +20,5 @@
     <string name="dash">-</string>
     <string name="team">Team</string>
     <string name="actions">Actions</string>
-    <string name="team_stats">%1$s Stats</string>
+    <string name="team_stats">%1$s Stats</string><string name="fg">FG</string><string name="foul_title">F</string>
 </resources>

@@ -63,7 +63,7 @@ class InGameTrackerActivity : AppCompatActivity() {
             Timber.d("Updated game as $it")
 
             db.actionDao().getGameActions(gameId).observe(this, Observer {
-                val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action.actionType) }
+                val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action) }
                 homeTeamScore.text = (teamActions[homeTeam.team.id] ?: 0).toString()
                 awayTeamScore.text = (teamActions[awayTeam.team.id] ?: 0).toString()
 

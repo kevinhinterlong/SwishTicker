@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         val db = AppDatabase.getInstance(this)
         db.gameDao().getGames().observe(this, Observer {
             if (it.isEmpty()) {
-                val home = Team("Winners", "#ff0000")
+                val home = Team("Winners")
                 val away = Team("Losers")
                 val homeId = db.teamDao().insertTeam(home)
                 val awayId = db.teamDao().insertTeam(away)
@@ -121,7 +121,11 @@ class MainActivity : AppCompatActivity() {
                 (0..4).map(Int::toLong).forEach { period ->
                     (1..20).map { teams.random() }.forEach { team ->
                         val action = ActionType.values().random()
-                        val actionResult = ActionResult.values().random()
+                        val actionResult = if (action in listOf(ActionType.FREE_THROW, ActionType.TWO_POINT, ActionType.THREE_POINT)) {
+                            listOf(ActionResult.SHOT_MISS, ActionResult.SHOT_HIT).random()
+                        } else {
+                            ActionResult.NONE
+                        }
                         db.actionDao().insertAction(Action(action, actionResult, team.first, gameId, team.second, period))
                     }
                 }

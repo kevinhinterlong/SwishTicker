@@ -7,11 +7,17 @@ enum class ActionType constructor(val code: Int) {
     FOUL(7)
 }
 
-fun toPoints(type: ActionType) = when (type) {
-    ActionType.FREE_THROW -> 1
-    ActionType.TWO_POINT -> 2
-    ActionType.THREE_POINT -> 3
-    else -> 0
+fun toPoints(action: Action): Int {
+    if (action.actionResult != ActionResult.SHOT_HIT) {
+        return 0
+    } else {
+        return when (action.actionType) {
+            ActionType.FREE_THROW -> 1
+            ActionType.TWO_POINT -> 2
+            ActionType.THREE_POINT -> 3
+            else -> 0
+        }
+    }
 }
 
 fun toPeriodName(period: Long) = if (period <= 3) {

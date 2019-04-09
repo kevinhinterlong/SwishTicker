@@ -118,7 +118,7 @@
         android:scrollbars="vertical"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/primaryLightColor"
-        android:scrollbarSize="6dp"
+        android:scrollbarSize="@dimen/scrollbar_size"
         android:scrollbarStyle="outsideInset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent"

@@ -13,6 +13,7 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.gameScores
 import com.hinterlong.kevin.swishticker.ui.adapters.GameItem
 import eu.davidea.flexibleadapter.FlexibleAdapter
 
@@ -39,9 +40,9 @@ class HistoryFragment : Fragment() {
         context?.let {
             Transformations.map(AppDatabase.getInstance(it)
                 .gameDao()
-                .getGames(), { it.sortedByDescending { it.dateCreated } })
+                .getGamesAndActions(), ::gameScores)
                 .observe(viewLifecycleOwner, Observer {
-                    adapter.updateDataSet(it.map(::GameItem).toList())
+                    adapter.updateDataSet(it.map { GameItem(it.game, it.score) }.toList())
                 })
         }
     }

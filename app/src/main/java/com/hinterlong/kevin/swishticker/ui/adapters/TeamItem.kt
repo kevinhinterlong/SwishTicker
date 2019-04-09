@@ -29,10 +29,6 @@ data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHold
         holder.itemView.teamSize.text = AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayers(team.id).size.toString()
     }
 
-    override fun equals(other: Any?) = team == other
-
-    override fun hashCode() = team.hashCode()
-
     class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter)
 
     override fun filter(constraint: String?) = when (constraint) {
