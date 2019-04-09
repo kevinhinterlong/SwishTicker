@@ -105,14 +105,14 @@ class NewGameFragment : Fragment() {
             true -> {
                 homeCenterAction.text = it.getText(R.string.start)
                 homeCenterAction.background = it.getDrawable(R.drawable.home_button_bg_ready)
-                homeCenterSeparatorLeft.background = it.getDrawable(R.color.homeReady)
-                homeCenterSeparatorRight.background = it.getDrawable(R.color.homeReady)
+                homeCenterSeparatorLeft.background = it.getDrawable(R.color.home_ready)
+                homeCenterSeparatorRight.background = it.getDrawable(R.color.home_ready)
             }
             false -> {
                 homeCenterAction.text = it.getText(R.string.versus)
                 homeCenterAction.background = it.getDrawable(R.drawable.home_button_bg_not_ready)
-                homeCenterSeparatorLeft.background = it.getDrawable(R.color.homeNotReady)
-                homeCenterSeparatorRight.background = it.getDrawable(R.color.homeNotReady)
+                homeCenterSeparatorLeft.background = it.getDrawable(R.color.home_not_ready)
+                homeCenterSeparatorRight.background = it.getDrawable(R.color.home_not_ready)
             }
         }
     }

@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/teamDoesNotExist"
-            android:textColor="@color/defaultTextColor"
+            android:textColor="@color/default_text_color"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:gravity="center|start"
@@ -54,7 +54,7 @@
             android:id="@+id/createTeamNow"
             android:text="@string/create_now"
             android:backgroundTint="@color/primaryLightColor"
-            android:textColor="@color/defaultTextColor"
+            android:textColor="@color/default_text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"/>

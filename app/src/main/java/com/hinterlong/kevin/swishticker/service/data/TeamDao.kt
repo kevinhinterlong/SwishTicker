@@ -22,7 +22,7 @@ interface TeamDao {
     @Insert
     fun insertTeam(team: Team): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTeam(team: Team)
 
     @Delete

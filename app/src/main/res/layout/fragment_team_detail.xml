@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/homePlayerStatsTitle"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         android:text="@string/stats"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -164,7 +164,7 @@
                     android:scrollbarSize="@dimen/scrollbar_size"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:backgroundTint="@color/primaryLightColor"
-                    android:textColor="@color/defaultTextColor"
+                    android:textColor="@color/default_text_color"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/text_margin"
                     android:layout_marginBottom="@dimen/text_margin"
@@ -200,7 +200,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         style="@style/TeamNameSummary"
-                        android:textColor="@color/demphasizedTextColor"
+                        android:textColor="@color/demphasized_text_color"
                         android:text="@string/games"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -34,7 +34,7 @@
             android:layout_height="16dp"
             android:layout_marginStart="@dimen/text_margin"
             android:layout_marginBottom="4dp"
-            app:iiv_color="@color/darkGray"
+            app:iiv_color="@color/dark_gray"
             app:iiv_icon="gmd-people"
             app:layout_constraintStart_toEndOf="@+id/teamName"
             app:layout_constraintBottom_toBottomOf="@+id/teamName"/>

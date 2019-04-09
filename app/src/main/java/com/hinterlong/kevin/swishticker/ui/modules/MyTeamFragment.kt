@@ -34,7 +34,7 @@ class MyTeamFragment : Fragment() {
         if (teamId == null) {
             if (viewSwitcher.currentView.id == mainTeamDetails.id) {
                 viewSwitcher.showNext()
-                setupNoTeamView(view.context)
+                // setupNoTeamView(view.context)
             }
             return
         } else if (viewSwitcher.currentView.id == noTeamSetContainer.id) {
@@ -45,9 +45,9 @@ class MyTeamFragment : Fragment() {
 
     }
 
-    private fun setupNoTeamView(context: Context) {
-
-    }
+//    private fun setupNoTeamView(context: Context) {
+//
+//    }
 
     private fun setupTeamView(context: Context, teamId: Long) {
         previousGames.adapter = gamesAdapter
