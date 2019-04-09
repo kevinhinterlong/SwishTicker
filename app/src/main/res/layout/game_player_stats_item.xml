@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/playerName"
         style="@style/TeamNameSummary"
-        tools:text="Losers" />
+        android:singleLine="true"
+        tools:text="Losers"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_weight="1"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/playerOnePointShots"
         style="@style/QuarterValue"
-        tools:text="2/4" />
+        tools:text="2/4"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_weight="1"
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/playerTwoPointShots"
         style="@style/QuarterValue"
-        tools:text="3/4" />
+        tools:text="3/4"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_weight="1"
@@ -37,14 +38,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/playerThreePointShots"
         style="@style/QuarterValue"
-        tools:text="1/4" />
+        tools:text="1/4"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/playerFouls"
+        android:id="@+id/playerExtra"
         style="@style/QuarterValue"
-        tools:text="4" />
+        tools:text="4"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

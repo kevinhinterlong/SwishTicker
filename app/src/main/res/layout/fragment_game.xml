@@ -27,6 +27,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/activeGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:iiv_color="@color/dark_green"
+                app:iiv_icon="gmd-hourglass_full"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/dark_green"
+                android:id="@+id/currentPeriod"
+                android:textStyle="bold"
+                tools:text="Q1"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <androidx.appcompat.widget.AppCompatTextView
             tools:text="112"
             android:id="@+id/homeTeamScore"

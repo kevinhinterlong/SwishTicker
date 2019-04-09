@@ -13,7 +13,7 @@ import androidx.room.*
         ForeignKey(entity = Team::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("team_id"),
-            onDelete = ForeignKey.SET_NULL),
+            onDelete = ForeignKey.CASCADE),
         ForeignKey(entity = Game::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("game_id"),

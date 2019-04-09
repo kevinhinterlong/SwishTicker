@@ -9,6 +9,8 @@ import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.Score
 import com.hinterlong.kevin.swishticker.service.data.Game
+import com.hinterlong.kevin.swishticker.service.data.toPeriodName
+import com.hinterlong.kevin.swishticker.service.data.toQuarterName
 import com.hinterlong.kevin.swishticker.ui.modules.GameDetailActivity
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
 import eu.davidea.flexibleadapter.FlexibleAdapter
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_game.view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
+
 data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<GameItem.GameViewHolder>() {
 
     override fun getLayoutRes(): Int {
@@ -30,10 +33,18 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
     }
 
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: GameViewHolder, position: Int, payloads: List<Any>) {
-        val home = AppDatabase.getInstance(holder.itemView.context).teamDao().getTeam(game.team1)
-        val away = AppDatabase.getInstance(holder.itemView.context).teamDao().getTeam(game.team2)
+        val db = AppDatabase.getInstance(holder.itemView.context)
+        val home = db.teamDao().getTeam(game.team1)
+        val away = db.teamDao().getTeam(game.team2)
         holder.itemView.homeTeamName.text = home.name
         holder.itemView.awayTeamName.text = away.name
+
+        if (!game.active) {
+            holder.itemView.activeGame.visibility = View.GONE
+        }
+        // TODO: Don't do it on main thread
+        val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
+        holder.itemView.currentPeriod.text = toQuarterName(period)
 
         holder.itemView.datePlayed.text = DTF.format(game.dateCreated)
 

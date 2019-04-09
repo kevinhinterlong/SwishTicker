@@ -16,6 +16,7 @@ import com.hinterlong.kevin.swishticker.service.data.Action
 import com.hinterlong.kevin.swishticker.service.data.TeamAndPlayers
 import com.hinterlong.kevin.swishticker.service.data.toPeriodName
 import com.hinterlong.kevin.swishticker.service.data.toPoints
+import com.hinterlong.kevin.swishticker.service.getTotalStats
 import com.hinterlong.kevin.swishticker.service.playerStats
 import com.hinterlong.kevin.swishticker.service.winLossFromGame
 import com.hinterlong.kevin.swishticker.ui.adapters.ActionItem
@@ -67,12 +68,14 @@ class GameDetailActivity : AppCompatActivity() {
             } else {
                 homePlayerStatsTitle.text = getString(R.string.team_stats, home.team.name)
                 Transformations.map(db.actionDao().getGameActions(gameId)) {
-                    playerStats(it)
+                    playerStats(it, home.team.id)
                 }.observe(this, Observer { stats ->
-                    home.players.map { GamePlayerStatsItem(it, stats[it.id]) }.let {
-                        homePlayerStatsAdapter.updateDataSet(it)
-                        homePlayerStatsAdapter.notifyDataSetChanged()
-                    }
+                    listOf(GamePlayerStatsItem(home.team.name, getTotalStats(stats.values)))
+                        .plus(home.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
+                        .let {
+                            homePlayerStatsAdapter.updateDataSet(it)
+                            homePlayerStatsAdapter.notifyDataSetChanged()
+                        }
                 })
             }
             awayTeamName.text = away.team.name
@@ -82,23 +85,16 @@ class GameDetailActivity : AppCompatActivity() {
             } else {
                 awayPlayerStatsTitle.text = getString(R.string.team_stats, away.team.name)
                 Transformations.map(db.actionDao().getGameActions(gameId)) {
-                    playerStats(it)
+                    playerStats(it, away.team.id)
                 }.observe(this, Observer { stats ->
-                    away.players.map { GamePlayerStatsItem(it, stats[it.id]) }.let {
-                        awayPlayerStatsAdapter.updateDataSet(it)
-                        awayPlayerStatsAdapter.notifyDataSetChanged()
-                    }
+                    listOf(GamePlayerStatsItem(away.team.name, getTotalStats(stats.values)))
+                        .plus(away.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
+                        .let {
+                            awayPlayerStatsAdapter.updateDataSet(it)
+                            awayPlayerStatsAdapter.notifyDataSetChanged()
+                        }
                 })
             }
-
-            Transformations.map(db.actionDao().getGameActions(gameId)) {
-                playerStats(it)
-            }.observe(this, Observer { stats ->
-                away.players.map { GamePlayerStatsItem(it, stats[it.id]) }.let {
-                    awayPlayerStatsAdapter.updateDataSet(it)
-                    awayPlayerStatsAdapter.notifyDataSetChanged()
-                }
-            })
 
             db.actionDao().getGameActions(gameId).observe(this, Observer {
                 adapter.updateDataSet(it.map { action ->
@@ -122,23 +118,26 @@ class GameDetailActivity : AppCompatActivity() {
     }
 
     private fun updateStats(actions: List<Action>) {
+        val lastInterval = Math.max(actions.map { it.interval }.max() ?: 0, 3)
         val periods = actions.groupBy { it.interval }.toSortedMap()
         var homeTotal = 0
         var awayTotal = 0
-        periods.forEach {
+        (0..lastInterval).forEach { period ->
+            val periodActions = periods[period] ?: listOf()
+
             val quarterTitle = AppCompatTextView(ContextThemeWrapper(this, R.style.QuarterTitle), null, R.style.QuarterTitle)
-            quarterTitle.text = toPeriodName(it.key)
+            quarterTitle.text = toPeriodName(period)
             quarterTitle.layoutParams = LinearLayoutCompat.LayoutParams(0, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f)
             quarterTitleContainer.addView(quarterTitle)
 
-            val homePoints = it.value.filter { it.team == home.team.id }.sumBy(::toPoints)
+            val homePoints = periodActions.filter { it.team == home.team.id }.sumBy(::toPoints)
             homeTotal += homePoints
             val homeQuarterValue = AppCompatTextView(ContextThemeWrapper(this, R.style.QuarterValue), null, R.style.QuarterValue)
             homeQuarterValue.text = homePoints.toString()
             homeQuarterValue.layoutParams = LinearLayoutCompat.LayoutParams(0, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f)
             homeQuarterValues.addView(homeQuarterValue)
 
-            val awayPoints = it.value.filter { it.team == away.team.id }.sumBy(::toPoints)
+            val awayPoints = periodActions.filter { it.team == away.team.id }.sumBy(::toPoints)
             awayTotal += awayPoints
             val awayQuarterValue = AppCompatTextView(ContextThemeWrapper(this, R.style.QuarterValue), null, R.style.QuarterValue)
             awayQuarterValue.text = awayPoints.toString()

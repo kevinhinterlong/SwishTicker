@@ -20,7 +20,7 @@ fun winLossFromGame(games: List<GameAndActions>, teamId: Long): WinLoss {
         }
     }
 
-    return WinLoss(wins, losses, ties)
+    return WinLoss(wins, ties, losses)
 }
 
 data class GameAndScore(val game: Game, val score: Score)
@@ -48,7 +48,7 @@ data class PlayerStats(val shot1: ShotCount = ShotCount(), val shot2: ShotCount 
     operator fun plus(other: PlayerStats) = PlayerStats(
         shot1 + other.shot1,
         shot2 + other.shot2,
-        shot2 + other.shot3,
+        shot3 + other.shot3,
         other.fouls + fouls
     )
 
@@ -62,8 +62,12 @@ data class PlayerStats(val shot1: ShotCount = ShotCount(), val shot2: ShotCount 
         }
 }
 
-fun playerStats(actions: List<Action>, games: Long = 1): Map<Long?, PlayerStats> {
-    return actions.groupBy { it.player }.mapValues {
+fun getTotalStats(it: Collection<PlayerStats>): PlayerStats {
+    return it.fold(PlayerStats(), { acc, playerStats -> acc + playerStats })
+}
+
+fun playerStats(actions: List<Action>, teamId: Long, games: Long = 1): Map<Long?, PlayerStats> {
+    return actions.filter { it.team == teamId }.groupBy { it.player }.mapValues {
         it.value.map(::actionToStats).fold(PlayerStats(), { acc, playerStats -> acc + playerStats }).copy(games = games)
     }
 }

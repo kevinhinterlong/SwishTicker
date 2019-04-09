@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/game_list"
+        android:id="@+id/gamesList"
         android:name="com.hinterlong.kevin.swishticker.HistoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
