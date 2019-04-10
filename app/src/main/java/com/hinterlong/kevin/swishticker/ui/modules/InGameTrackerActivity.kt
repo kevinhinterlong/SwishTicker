@@ -51,6 +51,10 @@ class InGameTrackerActivity : AppCompatActivity() {
             awayFoul to Pair(ActionType.FOUL, ActionResult.NONE)
         )
     }
+    private val db = AppDatabase.getInstance(this)
+    private var allActions: LiveData<List<Action>>? = null
+    private var homeTeamAndPlayers: LiveData<TeamAndPlayers>? = null
+    private var awayTeamAndPlayers: LiveData<TeamAndPlayers>? = null
     private val actionPlayersAdapter = FlexibleAdapter<PlayerItem>(null)
     private lateinit var bottomsheetBehavior: BottomSheetBehavior<NestedScrollView>
     private val SCROLLING_UP = -1
@@ -66,20 +70,27 @@ class InGameTrackerActivity : AppCompatActivity() {
             finish()
         }
 
-        val db = AppDatabase.getInstance(this)
 
         db.gameDao().getGame(gameId).observe(this, Observer {
 
             setButtonListeners(homeActionMap, it.team1)
             setButtonListeners(awayActionMap, it.team2)
 
-            db.teamDao().getTeamAndPlayers(it.team1).observe(this, Observer { homeTeam ->
-                db.teamDao().getTeamAndPlayers(it.team2).observe(this, Observer { awayTeam ->
+
+            homeTeamAndPlayers?.removeObservers(this)
+            homeTeamAndPlayers = db.teamDao().getTeamAndPlayers(it.team1)
+            homeTeamAndPlayers?.observe(this, Observer { homeTeam ->
+
+
+                awayTeamAndPlayers?.removeObservers(this)
+                awayTeamAndPlayers = db.teamDao().getTeamAndPlayers(it.team2)
+                awayTeamAndPlayers?.observe(this, Observer { awayTeam ->
                     homeTeamName.text = homeTeam.team.name
                     awayTeamName.text = awayTeam.team.name
 
-
-                    db.actionDao().getGameActions(gameId).observe(this, Observer {
+                    allActions?.removeObservers(this)
+                    allActions = db.actionDao().getGameActions(gameId)
+                    allActions?.observe(this, Observer {
                         if (firstLoad) {
                             firstLoad = false
                             val lastInterval = it.map { it.interval }.max() ?: 0
@@ -258,6 +269,7 @@ class InGameTrackerActivity : AppCompatActivity() {
             actionPlayersAdapter.clearSelection()
             db.teamDao().getTeam(action.team).observe(this, Observer { team ->
                 db.playerDao().getPlayers(action.team).observe(this, Observer {
+                    actionPlayersAdapter.clearSelection()
                     if (it.isEmpty()) {
                         playerListTitle.visibility = View.GONE
                     } else {

@@ -11,6 +11,9 @@ interface PlayerDao {
     @Query("SELECT * FROM players WHERE team_id = :teamId")
     fun getPlayers(teamId: Long): LiveData<List<Player>>
 
+    @Query("SELECT * FROM players WHERE id = :id")
+    fun getPlayer(id: Long): LiveData<Player>
+
     @Insert
     fun insertPlayer(player: Player): Long
 
