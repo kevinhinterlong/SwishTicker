@@ -13,4 +13,4 @@ All *releases* of the app will be tagged as *vX.Y.Z*
 
 ## Screenshots
 
-<img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/0.png" width="170"/> <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png" width="170"/> <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.png" width="170"/>
+<img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/0.jpg" width="170"/> <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="170"/> <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.jpg" width="170"/>  <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="170"/>  <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="170"/>  <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/5.jpg" width="170"/>  <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/6.jpg" width="170"/>
