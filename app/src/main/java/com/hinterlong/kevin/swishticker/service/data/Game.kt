@@ -23,7 +23,7 @@ import org.threeten.bp.OffsetDateTime
 data class Game(
     @ColumnInfo(name = "team1_id") val team1: Long,
     @ColumnInfo(name = "team2_id") val team2: Long,
-    @ColumnInfo(name = "active") var active: Boolean = true,
+    @ColumnInfo(name = "active") val active: Boolean = true,
     @ColumnInfo(name = "date_created") val dateCreated: OffsetDateTime = OffsetDateTime.now()
 ) {
     @PrimaryKey(autoGenerate = true)

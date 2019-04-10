@@ -89,7 +89,7 @@ class MyTeamFragment : Fragment() {
             .gameDao()
             .getGamesAndActions(teamId), ::gameScores)
             .observe(viewLifecycleOwner, Observer {
-                gamesAdapter.updateDataSet(it.map { GameItem(it.game, it.score) }.toList())
+                gamesAdapter.updateDataSet(it.map { GameItem(it.game, it.score, viewLifecycleOwner) }.toList())
                 gamesAdapter.notifyDataSetChanged()
             })
 

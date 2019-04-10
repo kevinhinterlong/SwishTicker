@@ -30,7 +30,7 @@ data class Action(
     @ColumnInfo(name = "team_id") val team: Long,
     @ColumnInfo(name = "game_id") val game: Long,
     @ColumnInfo(name = "player_id") val player: Long?,
-    @ColumnInfo(name = "interval") var interval: Long = 0
+    @ColumnInfo(name = "interval") val interval: Long = 0
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

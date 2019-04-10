@@ -52,16 +52,8 @@ class GameDetailActivity : AppCompatActivity() {
             if (game == null) {
                 return@Observer
             }
-            val home = db.teamDao().getTeamAndPlayersSync(game.team1)
-            val away = db.teamDao().getTeamAndPlayersSync(game.team2)
-            title = "${home.team.name} vs ${away.team.name}"
 
-            homeTeamName.setOnClickListener {
-                TeamDetailActivity.withTeam(this, home.team.id)
-            }
-            awayTeamName.setOnClickListener {
-                TeamDetailActivity.withTeam(this, away.team.id)
-            }
+            datePlayed.text = DTF.format(game.dateCreated)
 
             if (game.active) {
                 activeGameCard.visibility = View.VISIBLE
@@ -88,63 +80,81 @@ class GameDetailActivity : AppCompatActivity() {
             }
 
 
-            var homeGames: Long = 0
-            Transformations.map(db.gameDao().getGamesAndActions(home.team.id)) {
-                homeGames = it.size.toLong()
-                winLossFromGame(it, home.team.id)
-            }.observe(this, Observer { it ->
-                homeTeamWinLoss.text = "(${it.wins} - ${it.losses})"
-            })
+            db.teamDao().getTeamAndPlayers(game.team1).observe(this, Observer { home ->
+                homeTeamName.setOnClickListener {
+                    TeamDetailActivity.withTeam(this, home.team.id)
+                }
+                homeTeamName.text = home.team.name
+                homePlayerStatsTitle.text = getString(R.string.team_stats, home.team.name)
 
-            var awayGames: Long = 0
-            Transformations.map(db.gameDao().getGamesAndActions(away.team.id)) {
-                awayGames = it.size.toLong()
-                winLossFromGame(it, away.team.id)
-            }.observe(this, Observer {
-                awayTeamWinLoss.text = "(${it.wins} - ${it.losses})"
-            })
-
-            datePlayed.text = DTF.format(game.dateCreated)
-
-            homeTeamName.text = home.team.name
-            homePlayerStatsTitle.text = getString(R.string.team_stats, home.team.name)
-            Transformations.map(db.actionDao().getGameActions(gameId)) {
-                playerStats(it, home.team.id)
-            }.observe(this, Observer { stats ->
-                listOf(GamePlayerStatsItem(home.team.name, getTotalStats(stats.values, homeGames)))
-                    .plus(home.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
-                    .let {
-                        homePlayerStatsAdapter.updateDataSet(it)
-                        homePlayerStatsAdapter.notifyDataSetChanged()
-                    }
-            })
-
-            awayTeamName.text = away.team.name
-            awayPlayerStatsTitle.text = getString(R.string.team_stats, away.team.name)
-            Transformations.map(db.actionDao().getGameActions(gameId)) {
-                playerStats(it, away.team.id)
-            }.observe(this, Observer { stats ->
-                listOf(GamePlayerStatsItem(away.team.name, getTotalStats(stats.values, awayGames)))
-                    .plus(away.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
-                    .let {
-                        awayPlayerStatsAdapter.updateDataSet(it)
-                        awayPlayerStatsAdapter.notifyDataSetChanged()
-                    }
-            })
-
-            db.actionDao().getGameActions(gameId).observe(this, Observer {
-                val period = it.map { it.interval }.max() ?: 0
-                currentPeriod.text = toQuarterName(period)
-
-                adapter.updateDataSet(it.map { action ->
-                    val team = when (action.team) {
-                        home.team.id -> home
-                        else -> away
-                    }
-                    val player = team.players.firstOrNull { it.id == action.player }
-                    ActionItem(action, team.team, action.team == home.team.id, player)
+                var homeGames: Long = 0
+                Transformations.map(db.gameDao().getGamesAndActions(home.team.id)) {
+                    homeGames = it.size.toLong()
+                    winLossFromGame(it, home.team.id)
+                }.observe(this, Observer { it ->
+                    homeTeamWinLoss.text = "(${it.wins} - ${it.losses})"
                 })
-                updateStats(it, home.team, away.team)
+
+                Transformations.map(db.actionDao().getGameActions(gameId)) {
+                    playerStats(it, home.team.id)
+                }.observe(this, Observer { stats ->
+                    listOf(GamePlayerStatsItem(home.team.name, getTotalStats(stats.values, homeGames)))
+                        .plus(home.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
+                        .let {
+                            homePlayerStatsAdapter.updateDataSet(it)
+                            homePlayerStatsAdapter.notifyDataSetChanged()
+                        }
+                })
+            })
+
+            db.teamDao().getTeamAndPlayers(game.team2).observe(this, Observer { away ->
+                awayTeamName.setOnClickListener {
+                    TeamDetailActivity.withTeam(this, away.team.id)
+                }
+                awayTeamName.text = away.team.name
+                awayPlayerStatsTitle.text = getString(R.string.team_stats, away.team.name)
+
+                var awayGames: Long = 0
+                Transformations.map(db.gameDao().getGamesAndActions(away.team.id)) {
+                    awayGames = it.size.toLong()
+                    winLossFromGame(it, away.team.id)
+                }.observe(this, Observer {
+                    awayTeamWinLoss.text = "(${it.wins} - ${it.losses})"
+                })
+
+                Transformations.map(db.actionDao().getGameActions(gameId)) {
+                    playerStats(it, away.team.id)
+                }.observe(this, Observer { stats ->
+                    listOf(GamePlayerStatsItem(away.team.name, getTotalStats(stats.values, awayGames)))
+                        .plus(away.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
+                        .let {
+                            awayPlayerStatsAdapter.updateDataSet(it)
+                            awayPlayerStatsAdapter.notifyDataSetChanged()
+                        }
+                })
+            })
+
+
+            db.teamDao().getTeamAndPlayers(game.team2).observe(this, Observer { away ->
+                db.teamDao().getTeamAndPlayers(game.team1).observe(this, Observer { home ->
+                    title = "${home.team.name} vs ${away.team.name}"
+
+
+                    db.actionDao().getGameActions(gameId).observe(this, Observer {
+                        val period = it.map { it.interval }.max() ?: 0
+                        currentPeriod.text = toQuarterName(period)
+
+                        adapter.updateDataSet(it.map { action ->
+                            val team = when (action.team) {
+                                home.team.id -> home
+                                else -> away
+                            }
+                            val player = team.players.firstOrNull { it.id == action.player }
+                            ActionItem(action, team.team, action.team == home.team.id, player)
+                        })
+                        updateStats(it, home.team, away.team)
+                    })
+                })
             })
         })
 
