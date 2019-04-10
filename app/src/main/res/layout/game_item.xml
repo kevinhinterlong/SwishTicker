@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/activeGame"
+            android:id="@+id/activeGameIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -81,18 +81,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/dash"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatButton
             tools:text="Losers"
             android:id="@+id/homeTeamName"
             app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
             app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
             app:layout_constraintTop_toBottomOf="@+id/homeTeamScore"
-            style="@style/TeamNameSummary"/>
+            style="@style/GameCardTeamName"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatButton
             tools:text="Away"
             android:id="@+id/awayTeamName"
-            style="@style/TeamNameSummary"
+            style="@style/GameCardTeamName"
             app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
             app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
             app:layout_constraintTop_toBottomOf="@+id/awayTeamScore"/>

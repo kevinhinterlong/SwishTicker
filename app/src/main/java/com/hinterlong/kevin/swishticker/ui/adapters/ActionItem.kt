@@ -4,13 +4,9 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hinterlong.kevin.swishticker.R
-import com.hinterlong.kevin.swishticker.service.data.Action
-import com.hinterlong.kevin.swishticker.service.data.Player
-import com.hinterlong.kevin.swishticker.service.data.Team
-import com.hinterlong.kevin.swishticker.service.data.toPoints
+import com.hinterlong.kevin.swishticker.service.data.*
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
-import eu.davidea.flexibleadapter.items.IFilterable
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.viewholders.FlexibleViewHolder
 import kotlinx.android.synthetic.main.action_item.view.*
@@ -27,9 +23,12 @@ class ActionItem(
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: ActionViewHolder, position: Int, payloads: List<Any>) {
         val action = (adapter.getItem(position) as ActionItem).action
 
-        val points = toPoints(action)
-        if (points != 0) {
-            holder.itemView.actionText.text = "${points}pt"
+        val shotValue = shotValue(action.actionType)
+        if (shotValue != 0) {
+            holder.itemView.actionText.text = when (action.actionResult) {
+                ActionResult.SHOT_MISS -> "${shotValue}pt miss"
+                else -> "${shotValue}pt"
+            }
         } else {
             holder.itemView.actionText.text = "foul"
         }

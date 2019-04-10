@@ -13,7 +13,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.viewholders.FlexibleViewHolder
-import kotlinx.android.synthetic.main.fragment_game.view.*
+import kotlinx.android.synthetic.main.game_item.view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
@@ -21,7 +21,7 @@ val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
 data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<GameItem.GameViewHolder>() {
 
     override fun getLayoutRes(): Int {
-        return R.layout.fragment_game
+        return R.layout.game_item
     }
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>): GameViewHolder {
@@ -36,12 +36,12 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
         holder.itemView.awayTeamName.text = away.name
 
         if (game.active) {
-            holder.itemView.activeGame.visibility = View.VISIBLE
+            holder.itemView.activeGameIcon.visibility = View.VISIBLE
             // TODO: Don't do it on main thread
             val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
             holder.itemView.currentPeriod.text = toQuarterName(period)
         } else {
-            holder.itemView.activeGame.visibility = View.GONE
+            holder.itemView.activeGameIcon.visibility = View.GONE
         }
 
         holder.itemView.datePlayed.text = DTF.format(game.dateCreated)

@@ -1,209 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/darkBackground">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/homeTeamNameContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/text_margin"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/default_text_color"
-            android:textSize="30sp"
-            android:layout_weight="2"
-            android:gravity="start"
-            android:layout_gravity="center_vertical"
-            tools:text="Winners"
-            android:id="@+id/homeTeamName"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            tools:text="34"
-            android:id="@+id/homeTeamScore"
-            android:layout_marginStart="8dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/darkBackground">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeTeamNameContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/text_margin"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray_transparent"
                 android:textColor="@color/default_text_color"
-                android:text="@string/menu"
-                android:id="@+id/gameMenu"/>
+                android:textSize="30sp"
+                android:layout_weight="2"
+                android:gravity="start"
+                android:layout_gravity="center_vertical"
+                tools:text="Winners"
+                android:id="@+id/homeTeamName"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                tools:text="Q1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="30sp"
+                android:layout_gravity="center_vertical"
+                tools:text="34"
+                android:id="@+id/homeTeamScore"
+                android:layout_marginStart="8dp"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray_transparent"
+                    android:textColor="@color/default_text_color"
+                    android:text="@string/menu"
+                    android:id="@+id/gameMenu"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="Q1"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@color/default_text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quarterName"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_orange"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="28"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/awayTeamScore"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/awayTeamName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:textColor="@color/default_text_color"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:layout_gravity="center_vertical"
+                android:textSize="30sp"
+                tools:text="Away"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/homeButtonContainer"
+            android:layout_width="@dimen/game_action_menu"
+            android:layout_height="@dimen/game_action_menu"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"
+            app:layout_constraintEnd_toStartOf="@+id/gameActions">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:text="@string/onePoint"
+                    android:id="@+id/homePt1"
+                    style="@style/HomeAction"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/HomeAction"
+                    android:text="@string/twoPoint"
+                    android:id="@+id/homePt2"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/HomeAction"
+                    android:text="@string/threePoint"
+                    android:id="@+id/homePt3"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/HomeAction"
+                    android:text="@string/foul"
+                    android:id="@+id/homeFoul"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gameActions"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            tools:listitem="@layout/action_item"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbVertical="@color/primaryLightColor"
+            android:scrollbarSize="@dimen/scrollbar_size"
+            android:scrollbarStyle="outsideInset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            android:layout_margin="@dimen/text_margin"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/awayButtonContainer"
+            android:layout_width="@dimen/game_action_menu"
+            android:layout_height="@dimen/game_action_menu"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/gameActions"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                 <androidx.appcompat.widget.AppCompatButton
+                     style="@style/AwayAction"
+                     android:text="@string/onePoint"
+                     android:id="@+id/awayPt1"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/AwayAction"
+                    android:text="@string/twoPoint"
+                    android:id="@+id/awayPt2"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/AwayAction"
+                    android:text="@string/threePoint"
+                    android:id="@+id/awayPt3"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/AwayAction"
+                    android:text="@string/foul"
+                    android:id="@+id/awayFoul"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/gameActionMenu"
+        android:layout_gravity="center"
+        android:background="@drawable/game_bottom_sheet_dialog_fragment_bg"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="190dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:layout_width="300dp"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/delete"
+                android:id="@+id/deleteGameAction"
+                android:textColor="@color/red"
+                android:backgroundTint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/quarterName"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_orange"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            android:gravity="center"
-            tools:text="28"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/awayTeamScore"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/awayTeamName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/default_text_color"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:layout_gravity="center_vertical"
-            android:textSize="30sp"
-            tools:text="Away"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/homeButtonContainer"
-        android:layout_width="@dimen/game_action_menu"
-        android:layout_height="@dimen/game_action_menu"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"
-        app:layout_constraintEnd_toStartOf="@+id/gameActions">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton
-                android:text="@string/onePoint"
-                android:id="@+id/homePt1"
-                style="@style/HomeAction"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                style="@style/HomeAction"
-                android:text="@string/twoPoint"
-                android:id="@+id/homePt2"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/dismiss"
+                android:id="@+id/dismissBottomSheet"
+                android:textColor="@color/demphasized_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                tools:text="3pt by Kevin"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/appCompatTextView"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/HomeAction"
-                android:text="@string/threePoint"
-                android:id="@+id/homePt3"/>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/shotHitMissButtons"
+                android:layout_margin="@dimen/text_margin"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:text="Miss"
+                    android:padding="8dp"
+                    android:id="@+id/missShotButton"
+                    android:textColor="@color/dark_red"
+                    android:buttonTint="@color/dark_red"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/HomeAction"
-                android:text="@string/foul"
-                android:id="@+id/homeFoul"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:text="Hit"
+                    android:padding="8dp"
+                    android:id="@+id/hitShotButton"
+                    android:textColor="@color/green"
+                    android:buttonTint="@color/green"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+            </RadioGroup>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerListTitle"
+                style="@style/TeamNameSummary"
+                android:textColor="@color/demphasized_text_color"
+                android:text="@string/players"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/shotHitMissButtons"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/text_margin"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gameActions"
-        android:layout_width="300dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        tools:listitem="@layout/action_item"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@color/primaryLightColor"
-        android:scrollbarSize="@dimen/scrollbar_size"
-        android:scrollbarStyle="outsideInset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        android:layout_margin="@dimen/text_margin"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actionPlayers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                tools:listitem="@layout/player_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@color/primaryLightColor"
+                android:scrollbarSize="@dimen/scrollbar_size"
+                android:scrollbarStyle="outsideInset"
+                android:layout_marginStart="@dimen/text_margin"
+                android:layout_marginEnd="@dimen/text_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerListTitle"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/awayButtonContainer"
-        android:layout_width="@dimen/game_action_menu"
-        android:layout_height="@dimen/game_action_menu"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gameActions"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/homeTeamNameContainer">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-             <androidx.appcompat.widget.AppCompatButton
-                 style="@style/AwayAction"
-                 android:text="@string/onePoint"
-                 android:id="@+id/awayPt1"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/AwayAction"
-                android:text="@string/twoPoint"
-                android:id="@+id/awayPt2"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/AwayAction"
-                android:text="@string/threePoint"
-                android:id="@+id/awayPt3"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/AwayAction"
-                android:text="@string/foul"
-                android:id="@+id/awayFoul"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

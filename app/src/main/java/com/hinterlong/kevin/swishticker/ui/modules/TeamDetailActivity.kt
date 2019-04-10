@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Team
+import kotlinx.android.synthetic.main.toolbar.*
 
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var team: Team
@@ -18,8 +19,14 @@ class TeamDetailActivity : AppCompatActivity() {
         val intent = intent
         val teamId = intent.getLongExtra(TEAM_ID, 0)
         team = AppDatabase.getInstance(this).teamDao().getTeam(teamId)
-        title = team.name
+
+        val teamFragment = MyTeamFragment()
+        teamFragment.arguments = Bundle().apply { putLong(MyTeamFragment.OVERRIDE_DEFAULT_TEAM, teamId) }
+        supportFragmentManager.beginTransaction().add(R.id.contentFrame, teamFragment).commit()
+
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = team.name
     }
 
     override fun onSupportNavigateUp(): Boolean {

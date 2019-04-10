@@ -4,4 +4,5 @@
     <dimen name="card_margin">4dp</dimen>
     <dimen name="game_action_menu">200dp</dimen>
     <dimen name="scrollbar_size">6dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
 </resources>

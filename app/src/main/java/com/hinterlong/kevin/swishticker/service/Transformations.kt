@@ -8,7 +8,7 @@ fun winLossFromGame(games: List<GameAndActions>, teamId: Long): WinLoss {
     var wins: Long = 0
     var ties: Long = 0
     var losses: Long = 0
-    games.forEach {
+    games.filterNot { it.game.active }.forEach {
         val homeScore = it.actions.filter { it.team == teamId }.map(::toPoints).sum()
         val awayScore = it.actions.filterNot { it.team == teamId }.map(::toPoints).sum()
         if (homeScore > awayScore) {
@@ -68,11 +68,11 @@ fun getTotalStats(it: Collection<PlayerStats>, games: Long): PlayerStats {
 
 fun playerStats(actions: List<Action>, teamId: Long, games: Long = 1): Map<Long?, PlayerStats> {
     val teamActions = actions.filter { it.team == teamId }
-    val playerStats = teamActions.groupBy { it.player }.mapValues {
-        it.value.map(::actionToStats).fold(PlayerStats(), { acc, playerStats -> acc + playerStats }).copy(games = games)
+    return teamActions.groupBy { it.player }.mapValues {
+        it.value.map(::actionToStats).fold(PlayerStats()) { acc, playerStats ->
+            acc + playerStats
+        }.copy(games = games)
     }
-    val team = playerStats[null]
-    return playerStats
 }
 
 fun actionToStats(action: Action) = when (action.actionType) {
