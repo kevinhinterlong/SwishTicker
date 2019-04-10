@@ -11,10 +11,7 @@ import butterknife.ButterKnife
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Team
-import com.hinterlong.kevin.swishticker.ui.modules.EditTeamNameDialog
-import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment
-import com.hinterlong.kevin.swishticker.ui.modules.MyTeamFragment
-import com.hinterlong.kevin.swishticker.ui.modules.NewGameFragment
+import com.hinterlong.kevin.swishticker.ui.modules.*
 import com.hinterlong.kevin.swishticker.utilities.Prefs
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
@@ -66,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     3L -> {
                         fragment = teamsFragment
-                        if(Prefs.defaultTeamId != null) {
+                        if (Prefs.defaultTeamId != null) {
                             menuInflater.inflate(R.menu.team_menu, menu)
                         }
                     }
@@ -115,18 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.editName -> {
-                val teamLiveData = AppDatabase.getInstance(this).teamDao().getTeam(Prefs.defaultTeamId!!)
-                var updateName: Observer<Team>? = null
-                updateName = Observer { team ->
-                    EditTeamNameDialog(this, team.name) {
-                        updateName?.let { teamLiveData.removeObserver(it) }
-                        AppDatabase.getInstance(this).teamDao()
-                            .updateTeam(team.copy(name = it).also { it.id = team.id })
-                    }.show()
-                }
-                teamLiveData.observe(this, updateName)
-            }
+            R.id.editName -> Prefs.defaultTeamId?.let { editTeamName(this, this, it) }
         }
         return super.onOptionsItemSelected(item)
     }
