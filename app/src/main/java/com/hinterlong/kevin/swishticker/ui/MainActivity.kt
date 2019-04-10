@@ -19,6 +19,8 @@ import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.holder.BadgeStyle
+import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import kotlinx.android.synthetic.main.toolbar.*
 import timber.log.Timber
@@ -73,6 +75,16 @@ class MainActivity : AppCompatActivity() {
             }
             .withSavedInstance(savedInstanceState)
             .build()
+
+
+        AppDatabase.getInstance(this).gameDao().getGames().observe(this, Observer {
+            val activeGames = it.count { it.active }
+            if (activeGames == 0) {
+                result.updateBadge(2, StringHolder(""))
+            } else {
+                result.updateBadge(2, StringHolder(activeGames.toString()))
+            }
+        })
 
         result.addStickyFooterItem(PrimaryDrawerItem().withIdentifier(4).withName(getString(R.string.about)).withIcon(FontAwesome.Icon.faw_info_circle).withSelectable(false))
 

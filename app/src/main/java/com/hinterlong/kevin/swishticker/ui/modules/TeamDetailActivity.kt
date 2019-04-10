@@ -3,22 +3,28 @@ package com.hinterlong.kevin.swishticker.ui.modules
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
-import com.hinterlong.kevin.swishticker.service.data.Team
 import kotlinx.android.synthetic.main.toolbar.*
+import timber.log.Timber
 
 class TeamDetailActivity : AppCompatActivity() {
-    private lateinit var team: Team
+    private var teamId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team_detail_view)
 
-        val intent = intent
-        val teamId = intent.getLongExtra(TEAM_ID, 0)
-        team = AppDatabase.getInstance(this).teamDao().getTeam(teamId)
+        if (!intent.hasExtra(TEAM_ID)) {
+            Timber.e("No team id set")
+            finish()
+            return
+        }
+        teamId = intent.getLongExtra(TEAM_ID, 0)
 
         val teamFragment = MyTeamFragment()
         teamFragment.arguments = Bundle().apply { putLong(MyTeamFragment.OVERRIDE_DEFAULT_TEAM, teamId) }
@@ -26,7 +32,28 @@ class TeamDetailActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = team.name
+
+        AppDatabase.getInstance(this).teamDao().getTeam(teamId).observe(this, Observer {
+            title = it.name
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.team_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.editName -> {
+                val team = AppDatabase.getInstance(this).teamDao().getTeamSync(teamId)
+                EditTeamNameDialog(this, team.name) {
+                    AppDatabase.getInstance(this).teamDao()
+                        .updateTeam(team.copy(name = it).also { it.id = team.id })
+                }.show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

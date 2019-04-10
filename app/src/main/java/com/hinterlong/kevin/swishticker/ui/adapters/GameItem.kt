@@ -2,6 +2,8 @@ package com.hinterlong.kevin.swishticker.ui.adapters
 
 import android.graphics.Typeface
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.Score
@@ -18,7 +20,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
 
-data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<GameItem.GameViewHolder>() {
+data class GameItem(val game: Game, val score: Score, val viewLifecycleOwner: LifecycleOwner) : AbstractFlexibleItem<GameItem.GameViewHolder>() {
 
     override fun getLayoutRes(): Int {
         return R.layout.game_item
@@ -30,10 +32,12 @@ data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<Gam
 
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: GameViewHolder, position: Int, payloads: List<Any>) {
         val db = AppDatabase.getInstance(holder.itemView.context)
-        val home = db.teamDao().getTeam(game.team1)
-        val away = db.teamDao().getTeam(game.team2)
-        holder.itemView.homeTeamName.text = home.name
-        holder.itemView.awayTeamName.text = away.name
+        db.teamDao().getTeam(game.team1).observe(viewLifecycleOwner, Observer { home ->
+            holder.itemView.homeTeamName.text = home.name
+        })
+        db.teamDao().getTeam(game.team2).observe(viewLifecycleOwner, Observer { away ->
+            holder.itemView.awayTeamName.text = away.name
+        })
 
         if (game.active) {
             holder.itemView.activeGameIcon.visibility = View.VISIBLE

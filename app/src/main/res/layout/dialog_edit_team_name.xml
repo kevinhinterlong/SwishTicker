@@ -17,10 +17,10 @@
         app:boxStrokeColor="@color/primaryLightColor"
         android:id="@+id/textInputLayout">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/playerName"
+            android:id="@+id/teamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/player_name"
+            android:hint="@string/team_name"
             android:inputType="textCapWords"
             android:singleLine="true"
             android:textColorHint="@color/primaryLightColor"
@@ -38,11 +38,11 @@
         android:layout_marginTop="@dimen/text_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toStartOf="@+id/addToTeam"/>
+        app:layout_constraintEnd_toStartOf="@+id/saveTeamName"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addToTeam"
-        android:text="@string/add"
+        android:id="@+id/saveTeamName"
+        android:text="@string/save"
         android:backgroundTint="@color/primaryLightColor"
         android:textColor="@color/default_text_color"
         android:layout_width="wrap_content"

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.dialog_select_team.*
 
 class SelectTeamDialog(context: Context, private val lifecycleOwner: LifecycleOwner) : Dialog(context) {
     private var adapter = FlexibleAdapter<TeamItem>(null)
-    private var listener: (Team) -> Unit = {}
+    private var listener: (Long) -> Unit = {}
 
     init {
         setContentView(R.layout.dialog_select_team)
@@ -64,7 +64,7 @@ class SelectTeamDialog(context: Context, private val lifecycleOwner: LifecycleOw
         adapter.mItemClickListener = FlexibleAdapter.OnItemClickListener { _, position ->
             val teamItem = adapter.getItem(position)
             if (teamItem != null) {
-                listener(teamItem.team)
+                listener(teamItem.team.id)
                 dismiss()
             }
 
@@ -81,7 +81,7 @@ class SelectTeamDialog(context: Context, private val lifecycleOwner: LifecycleOw
         })
     }
 
-    fun onSelectTeam(function: (Team) -> Unit): SelectTeamDialog {
+    fun onSelectTeam(function: (Long) -> Unit): SelectTeamDialog {
         listener = function
         return this
     }

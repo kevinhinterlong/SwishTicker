@@ -71,52 +71,54 @@ class InGameTrackerActivity : AppCompatActivity() {
         val db = AppDatabase.getInstance(this)
 
         db.gameDao().getGame(gameId).observe(this, Observer {
-            val homeTeam = db.teamDao().getTeamAndPlayersSync(it.team1)
-            val awayTeam = db.teamDao().getTeamAndPlayersSync(it.team2)
 
             setButtonListeners(homeActionMap, it.team1)
             setButtonListeners(awayActionMap, it.team2)
 
-            homeTeamName.text = homeTeam.team.name
-            awayTeamName.text = awayTeam.team.name
-            Timber.d("Updated game as $it")
+            db.teamDao().getTeamAndPlayers(it.team1).observe(this, Observer { homeTeam ->
+                db.teamDao().getTeamAndPlayers(it.team2).observe(this, Observer { awayTeam ->
+                    homeTeamName.text = homeTeam.team.name
+                    awayTeamName.text = awayTeam.team.name
 
-            db.actionDao().getGameActions(gameId).observe(this, Observer {
-                if (firstLoad) {
-                    firstLoad = false
-                    val lastInterval = it.map { it.interval }.max() ?: 0
-                    setCurrentPeriod(lastInterval)
-                    (0..lastInterval).forEach { period ->
-                        putIfAbsent(adapterMap, period)
-                        adapterMap[period]?.updateDataSet(it.filter { it.interval == period }.map(toActionItem(homeTeam, awayTeam)))
-                    }
-                }
 
-                val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action) }
-                homeTeamScore.text = (teamActions[homeTeam.team.id] ?: 0).toString()
-                awayTeamScore.text = (teamActions[awayTeam.team.id] ?: 0).toString()
+                    db.actionDao().getGameActions(gameId).observe(this, Observer {
+                        if (firstLoad) {
+                            firstLoad = false
+                            val lastInterval = it.map { it.interval }.max() ?: 0
+                            setCurrentPeriod(lastInterval)
+                            (0..lastInterval).forEach { period ->
+                                putIfAbsent(adapterMap, period)
+                                adapterMap[period]?.updateDataSet(it.filter { it.interval == period }.map(toActionItem(homeTeam, awayTeam)))
+                            }
+                        }
 
-                val scrollToNewTop = !gameActions.canScrollVertically(SCROLLING_UP)
+                        val teamActions = it.groupingBy { it.team }.fold(0) { sum, action -> sum + toPoints(action) }
+                        homeTeamScore.text = (teamActions[homeTeam.team.id] ?: 0).toString()
+                        awayTeamScore.text = (teamActions[awayTeam.team.id] ?: 0).toString()
 
-                val actionItems = it.filter { it.interval == currentPeriod }.map(toActionItem(homeTeam, awayTeam))
+                        val scrollToNewTop = !gameActions.canScrollVertically(SCROLLING_UP)
 
-                putIfAbsent(adapterMap, currentPeriod)
-                val adapter = adapterMap[currentPeriod]!!
-                adapter.updateDataSet(actionItems)
-                adapter.notifyDataSetChanged()
-                adapter.mItemClickListener = FlexibleAdapter.OnItemClickListener { _, position ->
-                    val actionItem = adapter.getItem(position)
-                    if (actionItem != null) {
-                        setBottomSheetAction(actionItem.action.id)
-                        bottomsheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                    }
-                    return@OnItemClickListener true
-                }
-                gameActions.adapter = adapter
+                        val actionItems = it.filter { it.interval == currentPeriod }.map(toActionItem(homeTeam, awayTeam))
 
-                if (scrollToNewTop) {
-                    gameActions.scrollToPosition(adapter.itemCount - 1)
-                }
+                        putIfAbsent(adapterMap, currentPeriod)
+                        val adapter = adapterMap[currentPeriod]!!
+                        adapter.updateDataSet(actionItems)
+                        adapter.notifyDataSetChanged()
+                        adapter.mItemClickListener = FlexibleAdapter.OnItemClickListener { _, position ->
+                            val actionItem = adapter.getItem(position)
+                            if (actionItem != null) {
+                                setBottomSheetAction(actionItem.action.id)
+                                bottomsheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                            }
+                            return@OnItemClickListener true
+                        }
+                        gameActions.adapter = adapter
+
+                        if (scrollToNewTop) {
+                            gameActions.scrollToPosition(adapter.itemCount - 1)
+                        }
+                    })
+                })
             })
         })
 

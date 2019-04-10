@@ -9,15 +9,15 @@ interface TeamDao {
     fun getTeams(): LiveData<List<Team>>
 
     @Query("SELECT * FROM teams WHERE id = :teamId")
-    fun getTeam(teamId: Long): Team
+    fun getTeamSync(teamId: Long): Team
+
+    @Query("SELECT * FROM teams WHERE id = :teamId")
+    fun getTeam(teamId: Long): LiveData<Team>
 
     @Transaction
     @Query("SELECT * FROM teams")
     fun getTeamsAndPlayers(): List<TeamAndPlayers>
 
-    @Transaction
-    @Query("SELECT * FROM teams WHERE id = :teamId")
-    fun getTeamAndPlayersSync(teamId: Long): TeamAndPlayers
 
     @Transaction
     @Query("SELECT * FROM teams WHERE id = :teamId")
