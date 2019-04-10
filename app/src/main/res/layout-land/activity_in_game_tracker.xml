@@ -234,6 +234,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    tools:text="3pt by Kevin"
+                    android:textColor="@color/black"
+                    android:layout_margin="@dimen/text_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/actionDescription"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 style="?android:attr/borderlessButtonStyle"
                 android:text="@string/dismiss"
@@ -244,24 +255,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                tools:text="3pt by Kevin"
-                android:textColor="@color/black"
-                android:layout_margin="@dimen/text_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/appCompatTextView"/>
-
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/shotHitMissButtons"
                 android:layout_margin="@dimen/text_margin"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                app:layout_constraintTop_toBottomOf="@+id/actionDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -301,7 +301,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/actionPlayers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 tools:listitem="@layout/player_item"
@@ -313,10 +313,21 @@
                 android:scrollbarStyle="outsideInset"
                 android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginEnd="@dimen/text_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/playerListTitle"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addNewPlayer"
+                android:backgroundTint="@color/primaryLightColor"
+                android:textColor="@color/default_text_color"
+                android:layout_gravity="end"
+                app:layout_constraintTop_toBottomOf="@+id/actionPlayers"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/add_new_player"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

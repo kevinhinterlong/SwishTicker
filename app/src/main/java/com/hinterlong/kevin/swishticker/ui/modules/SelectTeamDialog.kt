@@ -31,7 +31,9 @@ class SelectTeamDialog(context: Context, private val lifecycleOwner: LifecycleOw
 
         Transformations.map(AppDatabase.getInstance(context)
             .teamDao()
-            .getTeams(), { it.filterNot { it.generated }.map(::TeamItem).sortedBy { it.team.name } })
+            .getTeams()) {
+            it.filterNot { it.generated }.map { TeamItem(it, lifecycleOwner) }.sortedBy { it.team.name }
+        }
             .observe(lifecycleOwner, Observer {
                 adapter = FlexibleAdapter(it)
                 adapter.setFilter(filterTeamsInput.text.toString())

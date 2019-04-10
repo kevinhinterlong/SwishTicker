@@ -19,9 +19,6 @@ interface GameDao {
     @Query("SELECT * FROM games WHERE id = :gameId")
     fun getGame(gameId: Long): LiveData<Game>
 
-    @Query("SELECT * FROM games WHERE id = :gameId")
-    fun getGameSync(gameId: Long): Game
-
     @Insert
     fun insertGame(game: Game): Long
 

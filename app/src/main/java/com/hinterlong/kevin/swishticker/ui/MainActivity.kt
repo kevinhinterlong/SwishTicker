@@ -1,6 +1,8 @@
 package com.hinterlong.kevin.swishticker.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -9,9 +11,11 @@ import butterknife.ButterKnife
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.*
+import com.hinterlong.kevin.swishticker.ui.modules.EditTeamNameDialog
 import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment
 import com.hinterlong.kevin.swishticker.ui.modules.MyTeamFragment
 import com.hinterlong.kevin.swishticker.ui.modules.NewGameFragment
+import com.hinterlong.kevin.swishticker.utilities.Prefs
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.aboutlibraries.util.Colors
@@ -19,7 +23,6 @@ import com.mikepenz.fontawesome_typeface_library.FontAwesome
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import kotlinx.android.synthetic.main.toolbar.*
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val teamsFragment = MyTeamFragment()
     private val newGameFragment = NewGameFragment()
     private lateinit var result: Drawer
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +54,20 @@ class MainActivity : AppCompatActivity() {
             )
             .withOnDrawerItemClickListener { _, _, drawerItem ->
                 val id = drawerItem.identifier
-
                 var fragment: Fragment? = null
                 when (id) {
-                    1L -> fragment = newGameFragment
-                    2L -> fragment = historyFragment
-                    3L -> fragment = teamsFragment
+                    1L -> {
+                        menu?.clear()
+                        fragment = newGameFragment
+                    }
+                    2L -> {
+                        menu?.clear()
+                        fragment = historyFragment
+                    }
+                    3L -> {
+                        fragment = teamsFragment
+                        menuInflater.inflate(R.menu.team_menu, menu)
+                    }
                     4L -> LibsBuilder()
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                         .withAboutIconShown(true)
@@ -95,6 +107,29 @@ class MainActivity : AppCompatActivity() {
 
 
         addTestGame()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.editName -> {
+                val teamLiveData = AppDatabase.getInstance(this).teamDao().getTeam(Prefs.defaultTeamId!!)
+                var updateName: Observer<Team>? = null
+                updateName = Observer { team ->
+                    EditTeamNameDialog(this, team.name) {
+                        updateName?.let { teamLiveData.removeObserver(it) }
+                        AppDatabase.getInstance(this).teamDao()
+                            .updateTeam(team.copy(name = it).also { it.id = team.id })
+                    }.show()
+                }
+                teamLiveData.observe(this, updateName)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

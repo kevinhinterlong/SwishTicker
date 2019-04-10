@@ -144,12 +144,13 @@ class InGameTrackerActivity : AppCompatActivity() {
                                 .setTitle(R.string.finish_game_action)
                                 .setMessage(getString(R.string.cannot_resume))
                                 .setPositiveButton(getString(R.string.ok)) { finishGame, _ ->
-                                    val game = db.gameDao().getGameSync(gameId)
-                                        .copy(active = false)
-                                        .also { it.id = gameId }
-                                    db.gameDao().updateGame(game)
-                                    finishGame.dismiss()
-                                    finish()
+                                    db.gameDao().getGame(gameId).observe(this, Observer {
+                                        val game = it.copy(active = false)
+                                            .also { it.id = gameId }
+                                        db.gameDao().updateGame(game)
+                                        finishGame.dismiss()
+                                        finish()
+                                    })
                                 }
                                 .setNegativeButton(getString(R.string.cancel)) { finishGame, _ ->
                                     finishGame.dismiss()
@@ -250,19 +251,39 @@ class InGameTrackerActivity : AppCompatActivity() {
                 db.actionDao().updateAction(action.copy(actionResult = ActionResult.SHOT_HIT).also { it.id = actionId })
             }
 
+            addNewPlayer.setOnClickListener {
+                AddNewPlayerDialog(this) {
+                    db.playerDao().insertPlayer(Player(it, action.team))
+                }.show()
+            }
+
             actionPlayersAdapter.clearSelection()
-            db.playerDao().getPlayers(action.team).observe(this, Observer {
-                if(it.isEmpty()) {
-                    playerListTitle.visibility = View.GONE
-                } else {
-                    playerListTitle.visibility = View.VISIBLE
-                }
+            db.teamDao().getTeam(action.team).observe(this, Observer { team ->
+                db.playerDao().getPlayers(action.team).observe(this, Observer {
+                    if (it.isEmpty()) {
+                        playerListTitle.visibility = View.GONE
+                    } else {
+                        playerListTitle.visibility = View.VISIBLE
+                    }
 
-                actionPlayersAdapter.updateDataSet(it.map(::PlayerItem))
-                actionPlayersAdapter.notifyDataSetChanged()
+                    actionPlayersAdapter.updateDataSet(it.map(::PlayerItem))
+                    actionPlayersAdapter.notifyDataSetChanged()
 
-                val playerPosition = actionPlayersAdapter.currentItems.indexOfFirst { it.player.id == action.player }
-                actionPlayersAdapter.addSelection(playerPosition)
+                    val playerPosition = actionPlayersAdapter.currentItems.indexOfFirst { it.player.id == action.player }
+                    actionPlayersAdapter.addSelection(playerPosition)
+
+                    val desscription = when (action.actionType) {
+                        ActionType.FOUL -> "foul"
+                        else -> "${shotValue(action.actionType)}pt"
+                    }
+                    var cause = ""
+                    if (playerPosition >= 0) {
+                        cause = actionPlayersAdapter.currentItems[playerPosition].player.name
+                    } else {
+                        cause = team.name
+                    }
+                    actionDescription.text = "$desscription by $cause"
+                })
             })
 
 

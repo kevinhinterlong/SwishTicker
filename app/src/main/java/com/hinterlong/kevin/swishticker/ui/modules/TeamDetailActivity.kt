@@ -46,11 +46,12 @@ class TeamDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.editName -> {
-                val team = AppDatabase.getInstance(this).teamDao().getTeamSync(teamId)
-                EditTeamNameDialog(this, team.name) {
-                    AppDatabase.getInstance(this).teamDao()
-                        .updateTeam(team.copy(name = it).also { it.id = team.id })
-                }.show()
+                AppDatabase.getInstance(this).teamDao().getTeam(teamId).observe(this, Observer { team ->
+                    EditTeamNameDialog(this, team.name) {
+                        AppDatabase.getInstance(this).teamDao()
+                            .updateTeam(team.copy(name = it).also { it.id = team.id })
+                    }.show()
+                })
             }
         }
         return super.onOptionsItemSelected(item)

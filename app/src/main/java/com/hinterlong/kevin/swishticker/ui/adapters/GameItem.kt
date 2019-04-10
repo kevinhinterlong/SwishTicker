@@ -41,9 +41,10 @@ data class GameItem(val game: Game, val score: Score, val viewLifecycleOwner: Li
 
         if (game.active) {
             holder.itemView.activeGameIcon.visibility = View.VISIBLE
-            // TODO: Don't do it on main thread
-            val period = db.actionDao().getGameActionsSync(game.id).map { it.interval }.max() ?: 0
-            holder.itemView.currentPeriod.text = toQuarterName(period)
+            db.actionDao().getGameActions(game.id).observe(viewLifecycleOwner, Observer {
+                val period = it.map { it.interval }.max() ?: 0
+                holder.itemView.currentPeriod.text = toQuarterName(period)
+            })
         } else {
             holder.itemView.activeGameIcon.visibility = View.GONE
         }

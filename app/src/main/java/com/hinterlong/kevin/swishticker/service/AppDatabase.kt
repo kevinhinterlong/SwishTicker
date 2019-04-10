@@ -32,7 +32,9 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).allowMainThreadQueries().build()
+            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .allowMainThreadQueries() // this is only for insert/update
+                .build()
         }
     }
 }

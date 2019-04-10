@@ -1,6 +1,8 @@
 package com.hinterlong.kevin.swishticker.ui.adapters
 
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.Team
@@ -13,7 +15,7 @@ import eu.davidea.viewholders.FlexibleViewHolder
 import kotlinx.android.synthetic.main.team_item.view.*
 
 
-data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHolder>(), IFilterable<String> {
+data class TeamItem(val team: Team, val viewLifecycleOwner: LifecycleOwner) : AbstractFlexibleItem<TeamItem.TeamViewHolder>(), IFilterable<String> {
 
     override fun getLayoutRes() = R.layout.team_item
 
@@ -26,7 +28,9 @@ data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHold
         } else {
             holder.itemView.teamName.text = team.name
         }
-        holder.itemView.teamSize.text = AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayersSync(team.id).size.toString()
+        AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayers(team.id).observe(viewLifecycleOwner, Observer {
+            holder.itemView.teamSize.text = it.size.toString()
+        })
     }
 
     class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter)
