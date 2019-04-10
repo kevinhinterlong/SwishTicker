@@ -396,10 +396,11 @@
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_weight="3"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        style="@style/GameCardTeamName"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingBottom="@dimen/text_margin"
+                        style="@style/TeamNameSummary"
                         android:textColor="@color/demphasized_text_color"
                         android:text="@string/actions"/>
 

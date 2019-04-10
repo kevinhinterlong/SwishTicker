@@ -150,7 +150,7 @@ class GameDetailActivity : AppCompatActivity() {
                                 else -> away
                             }
                             val player = team.players.firstOrNull { it.id == action.player }
-                            ActionItem(action, team.team, action.team == home.team.id, player)
+                            ActionItem(action, team.team, action.team == home.team.id, player, R.color.white, R.color.black)
                         })
                         updateStats(it, home.team, away.team)
                     })

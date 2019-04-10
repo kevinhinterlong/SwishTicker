@@ -17,7 +17,8 @@ class ActionItem(
     val team: Team,
     val isHome: Boolean,
     val player: Player? = null,
-    val background: Int? = null
+    val background: Int? = R.color.game_actions_background,
+    val causeColor: Int? = R.color.white
 ) : AbstractFlexibleItem<ActionItem.ActionViewHolder>() {
 
     override fun bindViewHolder(adapter: FlexibleAdapter<IFlexible<*>>, holder: ActionViewHolder, position: Int, payloads: List<Any>) {
@@ -47,7 +48,12 @@ class ActionItem(
     }
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<RecyclerView.ViewHolder>>): ActionViewHolder {
-        return ActionViewHolder(view, adapter, background)
+        return ActionViewHolder(
+            view,
+            adapter,
+            background?.let { ContextCompat.getColor(view.context, it) },
+            causeColor?.let { ContextCompat.getColor(view.context, it) }
+        )
     }
 
     override fun getLayoutRes() = R.layout.action_item
@@ -59,10 +65,13 @@ class ActionItem(
         && other.team == team
         && other.player == player
 
-    class ActionViewHolder(view: View, adapter: FlexibleAdapter<*>, background: Int?) : FlexibleViewHolder(view, adapter) {
+    class ActionViewHolder(view: View, adapter: FlexibleAdapter<*>, background: Int?, causeColor: Int?) : FlexibleViewHolder(view, adapter) {
         init {
             background?.let {
                 view.setBackgroundColor(it)
+            }
+            causeColor?.let {
+                view.actionCause.setTextColor(it)
             }
         }
     }

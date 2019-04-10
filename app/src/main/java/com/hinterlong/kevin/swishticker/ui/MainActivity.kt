@@ -66,7 +66,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     3L -> {
                         fragment = teamsFragment
-                        menuInflater.inflate(R.menu.team_menu, menu)
+                        if(Prefs.defaultTeamId != null) {
+                            menuInflater.inflate(R.menu.team_menu, menu)
+                        }
                     }
                     4L -> LibsBuilder()
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
