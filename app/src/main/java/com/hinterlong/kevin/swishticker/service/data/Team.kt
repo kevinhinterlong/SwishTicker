@@ -8,8 +8,9 @@ import androidx.room.PrimaryKey
     tableName = "teams"
 )
 data class Team(
-    @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "color") var color: String? = null
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "color") val color: String? = null,
+    @ColumnInfo(name = "generated") val generated: Boolean = false
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

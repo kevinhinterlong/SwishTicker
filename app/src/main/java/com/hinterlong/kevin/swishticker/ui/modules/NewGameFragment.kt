@@ -91,8 +91,7 @@ class NewGameFragment : Fragment() {
         homeTeam?.observe(this, Observer { home ->
             val db = AppDatabase.getInstance(context)
             homeCenterAction.setOnClickListener {
-                val team = Team("Away")
-                val awayId = db.teamDao().insertTeam(team)
+                val awayId = db.teamDao().insertTeam(Team("Away", generated = true))
                 val gameId = db.gameDao().insertGame(Game(home.id, awayId))
                 InGameTrackerActivity.resume(context, gameId)
             }
