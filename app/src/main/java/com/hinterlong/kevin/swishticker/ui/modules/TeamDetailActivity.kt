@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
@@ -46,18 +47,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.editName -> {
-                var teamLiveData = AppDatabase.getInstance(this).teamDao().getTeam(teamId)
-                var updateName: Observer<Team>? = null
-                updateName = Observer { team ->
-                    EditTeamNameDialog(this, team.name) {
-                        updateName?.let { teamLiveData.removeObserver(it) }
-                        AppDatabase.getInstance(this).teamDao()
-                            .updateTeam(team.copy(name = it).also { it.id = team.id })
-                    }.show()
-                }
-                teamLiveData.observe(this, updateName)
-            }
+            R.id.editName -> editTeamName(this, this, teamId)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -76,4 +66,19 @@ class TeamDetailActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+}
+
+
+fun editTeamName(context: Context, lifecycleOwner: LifecycleOwner, teamId: Long) {
+    val db = AppDatabase.getInstance(context)
+
+    var teamLiveData = db.teamDao().getTeam(teamId)
+    var updateName: Observer<Team>? = null
+    updateName = Observer { team ->
+        EditTeamNameDialog(context, team.name) { newName ->
+            updateName?.let { teamLiveData.removeObserver(it) }
+            db.teamDao().updateTeam(team.copy(name = newName, generated = false).also { it.id = team.id })
+        }.show()
+    }
+    teamLiveData.observe(lifecycleOwner, updateName)
 }
