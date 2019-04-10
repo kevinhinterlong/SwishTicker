@@ -20,7 +20,6 @@ import com.hinterlong.kevin.swishticker.ui.adapters.ActionItem
 import com.hinterlong.kevin.swishticker.ui.adapters.PlayerItem
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.SelectableAdapter
-import eu.davidea.flexibleadapter.helpers.ActionModeHelper
 import kotlinx.android.synthetic.main.activity_in_game_tracker.*
 import timber.log.Timber
 
@@ -53,7 +52,6 @@ class InGameTrackerActivity : AppCompatActivity() {
         )
     }
     private val actionPlayersAdapter = FlexibleAdapter<PlayerItem>(null)
-    private lateinit var actionModeHelper: ActionModeHelper
     private lateinit var bottomsheetBehavior: BottomSheetBehavior<NestedScrollView>
     private val SCROLLING_UP = -1
 
@@ -178,7 +176,7 @@ class InGameTrackerActivity : AppCompatActivity() {
         actionPlayersAdapter.mode = SelectableAdapter.Mode.SINGLE
         actionPlayers.adapter = actionPlayersAdapter
 
-        bottomsheetBehavior = BottomSheetBehavior.from(gameActionMenu)
+        bottomsheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomsheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         dismissBottomSheet.setOnClickListener {
             bottomsheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
