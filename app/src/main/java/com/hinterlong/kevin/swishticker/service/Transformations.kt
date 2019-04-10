@@ -62,14 +62,17 @@ data class PlayerStats(val shot1: ShotCount = ShotCount(), val shot2: ShotCount 
         }
 }
 
-fun getTotalStats(it: Collection<PlayerStats>): PlayerStats {
-    return it.fold(PlayerStats(), { acc, playerStats -> acc + playerStats })
+fun getTotalStats(it: Collection<PlayerStats>, games: Long): PlayerStats {
+    return it.fold(PlayerStats(), { acc, playerStats -> acc + playerStats }).copy(games = games)
 }
 
 fun playerStats(actions: List<Action>, teamId: Long, games: Long = 1): Map<Long?, PlayerStats> {
-    return actions.filter { it.team == teamId }.groupBy { it.player }.mapValues {
+    val teamActions = actions.filter { it.team == teamId }
+    val playerStats = teamActions.groupBy { it.player }.mapValues {
         it.value.map(::actionToStats).fold(PlayerStats(), { acc, playerStats -> acc + playerStats }).copy(games = games)
     }
+    val team = playerStats[null]
+    return playerStats
 }
 
 fun actionToStats(action: Action) = when (action.actionType) {

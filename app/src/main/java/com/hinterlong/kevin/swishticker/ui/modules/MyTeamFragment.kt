@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.*
+import com.hinterlong.kevin.swishticker.service.data.Player
 import com.hinterlong.kevin.swishticker.ui.adapters.GameItem
 import com.hinterlong.kevin.swishticker.ui.adapters.GamePlayerStatsItem
 import com.hinterlong.kevin.swishticker.utilities.Prefs
@@ -45,38 +46,31 @@ class MyTeamFragment : Fragment() {
 
     }
 
-//    private fun setupNoTeamView(context: Context) {
-//
-//    }
-
     private fun setupTeamView(context: Context, teamId: Long) {
         previousGames.adapter = gamesAdapter
         teamPlayerStats.adapter = statsAdapter
 
         val db = AppDatabase.getInstance(context)
 
-        val teamAndPlayers = db.teamDao().getTeamAndPlayers(teamId)
+        db.teamDao().getTeamAndPlayers(teamId).observe(this, Observer { teamAndPlayers ->
 
-        teamName.text = teamAndPlayers.team.name
+            var games: Long = 0
+            Transformations.map(db.gameDao().getGamesAndActions(teamId)) {
+                games = it.size.toLong()
+                playerStats(it.flatMap { it.actions }, teamId, it.size.toLong())
+            }.observe(this, Observer { stats ->
 
-        Transformations.map(db.gameDao().getGamesAndActions(teamId)) {
-            playerStats(it.flatMap { it.actions }, teamId, it.size.toLong())
-        }.observe(this, Observer { stats ->
-            teamAndPlayers.players.map {
-                GamePlayerStatsItem(it.name, stats[it.id], true) {
-                    getString(R.string.stats_percent, it?.pointsPerGame)
-                }
-            }.let {
-                listOf(GamePlayerStatsItem(teamAndPlayers.team.name, getTotalStats(it.mapNotNull { it.playerStats }), true) {
-                    getString(R.string.stats_percent, it?.pointsPerGame)
-                })
-                    .plus(it)
+                teamName.text = teamAndPlayers.team.name
+
+                val teamStats = teamAndPlayers.players.map { makeStats(it.name, stats[it.id]) }
+
+                listOf(makeStats(teamAndPlayers.team.name, getTotalStats(stats.values, games)))
+                    .plus(teamStats)
                     .let {
                         statsAdapter.updateDataSet(it)
                         statsAdapter.notifyDataSetChanged()
                     }
-
-            }
+            })
         })
 
         Transformations.map(db.gameDao().getGamesAndActions(teamId)) {
@@ -93,5 +87,20 @@ class MyTeamFragment : Fragment() {
                 gamesAdapter.updateDataSet(it.map { GameItem(it.game, it.score) }.toList())
                 gamesAdapter.notifyDataSetChanged()
             })
+
+        addNewPlayer.setOnClickListener {
+            AddNewPlayerDialog(context) {
+                db.playerDao().insertPlayer(Player(it, teamId))
+            }.show()
+        }
+    }
+
+    private fun makeStats(name: String, playerStats: PlayerStats?): GamePlayerStatsItem {
+        return GamePlayerStatsItem(name, playerStats, true) {
+            when {
+                it != null -> getString(R.string.stats_percent, it.pointsPerGame)
+                else -> null
+            }
+        }
     }
 }

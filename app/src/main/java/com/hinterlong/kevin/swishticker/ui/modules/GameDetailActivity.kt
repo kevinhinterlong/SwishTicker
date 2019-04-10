@@ -43,17 +43,21 @@ class GameDetailActivity : AppCompatActivity() {
 
 
         db.gameDao().getGame(gameId).observe(this, Observer {
-            home = db.teamDao().getTeamAndPlayers(it.team1)
-            away = db.teamDao().getTeamAndPlayers(it.team2)
+            home = db.teamDao().getTeamAndPlayersSync(it.team1)
+            away = db.teamDao().getTeamAndPlayersSync(it.team2)
             title = "${home.team.name} vs ${away.team.name}"
 
+            var homeGames: Long = 0
             Transformations.map(db.gameDao().getGamesAndActions(home.team.id)) {
+                homeGames = it.size.toLong()
                 winLossFromGame(it, home.team.id)
             }.observe(this, Observer {
                 homeTeamWinLoss.text = "(${it.wins} - ${it.losses})"
             })
 
+            var awayGames: Long = 0
             Transformations.map(db.gameDao().getGamesAndActions(away.team.id)) {
+                awayGames = it.size.toLong()
                 winLossFromGame(it, away.team.id)
             }.observe(this, Observer {
                 awayTeamWinLoss.text = "(${it.wins} - ${it.losses})"
@@ -70,7 +74,7 @@ class GameDetailActivity : AppCompatActivity() {
                 Transformations.map(db.actionDao().getGameActions(gameId)) {
                     playerStats(it, home.team.id)
                 }.observe(this, Observer { stats ->
-                    listOf(GamePlayerStatsItem(home.team.name, getTotalStats(stats.values)))
+                    listOf(GamePlayerStatsItem(home.team.name, getTotalStats(stats.values, homeGames)))
                         .plus(home.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
                         .let {
                             homePlayerStatsAdapter.updateDataSet(it)
@@ -87,7 +91,7 @@ class GameDetailActivity : AppCompatActivity() {
                 Transformations.map(db.actionDao().getGameActions(gameId)) {
                     playerStats(it, away.team.id)
                 }.observe(this, Observer { stats ->
-                    listOf(GamePlayerStatsItem(away.team.name, getTotalStats(stats.values)))
+                    listOf(GamePlayerStatsItem(away.team.name, getTotalStats(stats.values, awayGames)))
                         .plus(away.players.map { GamePlayerStatsItem(it.name, stats[it.id]) })
                         .let {
                             awayPlayerStatsAdapter.updateDataSet(it)

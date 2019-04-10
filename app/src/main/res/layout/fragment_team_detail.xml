@@ -163,6 +163,7 @@
                     android:scrollbarThumbVertical="@color/primaryLightColor"
                     android:scrollbarSize="@dimen/scrollbar_size"/>
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addNewPlayer"
                     android:backgroundTint="@color/primaryLightColor"
                     android:textColor="@color/default_text_color"
                     android:layout_gravity="end"
