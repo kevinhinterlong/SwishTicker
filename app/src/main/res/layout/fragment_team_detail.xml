@@ -212,7 +212,7 @@
                     android:clipToPadding="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/fragment_game"
+                    tools:listitem="@layout/game_item"
                     android:scrollbars="vertical"
                     android:scrollbarThumbVertical="@color/primaryLightColor"
                     android:scrollbarSize="@dimen/scrollbar_size"

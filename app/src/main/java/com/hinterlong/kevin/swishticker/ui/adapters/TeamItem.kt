@@ -10,12 +10,12 @@ import eu.davidea.flexibleadapter.items.IFilterable
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.flexibleadapter.utils.FlexibleUtils
 import eu.davidea.viewholders.FlexibleViewHolder
-import kotlinx.android.synthetic.main.fragment_team.view.*
+import kotlinx.android.synthetic.main.team_item.view.*
 
 
 data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHolder>(), IFilterable<String> {
 
-    override fun getLayoutRes() = R.layout.fragment_team
+    override fun getLayoutRes() = R.layout.team_item
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>) = TeamViewHolder(view, adapter)
 
@@ -26,7 +26,7 @@ data class TeamItem(val team: Team) : AbstractFlexibleItem<TeamItem.TeamViewHold
         } else {
             holder.itemView.teamName.text = team.name
         }
-        holder.itemView.teamSize.text = AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayers(team.id).size.toString()
+        holder.itemView.teamSize.text = AppDatabase.getInstance(holder.itemView.context).playerDao().getPlayersSync(team.id).size.toString()
     }
 
     class TeamViewHolder(view: View, adapter: FlexibleAdapter<*>) : FlexibleViewHolder(view, adapter)

@@ -52,5 +52,5 @@
     <string name="resume">Resume</string>
     <string name="end_game">End Game?</string>
     <string name="delete_game">Delete Game</string>
-    <string name="delete_game_question">Delete Game?</string>
+    <string name="delete_game_question">Delete Game?</string><string name="players">Players</string>
 </resources>

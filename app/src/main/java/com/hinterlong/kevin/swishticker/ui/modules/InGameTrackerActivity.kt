@@ -7,8 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,13 +17,16 @@ import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.data.*
 import com.hinterlong.kevin.swishticker.ui.adapters.ActionItem
+import com.hinterlong.kevin.swishticker.ui.adapters.PlayerItem
 import eu.davidea.flexibleadapter.FlexibleAdapter
+import eu.davidea.flexibleadapter.SelectableAdapter
+import eu.davidea.flexibleadapter.helpers.ActionModeHelper
 import kotlinx.android.synthetic.main.activity_in_game_tracker.*
 import timber.log.Timber
 
 
 class InGameTrackerActivity : AppCompatActivity() {
-    private var adapterMap: MutableMap<Long, FlexibleAdapter<ActionItem>> = mutableMapOf(
+    private val adapterMap: MutableMap<Long, FlexibleAdapter<ActionItem>> = mutableMapOf(
         0L to FlexibleAdapter<ActionItem>(null),
         1L to FlexibleAdapter(null),
         2L to FlexibleAdapter(null),
@@ -49,7 +52,9 @@ class InGameTrackerActivity : AppCompatActivity() {
             awayFoul to Pair(ActionType.FOUL, ActionResult.NONE)
         )
     }
-    private lateinit var bottomsheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private val actionPlayersAdapter = FlexibleAdapter<PlayerItem>(null)
+    private lateinit var actionModeHelper: ActionModeHelper
+    private lateinit var bottomsheetBehavior: BottomSheetBehavior<NestedScrollView>
     private val SCROLLING_UP = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,9 +69,11 @@ class InGameTrackerActivity : AppCompatActivity() {
         }
 
         val db = AppDatabase.getInstance(this)
+
         db.gameDao().getGame(gameId).observe(this, Observer {
             val homeTeam = db.teamDao().getTeamAndPlayersSync(it.team1)
             val awayTeam = db.teamDao().getTeamAndPlayersSync(it.team2)
+
             setButtonListeners(homeActionMap, it.team1)
             setButtonListeners(awayActionMap, it.team2)
 
@@ -165,6 +172,9 @@ class InGameTrackerActivity : AppCompatActivity() {
         llm.stackFromEnd = true
         gameActions.layoutManager = llm
 
+        actionPlayersAdapter.mode = SelectableAdapter.Mode.SINGLE
+        actionPlayers.adapter = actionPlayersAdapter
+
         bottomsheetBehavior = BottomSheetBehavior.from(gameActionMenu)
         bottomsheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         dismissBottomSheet.setOnClickListener {
@@ -218,14 +228,14 @@ class InGameTrackerActivity : AppCompatActivity() {
                 ActionResult.SHOT_MISS -> {
                     hitShotButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
 
-                    missShotButton.isSelected = true
+                    missShotButton.isChecked = true
                     missShotButton.setBackgroundColor(ContextCompat.getColor(this, R.color.red_transparent))
                     shotHitMissButtons.visibility = View.VISIBLE
                 }
                 ActionResult.SHOT_HIT -> {
                     missShotButton.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
 
-                    hitShotButton.isSelected = true
+                    hitShotButton.isChecked = true
                     hitShotButton.setBackgroundColor(ContextCompat.getColor(this, R.color.green_transparent))
                     shotHitMissButtons.visibility = View.VISIBLE
                 }
@@ -236,6 +246,34 @@ class InGameTrackerActivity : AppCompatActivity() {
             }
             hitShotButton.setOnClickListener {
                 db.actionDao().updateAction(action.copy(actionResult = ActionResult.SHOT_HIT).also { it.id = actionId })
+            }
+
+            actionPlayersAdapter.clearSelection()
+            db.playerDao().getPlayers(action.team).observe(this, Observer {
+                if(it.isEmpty()) {
+                    playerListTitle.visibility = View.GONE
+                } else {
+                    playerListTitle.visibility = View.VISIBLE
+                }
+
+                actionPlayersAdapter.updateDataSet(it.map(::PlayerItem))
+                actionPlayersAdapter.notifyDataSetChanged()
+
+                val playerPosition = actionPlayersAdapter.currentItems.indexOfFirst { it.player.id == action.player }
+                actionPlayersAdapter.addSelection(playerPosition)
+            })
+
+
+            actionPlayersAdapter.mItemClickListener = FlexibleAdapter.OnItemClickListener { _, position ->
+                val player = if (actionPlayersAdapter.isSelected(position)) {
+                    null
+                } else {
+                    val playerItem = actionPlayersAdapter.getItem(position) as PlayerItem
+                    playerItem.player
+                }
+                db.actionDao().updateAction(action.copy(player = player?.id).also { it.id = actionId })
+
+                return@OnItemClickListener true
             }
 
             deleteGameAction.setOnClickListener {

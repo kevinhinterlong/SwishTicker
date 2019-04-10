@@ -13,7 +13,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.viewholders.FlexibleViewHolder
-import kotlinx.android.synthetic.main.fragment_game.view.*
+import kotlinx.android.synthetic.main.game_item.view.*
 import org.threeten.bp.format.DateTimeFormatter
 
 val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
@@ -21,7 +21,7 @@ val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
 data class GameItem(val game: Game, val score: Score) : AbstractFlexibleItem<GameItem.GameViewHolder>() {
 
     override fun getLayoutRes(): Int {
-        return R.layout.fragment_game
+        return R.layout.game_item
     }
 
     override fun createViewHolder(view: View, adapter: FlexibleAdapter<IFlexible<*>>): GameViewHolder {

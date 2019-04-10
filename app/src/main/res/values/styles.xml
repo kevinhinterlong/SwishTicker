@@ -112,11 +112,4 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
-
-
-    <!-- set the rounded drawable as background to your bottom sheet -->
-    <style name="BottomSheet" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:background">@drawable/game_bottom_sheet_dialog_fragment_bg</item>
-    </style>
 </resources>

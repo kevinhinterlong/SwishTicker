@@ -20,6 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".ui.modules.HistoryFragment"
-        tools:listitem="@layout/fragment_game"/>
+        tools:listitem="@layout/game_item"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
