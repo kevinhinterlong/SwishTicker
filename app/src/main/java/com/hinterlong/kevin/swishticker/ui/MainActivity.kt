@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import butterknife.ButterKnife
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
-import com.hinterlong.kevin.swishticker.service.data.*
+import com.hinterlong.kevin.swishticker.service.data.Team
 import com.hinterlong.kevin.swishticker.ui.modules.EditTeamNameDialog
 import com.hinterlong.kevin.swishticker.ui.modules.HistoryFragment
 import com.hinterlong.kevin.swishticker.ui.modules.MyTeamFragment
@@ -104,9 +104,6 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         result.actionBarDrawerToggle.isDrawerIndicatorEnabled = true
-
-
-        addTestGame()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -144,41 +141,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
-    }
-
-    /**
-     * Adds a single game to test the view
-     */
-    private fun addTestGame() {
-        val db = AppDatabase.getInstance(this)
-        db.gameDao().getGames().observe(this, Observer {
-            if (it.isEmpty()) {
-                val home = Team("Winners")
-                val away = Team("Losers")
-                val homeId = db.teamDao().insertTeam(home)
-                val awayId = db.teamDao().insertTeam(away)
-                val homePlayerId1 = db.playerDao().insertPlayer(Player("Player 1", homeId))
-                val homePlayerId2 = db.playerDao().insertPlayer(Player("Player 2", homeId))
-                val awayPlayerId = db.playerDao().insertPlayer(Player("awayPlayer", awayId))
-                val gameId = db.gameDao().insertGame(Game(homeId, awayId))
-
-                val teams = mapOf(
-                    homeId to listOf(homePlayerId1, homePlayerId2),
-                    awayId to listOf(awayPlayerId)
-                )
-                (0..4).map(Int::toLong).forEach { period ->
-                    (1..20).map { teams.entries.random() }.forEach { team ->
-                        val action = ActionType.values().random()
-                        val actionResult = if (action in listOf(ActionType.FREE_THROW, ActionType.TWO_POINT, ActionType.THREE_POINT)) {
-                            listOf(ActionResult.SHOT_MISS, ActionResult.SHOT_HIT).random()
-                        } else {
-                            ActionResult.NONE
-                        }
-                        db.actionDao().insertAction(Action(action, actionResult, team.key, gameId, team.value.random(), period))
-                    }
-                }
-            }
-        })
-
     }
 }
