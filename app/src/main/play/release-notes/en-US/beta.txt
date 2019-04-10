@@ -1,3 +1,2 @@
-Infrastructure changes
-
-- Fully automated releases
+Fix
+- Changing team name dialog showing twice

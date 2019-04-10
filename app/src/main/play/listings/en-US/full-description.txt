@@ -1,3 +1,3 @@
-Track your local basketball team's statistics as they
+Track your local basketball team's statistics as they play
 
 Source: https://github.com/kevinhinterlong/SwishTicker

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
+import com.hinterlong.kevin.swishticker.service.data.Team
 import kotlinx.android.synthetic.main.toolbar.*
 import timber.log.Timber
 
@@ -46,12 +47,16 @@ class TeamDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.editName -> {
-                AppDatabase.getInstance(this).teamDao().getTeam(teamId).observe(this, Observer { team ->
+                var teamLiveData = AppDatabase.getInstance(this).teamDao().getTeam(teamId)
+                var updateName: Observer<Team>? = null
+                updateName = Observer { team ->
                     EditTeamNameDialog(this, team.name) {
+                        updateName?.let { teamLiveData.removeObserver(it) }
                         AppDatabase.getInstance(this).teamDao()
                             .updateTeam(team.copy(name = it).also { it.id = team.id })
                     }.show()
-                })
+                }
+                teamLiveData.observe(this, updateName)
             }
         }
         return super.onOptionsItemSelected(item)
