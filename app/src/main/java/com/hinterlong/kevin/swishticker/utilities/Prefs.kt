@@ -9,7 +9,8 @@ object Prefs {
     private lateinit var preferences: SharedPreferences
 
     // list of app specific preferences
-    private val IS_FIRST_RUN_PREF = Pair("IS_FIRST_RUN_PREF", false)
+    private val IS_FIRST_RUN_PREF = Pair("IS_FIRST_RUN_PREF", true)
+    private val IS_FIRST_DEMO_DELETE_GAME_PREF = Pair("IS_FIRST_DEMO_DELETE_GAME_PREF", true)
     private val DEFAULT_TEAM_ID_PREF = Pair("DEFAULT_TEAM_ID", null)
 
     fun init(context: Context) {
@@ -36,5 +37,11 @@ object Prefs {
         get() = preferences.getBoolean(IS_FIRST_RUN_PREF.first, IS_FIRST_RUN_PREF.second)
         set(value) = preferences.edit {
             it.putBoolean(IS_FIRST_RUN_PREF.first, value)
+        }
+
+    var isFirstDemoDeleteGame: Boolean
+        get() = preferences.getBoolean(IS_FIRST_DEMO_DELETE_GAME_PREF.first, IS_FIRST_DEMO_DELETE_GAME_PREF.second)
+        set(value) = preferences.edit {
+            it.putBoolean(IS_FIRST_DEMO_DELETE_GAME_PREF.first, value)
         }
 }

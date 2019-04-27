@@ -92,6 +92,7 @@ dependencies {
     implementation 'eu.davidea:flexible-adapter:5.1.0'
     implementation 'eu.davidea:flexible-adapter-ui:1.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
+    implementation 'ru.rambler.android:swipe-layout:1.1.0'
 
     //room
 

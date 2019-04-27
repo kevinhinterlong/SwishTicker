@@ -4,6 +4,8 @@ import android.graphics.Typeface
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.hinterlong.kevin.swishticker.R
 import com.hinterlong.kevin.swishticker.service.AppDatabase
 import com.hinterlong.kevin.swishticker.service.Score
@@ -12,11 +14,14 @@ import com.hinterlong.kevin.swishticker.service.data.toQuarterName
 import com.hinterlong.kevin.swishticker.ui.modules.GameDetailActivity
 import com.hinterlong.kevin.swishticker.ui.modules.TeamDetailActivity
 import eu.davidea.flexibleadapter.FlexibleAdapter
+import eu.davidea.flexibleadapter.helpers.UndoHelper
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
 import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.viewholders.FlexibleViewHolder
+import kotlinx.android.synthetic.main.delete_view.view.*
 import kotlinx.android.synthetic.main.game_item.view.*
 import org.threeten.bp.format.DateTimeFormatter
+import ru.rambler.libs.swipe_layout.SwipeLayout
 
 val DTF: DateTimeFormatter = DateTimeFormatter.ofPattern("E, M/d")
 
@@ -73,10 +78,59 @@ data class GameItem(val game: Game, val score: Score, val viewLifecycleOwner: Li
                 TeamDetailActivity.withTeam(view.context, gameItem.game.team2)
             }
 
-            view.setOnClickListener {
+            view.gameSummaryCard.setOnClickListener {
                 val gameItem = adapter.getItem(adapterPosition) as GameItem
                 GameDetailActivity.withGame(view.context, gameItem.game.id)
             }
+
+            view.swipeLayout.animateSwipeRight()
+
+            view.swipeLayout.setOnSwipeListener(object : SwipeLayout.OnSwipeListener {
+                override fun onRightStickyEdge(swipeLayout: SwipeLayout?, moveToRight: Boolean) {}
+                override fun onBeginSwipe(swipeLayout: SwipeLayout?, moveToRight: Boolean) {}
+                override fun onLeftStickyEdge(swipeLayout: SwipeLayout?, moveToRight: Boolean) {}
+
+                override fun onSwipeClampReached(swipeLayout: SwipeLayout?, moveToRight: Boolean) {
+                    val position = adapterPosition
+                    deleteGameWithUndo(adapter, position, view, swipeLayout)
+                }
+            })
+            view.deleteCard.setOnClickListener {
+                deleteGameWithUndo(adapter, adapterPosition, view, view.swipeLayout)
+            }
+        }
+
+        private var snackbar: Snackbar? = null
+        private fun deleteGameWithUndo(adapter: FlexibleAdapter<*>, position: Int, view: View, swipeLayout: SwipeLayout?) {
+            val item = adapter.getItem(position) as GameItem
+            val db = AppDatabase.getInstance(view.context).gameDao()
+
+            snackbar?.dismiss()
+
+            swipeLayout?.animateReset()
+            snackbar = Snackbar.make(view, "Game Deleted", Snackbar.LENGTH_LONG)
+
+            val size = mAdapter.itemCount
+            snackbar?.setAction("Undo") {
+//                mAdapter.notifyItemRangeRemoved(0, size)
+                mAdapter.addItem(position, item)
+                db.updateGame(item.game)
+//                mAdapter.notifyItemInserted(position)
+            }
+            snackbar?.addCallback(
+                object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        super.onDismissed(transientBottomBar, event)
+                        if (event != DISMISS_EVENT_ACTION) {
+//                            mAdapter.notifyItemRangeRemoved(0, size)
+                            db.deleteGame(item.game)
+                        }
+                    }
+                })
+            mAdapter.removeItem(position)
+            adapter.notifyItemRemoved(position)
+            snackbar?.show()
+
         }
     }
 }

@@ -1,101 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<ru.rambler.libs.swipe_layout.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gameSummaryCard"
-    android:layout_width="match_parent"
+    android:id="@+id/swipeLayout"
+    app:left_swipe_enabled="true"
+    app:right_swipe_enabled="false"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/card_margin"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true">
+    android:layout_width="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="@dimen/text_margin"
+    <include layout="@layout/delete_view"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/gameSummaryCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            tools:text="Fri, 4/5"
-            android:id="@+id/datePlayed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/activeGameIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.mikepenz.iconics.view.IconicsImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                app:iiv_color="@color/dark_green"
-                app:iiv_icon="gmd-hourglass_full"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="@dimen/text_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textColor="@color/dark_green"
-                android:id="@+id/currentPeriod"
-                android:textStyle="bold"
-                tools:text="Q1"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                tools:text="Fri, 4/5"
+                android:id="@+id/datePlayed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            tools:text="112"
-            android:id="@+id/homeTeamScore"
-            app:layout_constraintBottom_toBottomOf="@+id/dash"
-            app:layout_constraintTop_toTopOf="@+id/dash"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/dash"
-            style="@style/TeamScoreSummary"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/activeGameIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dash"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/dash"
-            app:layout_constraintTop_toBottomOf="@+id/datePlayed"/>
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:iiv_color="@color/dark_green"
+                    app:iiv_icon="gmd-hourglass_full"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/TeamScoreSummary"
-            tools:text="90"
-            android:id="@+id/awayTeamScore"
-            app:layout_constraintBottom_toBottomOf="@+id/dash"
-            app:layout_constraintTop_toTopOf="@+id/dash"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dash"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/dark_green"
+                    android:id="@+id/currentPeriod"
+                    android:textStyle="bold"
+                    tools:text="Q1"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.AppCompatButton
-            tools:text="Losers"
-            android:id="@+id/homeTeamName"
-            app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
-            app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
-            app:layout_constraintTop_toBottomOf="@+id/homeTeamScore"
-            style="@style/GameCardTeamName"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                tools:text="112"
+                android:id="@+id/homeTeamScore"
+                app:layout_constraintBottom_toBottomOf="@+id/dash"
+                app:layout_constraintTop_toTopOf="@+id/dash"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/dash"
+                style="@style/TeamScoreSummary"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            tools:text="Away"
-            android:id="@+id/awayTeamName"
-            style="@style/GameCardTeamName"
-            app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
-            app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
-            app:layout_constraintTop_toBottomOf="@+id/awayTeamScore"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dash"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/dash"
+                app:layout_constraintTop_toBottomOf="@+id/datePlayed"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TeamScoreSummary"
+                tools:text="90"
+                android:id="@+id/awayTeamScore"
+                app:layout_constraintBottom_toBottomOf="@+id/dash"
+                app:layout_constraintTop_toTopOf="@+id/dash"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dash"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                tools:text="Losers"
+                android:id="@+id/homeTeamName"
+                app:layout_constraintEnd_toEndOf="@+id/homeTeamScore"
+                app:layout_constraintStart_toStartOf="@+id/homeTeamScore"
+                app:layout_constraintTop_toBottomOf="@+id/homeTeamScore"
+                style="@style/GameCardTeamName"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                tools:text="Away"
+                android:id="@+id/awayTeamName"
+                style="@style/GameCardTeamName"
+                app:layout_constraintEnd_toEndOf="@+id/awayTeamScore"
+                app:layout_constraintStart_toStartOf="@+id/awayTeamScore"
+                app:layout_constraintTop_toBottomOf="@+id/awayTeamScore"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</ru.rambler.libs.swipe_layout.SwipeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deleteCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:gravity="left"
+    app:bring_to_clamp="100dp"
+    app:clamp="parent"
+    app:sticky="75dp"
+    app:sticky_sensitivity="0.5"
+    app:cardBackgroundColor="@color/red"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/text_margin">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/deleteButton"
+                    app:iiv_color="@color/white"
+                    app:iiv_icon="gmd-delete"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:textColor="@color/default_text_color"
+                    android:text="@string/delete"
+                    android:id="@+id/deleteText"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
