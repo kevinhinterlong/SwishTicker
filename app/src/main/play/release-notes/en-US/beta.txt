@@ -1,4 +1,4 @@
-v1.1.5
+v1.1.6
 
-Fix
-- Fix selecting name of new player
+New
+- Swipe to delete games
